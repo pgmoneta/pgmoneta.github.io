@@ -1,0 +1,7 @@
+_drafts/
+_site/
+.env
+/.bundle
+/build
+/vendor/bundle
+/lib/bundler/man/

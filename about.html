@@ -1,0 +1,40 @@
+---
+layout: default
+---
+
+<div id="home">
+    <h1>
+        {% for header in site.headers %}
+        <a class="header" href="{{ header.url }}">{{ header.name }}</a>
+        {% endfor %}
+    </h1>
+    <p/>
+
+    <h2>Features</h2>
+    <ul>
+      <li>Full backup</li>
+      <li>Prometheus support</li>
+      <li>Remote management</li>
+      <li>Transport Layer Security (TLS) v1.2+ support</li>
+      <li>Daemon mode</li>
+      <li>User vault</li>
+    </ul>
+
+    <h2>Overview</h2>
+
+    pgmoneta makes use of
+    <p/>
+    <ul>
+      <li>Process model</li>
+      <li>Shared memory model across processes</li>
+      <li><a href="http://software.schmorp.de/pkg/libev.html">libev</a> for fast network interactions</li>
+      <li><a href="https://en.cppreference.com/w/c/atomic">Atomic operations</a> are used to keep track of state</li>
+      <li>The <a href="https://www.postgresql.org">PostgreSQL</a> command line tools</li>
+    </ul>
+
+    <h2>Further information</h2>
+
+    <ul>
+      <li><a href="https://github.com/pgmoneta/pgmoneta">GitHub</a></li>
+    </ul>
+</div>

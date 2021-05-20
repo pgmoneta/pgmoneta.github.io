@@ -1,0 +1,43 @@
+name: pgmoneta
+encoding: utf-8
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true
+  hard_wrap: false
+  highlighter: rouge
+###
+copyright: © 2021 <a href="https://www.redhat.com">Red Hat</a>
+about: <a href="https://pgmoneta.github.io/">Backup / restore solution</a> for <a href="https://www.postgresql.org">PostgreSQL</a>
+root: https://pgmoneta.github.io/
+headers:
+    - name: Configuration
+      url: https://pgmoneta.github.io/configuration.html
+    - name: News
+      url: https://pgmoneta.github.io/news.html
+    - name: About
+      url: https://pgmoneta.github.io/about.html
+urls:
+    - text: home
+      url: https://pgmoneta.github.io
+      icon: https://pgmoneta.github.io/images/icomoon/001-home.png
+    - text: releases
+      url: https://pgmoneta.github.io/releases.html
+      icon: https://pgmoneta.github.io/images/icomoon/097-download.png
+    - text: getting started
+      url: https://pgmoneta.github.io/gettingstarted.html
+      icon: https://pgmoneta.github.io/images/icomoon/027-bullhorn.png
+
+github:
+    - text: github
+      url: https://github.com/pgmoneta/pgmoneta
+      icon: https://pgmoneta.github.io/images/icomoon/433-github.png
+    - text: issues
+      url: https://github.com/pgmoneta/pgmoneta/issues
+      icon: https://pgmoneta.github.io/images/icomoon/154-bug.png
+    - text: license
+      url: https://opensource.org/licenses/BSD-3-Clause
+      icon: https://pgmoneta.github.io/images/icomoon/034-library.png
+    - text: pgmoneta
+      url: https://twitter.com
+      icon: https://pgmoneta.github.io/images/icomoon/407-twitter.png
