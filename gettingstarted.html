@@ -16,19 +16,19 @@ layout: default
     using "pgmoneta -?". You should see
 
     <pre>
-pgmoneta 0.2.0
+pgmoneta 0.3.0
   Backup / restore solution for PostgreSQL
 
 Usage:
   pgmoneta [ -c CONFIG_FILE ] [ -u USERS_FILE ] [ -d ]
 
 Options:
-  -c, --config CONFIG_FILE           Set the path to the pgmoneta.conf file
-  -u, --users USERS_FILE             Set the path to the pgmoneta_users.conf file
-  -A, --admins ADMINS_FILE           Set the path to the pgmoneta_admins.conf file
-  -d, --daemon                       Run as a daemon
-  -V, --version                      Display version information
-  -?, --help                         Display help
+  -c, --config CONFIG_FILE Set the path to the pgmoneta.conf file
+  -u, --users USERS_FILE   Set the path to the pgmoneta_users.conf file
+  -A, --admins ADMINS_FILE Set the path to the pgmoneta_admins.conf file
+  -d, --daemon             Run as a daemon
+  -V, --version            Display version information
+  -?, --help               Display help
     </pre>
 
     If you don't have pgmoneta in your path see our <a href="https://github.com/pgmoneta/pgmoneta/README.md">README</a>
@@ -45,7 +45,7 @@ metrics = 5001
 
 base_dir = /home/pgmoneta
 
-compression = gzip
+compression = zstd
 
 retention = 7
 
@@ -64,7 +64,7 @@ user = repl
 
     In our main section called <b>[pgmoneta]</b> we setup pgmoneta to listen on all
     network addresses. We will enable Prometheus metrics on port 5001 and have the backups
-    live in the "/home/pgmoneta" directory. All backups are being compressed with gzip and kept
+    live in the "/home/pgmoneta" directory. All backups are being compressed with zstd and kept
     for 7 days. Logging will be performed at "info" level and
     put in a file called "/tmp/pgmoneta.log". Last we specify the
     location of the "unix_socket_dir" used for management operations and the path for the
@@ -106,7 +106,7 @@ pgmoneta -c pgmoneta.conf -u pgmoneta_users.conf
     You can see the commands it supports by using "pgmoneta-cli -?" which will give
 
     <pre>
-pgmoneta-cli 0.2.0
+pgmoneta-cli 0.3.0
   Command line utility for pgmoneta
 
 Usage:
@@ -127,6 +127,7 @@ Commands:
   backup                   Backup a server
   list-backup              List the backups for a server
   restore                  Restore a backup from a server
+  archive                  Archive a backup from a server
   delete                   Delete a backup from a server
   is-alive                 Is pgmoneta alive
   stop                     Stop pgmoneta
@@ -175,7 +176,7 @@ echo $?
     You can see the commands it supports by using "pgmoneta-admin -?" which will give
 
     <pre>
-pgmoneta-admin 0.2.0
+pgmoneta-admin 0.3.0
   Administration utility for pgmoneta
 
 Usage:

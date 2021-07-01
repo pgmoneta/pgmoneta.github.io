@@ -70,17 +70,17 @@ layout: default
         </tr>
         <tr>
           <td>compression</td>
-          <td>gzip</td>
+          <td>zstd</td>
           <td>String</td>
           <td>No</td>
-          <td>The compression type (none, gzip)</td>
+          <td>The compression type (none, gzip, zstd)</td>
         </tr>
         <tr>
           <td>compression_level</td>
-          <td>9</td>
+          <td>3</td>
           <td>Int</td>
           <td>No</td>
-          <td>The compression level (1..9)</td>
+          <td>The compression level</td>
         </tr>
         <tr>
           <td>retention</td>
@@ -88,6 +88,13 @@ layout: default
           <td>Int</td>
           <td>No</td>
           <td>The retention time in days</td>
+        </tr>
+        <tr>
+          <td>link</td>
+          <td>on</td>
+          <td>Bool</td>
+          <td>No</td>
+          <td>Use links to limit backup size</td>
         </tr>
         <tr>
           <td>log_type</td>
@@ -256,6 +263,20 @@ layout: default
           <td>No</td>
           <td>The replication slot for WAL</td>
         </tr>
+        <tr>
+          <td>retention</td>
+          <td></td>
+          <td>Int</td>
+          <td>No</td>
+          <td>The retention time for the server</td>
+        </tr>
+        <tr>
+          <td>synchronous</td>
+          <td>off</td>
+          <td>Bool</td>
+          <td>No</td>
+          <td>Use synchronous receive</td>
+        </tr>
       </tbody>
     </table>
 
@@ -271,7 +292,7 @@ metrics = 5001
 
 base_dir = /home/pgmoneta
 
-compression = gzip
+compression = zstd
 
 retention = 7
 
