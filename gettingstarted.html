@@ -16,7 +16,7 @@ layout: default
     using "pgmoneta -?". You should see
 
     <pre>
-pgmoneta 0.3.0
+pgmoneta 0.3.1
   Backup / restore solution for PostgreSQL
 
 Usage:
@@ -72,7 +72,37 @@ user = repl
     <p/>
     Next we create a section called <b>[primary]</b> which has the information about our
     <a href="https://www.postgresql.org">PostgreSQL</a> instance. In this case it is running
-    on "localhost" on port "5432" and we will use the "repl" user account to connect..
+    on "localhost" on port "5432" and we will use the "repl" user account to connect.
+    <p/>
+    The "repl" user must have the "REPLICATION" role and have access to the "postgres" database,
+    so for example
+    <pre>
+CREATE ROLE repl WITH LOGIN REPLICATION PASSWORD 'secretpassword';
+    </pre>
+
+    and in pg_hba.conf
+
+    <pre>
+local   postgres        repl                                   scram-sha-256
+host    postgres        repl           127.0.0.1/32            scram-sha-256
+host    postgres        repl           ::1/128                 scram-sha-256
+host    replication     repl           127.0.0.1/32            scram-sha-256
+host    replication     repl           ::1/128                 scram-sha-256
+    </pre>
+
+    Optionally, create a physical replication slot that can be used for Write-Ahead Log streaming,
+    like
+
+    <pre>
+SELECT pg_create_physical_replication_slot('repl');
+    </pre>
+
+    and add that to the pgmoneta.conf configuration under [primary], as
+
+    <pre>
+wal_slot = repl
+    </pre>
+
     <p/>
     We will need a user vault for the "repl" account, so the following commands will add
     a master key, and the "repl" password
@@ -106,7 +136,7 @@ pgmoneta -c pgmoneta.conf -u pgmoneta_users.conf
     You can see the commands it supports by using "pgmoneta-cli -?" which will give
 
     <pre>
-pgmoneta-cli 0.3.0
+pgmoneta-cli 0.3.1
   Command line utility for pgmoneta
 
 Usage:
@@ -176,7 +206,7 @@ echo $?
     You can see the commands it supports by using "pgmoneta-admin -?" which will give
 
     <pre>
-pgmoneta-admin 0.3.0
+pgmoneta-admin 0.3.1
   Administration utility for pgmoneta
 
 Usage:
