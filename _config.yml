@@ -32,6 +32,9 @@ github:
     - text: github
       url: https://github.com/pgmoneta/pgmoneta
       icon: https://pgmoneta.github.io/images/icomoon/433-github.png
+    - text: discussions
+      url: https://github.com/pgmoneta/pgmoneta/discussions
+      icon: https://pgmoneta.github.io/images/icomoon/115-users.png
     - text: issues
       url: https://github.com/pgmoneta/pgmoneta/issues
       icon: https://pgmoneta.github.io/images/icomoon/154-bug.png
