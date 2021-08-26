@@ -13,3 +13,6 @@
 - name: pgmoneta 0.4.0
   date: 2021-08-05
   announce: release/announcement/2021/08/05/pgmoneta-0.4.0.html
+- name: pgmoneta 0.5.0
+  date: 2021-08-26
+  announce: release/announcement/2021/08/26/pgmoneta-0.5.0.html
