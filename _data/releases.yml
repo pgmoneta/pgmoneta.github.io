@@ -22,3 +22,6 @@
 - name: pgmoneta 0.5.2
   date: 2021-09-30
   announce: release/announcement/2021/09/30/pgmoneta-0.5.2.html
+- name: pgmoneta 0.5.3
+  date: 2021-10-21
+  announce: release/announcement/2021/10/21/pgmoneta-0.5.3.html
