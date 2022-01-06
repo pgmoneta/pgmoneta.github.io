@@ -7,7 +7,7 @@ kramdown:
   hard_wrap: false
   highlighter: rouge
 ###
-copyright: © 2021 <a href="https://www.redhat.com">Red Hat</a>
+copyright: © 2022 <a href="https://www.redhat.com">Red Hat</a>
 about: <a href="https://pgmoneta.github.io/">Backup / restore solution</a> for <a href="https://www.postgresql.org">PostgreSQL</a>
 root: https://pgmoneta.github.io/
 headers:
