@@ -1,0 +1,118 @@
+---
+layout: default
+---
+
+<div id="home">
+  <h1>
+    {% for header in site.headers %}
+    <a class="header" href="{{ header.url }}">{{ header.name }}</a>
+    {% endfor %}
+  </h1>
+  <p/>
+
+  <h2>Metrics</h2>
+
+  <table border="1">
+    <thead>
+      <th align="left">Metric</th>
+      <th align="left">Description</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>pgmoneta_state</td>
+        <td>The state of pgmoneta</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_retention</td>
+        <td>The retention of pgmoneta</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_retention_server(name)</td>
+        <td>The retention of a server</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_compression</td>
+        <td>The compression used</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_link</td>
+        <td>Use links to limit backup size</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_used_space</td>
+        <td>The disk space used for pgmoneta</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_free_space</td>
+        <td>The free disk space for pgmoneta</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_total_space</td>
+        <td>The total disk space for pgmoneta</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_server_valid(name)</td>
+        <td>Is the server in a valid state</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_wal_streaming(name)</td>
+        <td>The WAL streaming status of a server</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_backup_oldest(name)</td>
+        <td>The oldest backup for a server</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_backup_newest(name)</td>
+        <td>The newest backup for a server</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_backup_count(name)</td>
+        <td>The number of valid backups for a server</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_backup(name, label)</td>
+        <td>Is the backup valid for a server</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_backup_elapsed_time(name, label)</td>
+        <td>The backup in seconds for a server</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_restore_newest_size(name)</td>
+        <td>The size of the newest restore for a server</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_backup_newest_size(name)</td>
+        <td>The size of the newest backup for a server</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_restore_size(name, label)</td>
+        <td>The size of a restore for a server</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_backup_size(name, label)</td>
+        <td>The size of a backup for a server</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_backup_retain(name, label)</td>
+        <td>Retain backup for a server</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_backup_total_size(name)</td>
+        <td>The total size of the backups for a server</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_wal_total_size(name)</td>
+        <td>The total size of the WAL for a server</td>
+      </tr>
+      <tr>
+        <td>pgmoneta_total_size(name)</td>
+        <td>The total size of a server</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p/>
+  
+</div>

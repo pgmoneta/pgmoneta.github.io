@@ -13,6 +13,8 @@ root: https://pgmoneta.github.io/
 headers:
     - name: Configuration
       url: https://pgmoneta.github.io/configuration.html
+    - name: Metrics
+      url: https://pgmoneta.github.io/metrics.html
     - name: News
       url: https://pgmoneta.github.io/news.html
     - name: About
