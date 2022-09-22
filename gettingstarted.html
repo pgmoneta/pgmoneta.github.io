@@ -16,7 +16,7 @@ layout: default
     using "pgmoneta -?". You should see
 
     <pre>
-pgmoneta 0.5.7
+pgmoneta 0.6.0
   Backup / restore solution for PostgreSQL
 
 Usage:
@@ -90,6 +90,9 @@ host    replication     repl           127.0.0.1/32            scram-sha-256
 host    replication     repl           ::1/128                 scram-sha-256
     </pre>
 
+    The authentication type should be based on postgresql.conf's password_encryption value.
+    <p/>
+
     Optionally, create a physical replication slot that can be used for Write-Ahead Log streaming,
     like
 
@@ -136,7 +139,7 @@ pgmoneta -c pgmoneta.conf -u pgmoneta_users.conf
     You can see the commands it supports by using "pgmoneta-cli -?" which will give
 
     <pre>
-pgmoneta-cli 0.5.7
+pgmoneta-cli 0.6.0
   Command line utility for pgmoneta
 
 Usage:
@@ -161,6 +164,8 @@ Commands:
   delete                   Delete a backup from a server
   retain                   Retain a backup from a server
   expunge                  Expunge a backup from a server
+  encrypt                  Encrypt a file using master-key
+  decrypt                  Decrypt a file using master-key
   is-alive                 Is pgmoneta alive
   stop                     Stop pgmoneta
   status                   Status of pgmoneta
@@ -208,7 +213,7 @@ echo $?
     You can see the commands it supports by using "pgmoneta-admin -?" which will give
 
     <pre>
-pgmoneta-admin 0.5.7
+pgmoneta-admin 0.6.0
   Administration utility for pgmoneta
 
 Usage:
@@ -255,6 +260,20 @@ pgmoneta-admin -f pgmoneta_users.conf add-user
     </ul>
 
     See <a href="configuration.html">Configuration</a> for more information on these subjects.
+
+    <h3>Tutorials</h3>
+    There are a few short tutorials available to help you better understand and configure pgmoneta:
+
+    <ul>
+      <li><a href="https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/01_install.md">Installing pgmoneta</a></li>
+      <li><a href="https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/02_replication_slot.md">Using a replication slot</a></li>
+      <li><a href="https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/03_remote_management.md">Enabling remote management</a></li>
+      <li><a href="https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/04_prometheus.md">Enabling Prometheus metrics</a></li>
+      <li><a href="https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/05_backup_restore.md">Doing backup and restore</a></li>
+      <li><a href="https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/06_archive.md">Creating an archive</a></li>
+      <li><a href="https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/07_delete.md">Deleting a backup</a></li>
+      <li><a href="https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/08_encryption.md">Encryption and decryption</a></li>
+    </ul>
 
     <h3>Closing</h3>
 

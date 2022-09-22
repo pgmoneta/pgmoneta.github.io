@@ -62,6 +62,25 @@ layout: default
           <td>The metrics port (disable = 0)</td>
         </tr>
         <tr>
+          <td>metrics_cache_max_age</td>
+          <td>0</td>
+          <td>String</td>
+          <td>No</td>
+          <td>The number of seconds to keep in cache a Prometheus (metrics) response. If set to zero, the caching
+            will be disabled. Can be a string with a suffix, like 2m to indicate 2 minutes</td>
+        </tr>
+        <tr>
+          <td>metrics_cache_max_size</td>
+          <td>256k</td>
+          <td>String</td>
+          <td>No</td>
+          <td>The maximum amount of data to keep in cache when serving Prometheus responses. Changes require restart.
+            This parameter determines the size of memory allocated for the cache even if metrics_cache_max_age or
+            metrics are disabled. Its value, however, is taken into account only if metrics_cache_max_age is set to
+            a non-zero value. Supports suffixes: B (bytes), the default if omitted, K or KB (kilobytes), M or
+            MB (megabytes), G or GB (gigabytes)</td>
+        </tr>
+        <tr>
           <td>management</td>
           <td>0</td>
           <td>Int</td>
@@ -73,7 +92,7 @@ layout: default
           <td>zstd</td>
           <td>String</td>
           <td>No</td>
-          <td>The compression type (none, gzip, zstd)</td>
+          <td>The compression type (none, gzip, zstd, lz4)</td>
         </tr>
         <tr>
           <td>compression_level</td>
@@ -88,6 +107,44 @@ layout: default
           <td>Int</td>
           <td>No</td>
           <td>The retention time in days</td>
+        </tr>
+        <tr>
+          <td>encryption</td>
+          <td>none</td>
+          <td>String</td>
+          <td>No</td>
+          <td>The encryption mode for encrypt wal and data none (No encryption), aes, aes-256, aes-256-cbc (AES Cipher Block Chaining mode with 256 bit key length),
+            aes-192, aes-192-cbc (AES CBC mode with 192 bit key length), aes-128, aes-128-cbc (AES CBC mode with 128 bit key length),
+            aes-256-ctr (AES Counter mode with 256 bit key length), aes-192-ctr (AES CTR mode with 192 bit key length),
+            aes-128-ctr (AES CTR mode with 128 bit key length)</td>
+        </tr>
+        <tr>
+          <td>storage_engine</td>
+          <td>local</td>
+          <td>String</td>
+          <td>No</td>
+          <td>The storage engine type (local, ssh)</td>
+        </tr>
+        <tr>
+          <td>ssh_hostname</td>
+          <td></td>
+          <td>String</td>
+          <td>Yes (if ssh)</td>
+          <td>Defines the hostname of the remote system for connection</td>
+        </tr>
+        <tr>
+          <td>ssh_username</td>
+          <td></td>
+          <td>String</td>
+          <td>Yes (if ssh)</td>
+          <td>Defines the username of the remote system for connection</td>
+        </tr>
+        <tr>
+          <td>ssh_base_dir</td>
+          <td></td>
+          <td>String</td>
+          <td>Yes (if ssh)</td>
+          <td>The base directory for the remote backup</td>
         </tr>
         <tr>
           <td>link</td>
@@ -108,14 +165,46 @@ layout: default
           <td>info</td>
           <td>String</td>
           <td>No</td>
-          <td>The logging level (fatal, error, warn, info, debug1, ..., debug5)</td>
+          <td>The logging level, any of the (case insensitive) strings FATAL, ERROR, WARN, INFO and DEBUG
+            (that can be more specific as DEBUG1 thru DEBUG5). Debug level greater than 5 will be set to DEBUG5.
+            Not recognized values will make the log_level be INFO</td>
         </tr>
         <tr>
           <td>log_path</td>
-          <td>pgmoneta.log</td>
+          <td>pgexporter.log</td>
           <td>String</td>
           <td>No</td>
-          <td>The log file location</td>
+          <td>The log file location. Can be a strftime(3) compatible string</td>
+        </tr>
+        <tr>
+          <td>log_rotation_age</td>
+          <td>0</td>
+          <td>String</td>
+          <td>No</td>
+          <td>The age that will trigger a log file rotation. If expressed as a positive number, is managed as seconds.
+            Supports suffixes: S (seconds, the default), M (minutes), H (hours), D (days), W (weeks). A value of 0 disables</td>
+        </tr>
+        <tr>
+          <td>log_rotation_size</td>
+          <td>0</td>
+          <td>String</td>
+          <td>No</td>
+          <td>The size of the log file that will trigger a log rotation. Supports suffixes: B (bytes), the default if omitted,
+            K or KB (kilobytes), M or MB (megabytes), G or GB (gigabytes). A value of 0 (with or without suffix) disables</td>
+        </tr>
+        <tr>
+          <td>log_line_prefix</td>
+          <td>%Y-%m-%d %H:%M:%S</td>
+          <td>String</td>
+          <td>No</td>
+          <td>A strftime(3) compatible string to use as prefix for every log line. Must be quoted if contains spaces</td>
+        </tr>
+        <tr>
+          <td>log_mode</td>
+          <td>append</td>
+          <td>String</td>
+          <td>No</td>
+          <td>Append to or create the log file (append, create)</td>
         </tr>
         <tr>
           <td>blocking_timeout</td>
