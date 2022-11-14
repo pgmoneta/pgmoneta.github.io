@@ -1,0 +1,52 @@
+---
+layout: default
+---
+
+<div id="home">
+    <h1>
+        {% for header in site.headers %}
+        <a class="header" href="{{ header.url }}">{{ header.name }}</a>
+        {% endfor %}
+    </h1>
+    <p>
+
+    <h2>Change the pgmoneta configuration</h2>
+
+    Change pgmoneta.conf to add
+
+    <pre>
+metrics = 5001
+    </pre>
+
+    under the [pgmoneta] setting, like
+
+    <pre>
+[pgmoneta]
+...
+metrics = 5001
+    </pre>
+
+    as pgmoneta user
+
+    <h2>Restart pgmoneta</h2>
+
+    Stop pgmoneta and start it again with
+
+    <pre>
+pgmoneta-cli -c pgmoneta.conf stop
+pgmoneta -c pgmoneta.conf -u pgmoneta_users.conf
+    </pre>
+
+    as pgmoneta user
+
+    <h2>Get Prometheus metrics</h2>
+
+    You can now access the metrics via
+
+    <pre>
+http://localhost:5001/metrics
+    </pre>
+
+    as pgmoneta user
+
+</div>

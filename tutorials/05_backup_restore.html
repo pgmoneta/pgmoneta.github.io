@@ -1,0 +1,46 @@
+---
+layout: default
+---
+
+<div id="home">
+    <h1>
+        {% for header in site.headers %}
+        <a class="header" href="{{ header.url }}">{{ header.name }}</a>
+        {% endfor %}
+    </h1>
+    <p>
+
+    <h2>Backup</h2>
+
+    <pre>
+pgmoneta-cli -c pgmoneta.conf backup primary
+    </pre>
+
+    will take a backup of the [primary] host.
+
+    <p>
+
+    as pgmoneta user
+
+    <h2>List backups</h2>
+
+    <pre>
+pgmoneta-cli -c pgmoneta.conf list-backup primary
+    </pre>
+
+    as pgmoneta user
+
+    <h2>Restore</h2>
+
+    <pre>
+pgmoneta-cli -c pgmoneta.conf restore primary newest current /tmp/ 
+    </pre>
+
+    will take the latest backup and all Write-Ahead Log (WAL) segments and restore it
+    into the /tmp/primary-&lt;timestamp&gt; directory for an up-to-date copy.
+
+    <p>
+
+    as pgmoneta user
+
+</div>

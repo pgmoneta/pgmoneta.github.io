@@ -1,0 +1,62 @@
+---
+layout: default
+---
+
+<div id="home">
+    <h1>
+        {% for header in site.headers %}
+        <a class="header" href="{{ header.url }}">{{ header.name }}</a>
+        {% endfor %}
+    </h1>
+    <p>
+
+    <h2>Change the pgmoneta configuration</h2>
+
+    Change pgmoneta.conf to add
+
+    <pre>
+management = 5002
+    </pre>
+
+    under the [pgmoneta] setting, like
+
+    <pre>
+[pgmoneta]
+...
+management = 5002
+    </pre>
+
+    as pgmoneta user
+
+    <h2>Add pgmoneta admin</h2>
+
+    <pre>
+pgmoneta-admin -f pgmoneta_admins.conf -U admin -P admin1234 add-user
+    </pre>
+
+    as pgmoneta user
+
+    <h2>Restart pgmoneta</h2>
+
+    Stop pgmoneta and start it again with
+
+    <pre>
+pgmoneta-cli -c pgmoneta.conf stop
+pgmoneta -c pgmoneta.conf -u pgmoneta_users.conf -A pgmoneta_admins.conf
+    </pre>
+
+    as pgmoneta user
+
+    <h2>Connect via remote administration interface</h2>
+
+    <pre>
+pgmoneta-cli -h localhost -p 5002 -U admin details
+    </pre>
+
+    and use admin1234 as the password
+
+    <p>
+
+    as pgmoneta user
+
+</div>

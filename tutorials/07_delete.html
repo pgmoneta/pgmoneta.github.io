@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+<div id="home">
+    <h1>
+        {% for header in site.headers %}
+        <a class="header" href="{{ header.url }}">{{ header.name }}</a>
+        {% endfor %}
+    </h1>
+    <p>
+
+    <h2>Delete the oldest backup</h2>
+
+    <pre>
+pgmoneta-cli -c pgmoneta.conf delete primary oldest
+    </pre>
+
+    will delete the oldest backup on [primary].
+
+    <p>
+      
+    as pgmoneta user
+
+</div>

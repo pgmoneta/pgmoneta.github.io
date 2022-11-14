@@ -1,0 +1,48 @@
+---
+layout: default
+---
+
+<div id="home">
+    <h1>
+        {% for header in site.headers %}
+        <a class="header" href="{{ header.url }}">{{ header.name }}</a>
+        {% endfor %}
+    </h1>
+    <p>
+
+    <h2>Enable Encryption and Decryption in pgmoneta workflow</h2>
+
+    By default, the encryption is disabled. To enable this feature, modify pgmoneta.conf:
+
+    <pre>
+encryption = aes-256-cbc
+    </pre>
+
+    Many encryption modes are supported, see <a href="https://pgmoneta.github.io/configuration.html">Configuration</a> for details.
+
+    <p>
+
+    as pgmoneta user
+
+    <h2>Encryption and Decryption Commands</h2>
+
+    pgmoneta use the same key created by pgmoneta-admin master-key to encrypt and decrypt files.
+
+    <p>
+
+    Encrypt a file with pgmoneta-cli encrypt, the file will be encrypted in place and remove unencrypted file on success.
+
+    <pre>  
+pgmoneta-cli -c pgmoneta.conf encrypt &lt;path-to-your-file&gt;/file.tar.zstd
+    </pre>
+
+    Decrypt a file with pgmoneta-cli decrypt, the file will be decrypted in place and remove encrypted file on success.
+
+    <pre>
+pgmoneta-cli -c pgmoneta.conf decrypt &lt;path-to-your-file&gt;/file.tar.zstd.aes
+    </pre>
+
+    pgmoneta-cli encrypt and pgmoneta-cli decrypt are built to deal with files created by pgmoneta-cli archive.
+    It can be used on other files though.
+          
+</div>

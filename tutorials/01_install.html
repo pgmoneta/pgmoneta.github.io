@@ -1,0 +1,297 @@
+---
+layout: default
+---
+
+<div id="home">
+    <h1>
+        {% for header in site.headers %}
+        <a class="header" href="{{ header.url }}">{{ header.name }}</a>
+        {% endfor %}
+    </h1>
+    <p>
+
+    <h2>Installating pgmoneta</h2>
+
+    This tutorial will show you how to do a simple installation of pgmoneta.
+    <p/>
+
+    At the end of this tutorial you will have a backup of a PostgreSQL cluster,
+    and will be streaming Write-Ahead Log (WAL) to pgmoneta.
+    <p>
+
+    <h3>Preface</h3>
+
+    This tutorial assumes that you have an installation of PostgreSQL 10+ and pgmoneta.
+    <p/>
+
+    For RPM based distributions such as Fedora and RHEL you can add the
+    <a href="https://yum.postgresql.org/">PostgreSQL YUM repository</a>
+    and do the install via
+    
+    <pre>
+dnf install -y postgresql10 postgresql10-server pgmoneta
+    </pre>
+
+    <h3>Initialize cluster</h3>
+
+    <pre>
+export PATH=/usr/pgsql-10/bin:$PATH
+initdb /tmp/pgsql
+    </pre>
+
+    <p>
+
+    as postgres user
+
+    <h3>Remove default access</h3>
+    
+    Remove
+
+    <pre>
+host    all             all             127.0.0.1/32            trust
+host    all             all             ::1/128                 trust
+host    replication     all             127.0.0.1/32            trust
+host    replication     all             ::1/128                 trust
+    </pre>
+
+    from /tmp/pgsql/pg_hba.conf.
+
+    <p>
+
+    as postgres user
+
+    <h3>Add access for users and a database</h3>
+
+    Add
+
+    <pre>
+host    mydb             myuser          127.0.0.1/32            md5
+host    mydb             myuser          ::1/128                 md5
+host    postgres         repl            127.0.0.1/32            md5
+host    postgres         repl            ::1/128                 md5
+host    replication      repl            127.0.0.1/32            md5
+host    replication      repl            ::1/128                 md5
+    </pre>
+
+    to /tmp/pgsql/pg_hba.conf. Or use scram-sha-256.
+
+    <p>
+
+    Remember to check the value of password_encryption in /tmp/pgsql/postgresql.conf
+    to setup the correct authentication type.
+
+    <p>
+
+    as postgres user
+
+    <h3>Make sure that replication level is set</h3>
+
+    Check that
+
+    <pre>
+wal_level = replica
+    </pre>
+
+    is set in /tmp/pgsql/postgresql.conf - or logical
+
+    <p>
+
+    as postgres user
+
+    <h3>Start PostgreSQL</h3>
+
+
+    <pre>
+pg_ctl  -D /tmp/pgsql/ start
+    </pre>
+
+    as postgres user
+
+    <h3>Add users and a database</h3>
+
+    <pre>
+createuser -P myuser
+createdb -E UTF8 -O myuser mydb
+    </pre>
+
+    with mypass as the password.
+
+    <p>
+
+    Then
+
+    <pre>
+psql postgres
+CREATE ROLE repl WITH LOGIN REPLICATION PASSWORD 'secretpassword';
+\q
+    </pre>
+
+    as postgres user
+
+    <h3>Verify access</h3>
+
+    For the user (standard) (using mypass)
+
+    <pre>
+psql -h localhost -p 5432 -U myuser mydb
+\q
+    </pre>
+
+    For the user (pgmoneta) (using secretpassword)
+
+    <pre>
+psql -h localhost -p 5432 -U repl postgres
+\q
+    </pre>
+
+    as postgres user
+
+    <h3>Add pgmoneta user</h3>
+
+    <pre>
+sudo su -
+useradd -ms /bin/bash pgmoneta
+passwd pgmoneta
+exit
+    </pre>
+
+    as postgres user
+
+    <h3>Create pgmoneta configuration</h3>
+
+    Switch to the pgmoneta user
+
+    <pre>
+sudo su -
+su - pgmoneta
+    </pre>
+
+    Add the master key and create vault
+
+    <pre>
+pgmoneta-admin master-key
+pgmoneta-admin -f pgmoneta_users.conf -U repl -P secretpassword add-user
+    </pre>
+
+    You have to choose a password for the master key - remember it !
+
+    <p>
+
+      Create the pgmoneta.conf configuration
+
+      <pre>
+cat > pgmoneta.conf
+[pgmoneta]
+host = *
+metrics = 5001
+
+base_dir = /home/pgmoneta/backup
+
+compression = zstd
+
+storage_engine = local
+
+retention = 7
+
+log_type = file
+log_level = info
+log_path = /tmp/pgmoneta.log
+
+unix_socket_dir = /tmp/
+pgsql_dir = /usr/pgsql-10/bin/
+
+[primary]
+host = localhost
+port = 5432
+user = repl
+      </pre>
+
+      and press Ctrl-D
+
+      <p>
+
+      as postgres user
+
+      <h3>Create base directory</h3>
+
+      <pre>
+mkdir backup
+      </pre>
+
+      as pgmoneta user
+
+      <h3>Start pgmoneta</h3>
+
+      <pre>
+pgmoneta -c pgmoneta.conf -u pgmoneta_users.conf
+      </pre>
+
+      as pgmoneta user
+
+      <h3>Create a backup</h3>
+
+      In another terminal
+
+      <pre>
+pgmoneta-cli -c pgmoneta.conf backup primary
+      </pre>
+
+      as pgmoneta user
+
+      <h3>View backup</h3>
+
+      In another terminal
+
+      <pre>
+pgmoneta-cli -c pgmoneta.conf details
+      </pre>
+
+      as pgmoneta user
+
+      <h3>Shell completion</h3>
+
+      There is a minimal shell completion support for pgmoneta-cli and pgmoneta-admin. If you are running such commands
+      from a Bash or Zsh, you can take some advantage of command completion.
+
+      <h4>Installing command completions in Bash</h4>
+
+      There is a completion script into contrib/shell_comp/pgmoneta_comp.bash that can be used
+      to help you complete the command line while you are typing.
+
+      <p>
+
+        It is required to source the script into your current shell, for instance
+        by doing:
+
+        <pre>
+source contrib/shell_comp/pgmoneta_comp.bash
+        </pre>
+
+        At this point, the completions should be active, so you can type the name of one the commands between
+        pgmoneta-cli and pgmoneta-admin and hit TAB to help the command line completion.
+
+        <h4>Installing the command completions on Zsh</h4>
+
+        In order to enable completion into zsh you first need to have compinit loaded;
+        ensure your .zshrc file contains the following lines:
+
+        <pre>
+autoload -U compinit
+compinit
+        </pre>
+
+        and add the sourcing of the contrib/shell_comp/pgmoneta_comp.zsh file into your ~/.zshrc
+        also associating the _pgmoneta_cli and _pgmoneta_admin functions
+        to completion by means of compdef:
+
+        <pre>
+source contrib/shell_comp/pgmoneta_comp.zsh
+compdef _pgmoneta_cli    pgmoneta-cli
+compdef _pgmoneta_admin  pgmoneta-admin
+        </pre>
+
+        If you want completions only for one command, e.g., pgmoneta-admin, remove the compdef line that references
+        the command you don't want to have automatic completion. At this point, digit the name of a pgmoneta-cli
+        or pgmoneta-admin command and hit TAB to trigger the completion system.
+
+</div>

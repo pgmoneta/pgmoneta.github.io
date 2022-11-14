@@ -29,6 +29,9 @@ urls:
     - text: getting started
       url: https://pgmoneta.github.io/gettingstarted.html
       icon: https://pgmoneta.github.io/images/icomoon/027-bullhorn.png
+    - text: tutorials
+      url: https://pgmoneta.github.io/documentation.html
+      icon: https://pgmoneta.github.io/images/icomoon/032-book.png
 
 github:
     - text: github
