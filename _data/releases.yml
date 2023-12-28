@@ -52,3 +52,6 @@
 - name: pgmoneta 0.7.2
   date: 2023-12-13
   announce: release/announcement/2023/12/13/pgmoneta-0.7.2.html
+- name: pgmoneta 0.7.3
+  date: 2023-12-28
+  announce: release/announcement/2023/12/28/pgmoneta-0.7.3.html
