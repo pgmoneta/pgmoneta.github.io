@@ -16,7 +16,7 @@ layout: default
     using "pgmoneta -?". You should see
 
     <pre>
-pgmoneta 0.7.3
+pgmoneta 0.8.0
   Backup / restore solution for PostgreSQL
 
 Usage:
@@ -27,7 +27,8 @@ Options:
   -u, --users USERS_FILE   Set the path to the pgmoneta_users.conf file
   -A, --admins ADMINS_FILE Set the path to the pgmoneta_admins.conf file
   -d, --daemon             Run as a daemon
-  -V, --version            Display version information
+      --offline            Run in offline mode
+-V, --version            Display version information
   -?, --help               Display help
     </pre>
 
@@ -138,7 +139,7 @@ pgmoneta -c pgmoneta.conf -u pgmoneta_users.conf
     You can see the commands it supports by using "pgmoneta-cli -?" which will give
 
     <pre>
-pgmoneta-cli 0.7.3
+pgmoneta-cli 0.8.0
   Command line utility for pgmoneta
 
 Usage:
@@ -212,7 +213,7 @@ echo $?
     You can see the commands it supports by using "pgmoneta-admin -?" which will give
 
     <pre>
-pgmoneta-admin 0.7.3
+pgmoneta-admin 0.8.0
   Administration utility for pgmoneta
 
 Usage:
