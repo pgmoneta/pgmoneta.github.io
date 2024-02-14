@@ -444,6 +444,28 @@ layout: default
           <td>No</td>
           <td>Use synchronous receive</td>
         </tr>
+        <tr>
+          <td>tls_cert_file</td>
+          <td></td>
+          <td>String</td>
+          <td>No</td>
+          <td>Certificate file for TLS. This file must be owned by either the user running pgmoneta or root</td>
+        </tr>
+        <tr>
+          <td>tls_key_file</td>
+          <td></td>
+          <td>String</td>
+          <td>No</td>
+          <td>Private key file for TLS. This file must be owned by either the user running pgmoneta or root.
+            Additionally permissions must be at least 0640 when owned by root or 0600 otherwise.</td>
+        </tr>
+        <tr>
+          <td>tls_ca_file</td>
+          <td></td>
+          <td>String</td>
+          <td>No</td>
+          <td>Certificate Authority (CA) file for TLS. This file must be owned by either the user running pgmoneta or root</td>
+        </tr>
       </tbody>
     </table>
 
