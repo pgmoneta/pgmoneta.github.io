@@ -85,7 +85,7 @@ layout: default
           <td>zstd</td>
           <td>String</td>
           <td>No</td>
-          <td>The compression type (none, gzip, zstd, lz4, bzip2)</td>
+          <td>The compression type (none, gzip, client-gzip, server-gzip, zstd, client-zstd, server-zstd, lz4, client-lz4, server-lz4, bzip2, client-bzip2)</td>
         </tr>
         <tr>
           <td>compression_level</td>
@@ -93,6 +93,13 @@ layout: default
           <td>Int</td>
           <td>No</td>
           <td>The compression level</td>
+        </tr>
+        <tr>
+          <td>workers</td>
+          <td>0</td>
+          <td>Int</td>
+          <td>No</td>
+          <td>The number of workers that each process can use for its work. Use 0 to disable</td>
         </tr>
         <tr>
           <td>retention</td>
@@ -117,6 +124,20 @@ layout: default
           <td>String</td>
           <td>No</td>
           <td>The storage engine type (local, ssh, s3, azure)</td>
+        </tr>
+        <tr>
+          <td>create_slot</td>
+          <td>No</td>
+          <td>Bool</td>
+          <td>No</td>
+          <td>Create a replication slot for all server. Valid values are: yes, no</td>
+        </tr>
+        <tr>
+          <td>create_slot_name</td>
+          <td></td>
+          <td>String</td>
+          <td>No</td>
+          <td>The name of the slot. Required if create_slot is yes or physical</td>
         </tr>
         <tr>
           <td>ssh_hostname</td>
@@ -353,6 +374,20 @@ layout: default
           <td>Failover to this server if follow server fails</td>
         </tr>
         <tr>
+          <td>create_slot</td>
+          <td>No</td>
+          <td>Bool</td>
+          <td>No</td>
+          <td>Create a replication slot for all server. Valid values are: yes, no</td>
+        </tr>
+        <tr>
+          <td>create_slot_name</td>
+          <td></td>
+          <td>String</td>
+          <td>No</td>
+          <td>The name of the slot. Required if create_slot is yes or physical</td>
+        </tr>
+        <tr>
           <td>ssh_ciphers</td>
           <td>aes-256-ctr, aes-192-ctr, aes-128-ctr</td>
           <td>String</td>
@@ -438,11 +473,18 @@ layout: default
           <td>The retention time in days, weeks, months, years</td>
         </tr>
         <tr>
-          <td>synchronous</td>
-          <td>off</td>
-          <td>Bool</td>
+          <td>wal_shipping</td>
+          <td></td>
+          <td>String</td>
           <td>No</td>
-          <td>Use synchronous receive</td>
+          <td>The WAL shipping directory</td>
+        </tr>
+        <tr>
+          <td>workers</td>
+          <td>0</td>
+          <td>Int</td>
+          <td>No</td>
+          <td>The number of workers that each process can use for its work. Use 0 to disable, -1 means use the global settting</td>
         </tr>
         <tr>
           <td>tls_cert_file</td>
