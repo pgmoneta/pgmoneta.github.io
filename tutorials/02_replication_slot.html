@@ -14,7 +14,7 @@ layout: default
 
     <pre>
 psql postgres
-SELECT pg_create_physical_replication_slot('repl');
+SELECT pg_create_physical_replication_slot('repl', true, false);
 \q
     </pre>
 

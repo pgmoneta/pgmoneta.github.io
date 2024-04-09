@@ -97,7 +97,7 @@ host    replication     repl           ::1/128                 scram-sha-256
     like
 
     <pre>
-SELECT pg_create_physical_replication_slot('repl');
+SELECT pg_create_physical_replication_slot('repl', true, false);
     </pre>
 
     and add that to the pgmoneta.conf configuration under [primary], as
