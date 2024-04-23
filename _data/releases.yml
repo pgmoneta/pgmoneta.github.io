@@ -67,3 +67,6 @@
 - name: pgmoneta 0.10.1
   date: 2024-04-05
   announce: release/announcement/2024/04/05/pgmoneta-0.10.1.html
+- name: pgmoneta 0.10.1
+  date: 2024-04-23
+  announce: release/announcement/2024/04/23/pgmoneta-0.11.0.html

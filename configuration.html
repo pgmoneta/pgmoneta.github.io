@@ -133,13 +133,6 @@ layout: default
           <td>Create a replication slot for all server. Valid values are: yes, no</td>
         </tr>
         <tr>
-          <td>create_slot_name</td>
-          <td></td>
-          <td>String</td>
-          <td>No</td>
-          <td>The name of the slot. Required if create_slot is yes or physical</td>
-        </tr>
-        <tr>
           <td>ssh_hostname</td>
           <td></td>
           <td>String</td>
@@ -269,6 +262,20 @@ layout: default
           <td>Int</td>
           <td>No</td>
           <td>The network buffer size (SO_RCVBUF and SO_SNDBUF)</td>
+        </tr>
+        <tr>
+          <td>backup_max_rate</td>
+          <td>0</td>
+          <td>Int</td>
+          <td>No</td>
+          <td>The number of bytes of tokens added every one second to limit the backup rate</td>
+        </tr>
+        <tr>
+          <td>network_max_rate</td>
+          <td>0</td>
+          <td>Int</td>
+          <td>No</td>
+          <td>The number of bytes of tokens added every one second to limit the network</td>
         </tr>
         <tr>
           <td>keep_alive</td>
@@ -480,11 +487,39 @@ layout: default
           <td>The WAL shipping directory</td>
         </tr>
         <tr>
+          <td>hot_standby</td>
+          <td></td>
+          <td>String</td>
+          <td>No</td>
+          <td>Hot standby directory</td>
+        </tr>
+        <tr>
+          <td>hot_standb_overrides</td>
+          <td></td>
+          <td>String</td>
+          <td>No</td>
+          <td>Files to override in the hot standby directory</td>
+        </tr>
+        <tr>
           <td>workers</td>
           <td>0</td>
           <td>Int</td>
           <td>No</td>
           <td>The number of workers that each process can use for its work. Use 0 to disable, -1 means use the global settting</td>
+        </tr>
+        <tr>
+          <td>backup_max_rate</td>
+          <td>-1</td>
+          <td>Int</td>
+          <td>No</td>
+          <td>The number of bytes of tokens added every one second to limit the backup rate. Use 0 to disable, -1 means use the global settting</td>
+        </tr>
+        <tr>
+          <td>network_max_rate</td>
+          <td>-1</td>
+          <td>Int</td>
+          <td>No</td>
+          <td>The number of bytes of tokens added every one second to limit the network rate. Use 0 to disable, -1 means use the global settting</td>
         </tr>
         <tr>
           <td>tls_cert_file</td>

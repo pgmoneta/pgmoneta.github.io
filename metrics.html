@@ -17,6 +17,11 @@ layout: default
   <ul>
     <li>1 = Running</li>
   </ul>
+  <h3>pgmoneta_version</h3>
+  The version of pgmoneta
+  <ul>
+    <li>1 = Running</li>
+  </ul>
   <p>
   <h3>pgmoneta_retention_days</h3>
   The retention of pgmoneta in days
@@ -73,6 +78,18 @@ layout: default
   <p>
   <h3>pgmoneta_wal_shipping_total_space</h3>
   The total disk space for the WAL shipping directory of a server
+  <p>
+  <h3>pgmoneta_server_operation_count</h3>
+  The count of client operations of a server
+  <p>
+  <h3>pgmoneta_server_failed_operation_count</h3>
+  The count of failed client operations of a server
+  <p>
+  <h3>pgmoneta_server_last_operation_time</h3>
+  The time of the latest client operation of a server
+  <p>
+  <h3>pgmoneta_server_last_failed_operation_time</h3>
+  The time of the latest failed client operation of a server
   <p>
   <h3>pgmoneta_server_timeline</h3>
   The current timeline a server is on
@@ -178,6 +195,44 @@ layout: default
     </tbody>
   </table>
   <p>
+  <h3>pgmoneta_backup_version</h3>
+  The version of PostgreSQL for a backup
+  <table border="1">
+    <tbody>
+      <tr>
+        <td>name</td>
+        <td>The identifier for the server</td>
+      </tr>
+      <tr>
+        <td>label</td>
+        <td>The backup label</td>
+      </tr>
+      <tr>
+        <td>major</td>
+        <td>The backup PostgreSQL major version</td>
+      </tr>
+      <tr>
+        <td>minor</td>
+        <td>The backup PostgreSQL minor version</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+  <h3>pgmoneta_backup_end_timeline</h3>
+  The ending timeline of a backup for a server
+  <table border="1">
+    <tbody>
+      <tr>
+        <td>name</td>
+        <td>The identifier for the server</td>
+      </tr>
+      <tr>
+        <td>label</td>
+        <td>The backup label</td>
+      </tr>
+      </tbody>
+  </table>
+  <p>
   <h3>pgmoneta_backup_throughput</h3>
   The throughput of the backup for a server (bytes/s)
   <table border="1">
@@ -239,6 +294,25 @@ layout: default
         <td>walpos</td>
         <td>The backup starting WAL position</td>
       </tr>
+    </tbody>
+  </table>
+  <p>
+  <h3>pgmoneta_backup_end_walpos</h3>
+  The ending WAL pos of a backup for a server
+  <table border="1">
+    <tbody>
+      <tr>
+        <td>name</td>
+        <td>The identifier for the server</td>
+      </tr>
+      <tr>
+        <td>label</td>
+        <td>The backup label</td>
+      </tr>
+    <tr>\n");
+      <td>walpos</td>
+      <td>The backup ending WAL position</td>
+    </tr>
     </tbody>
   </table>
   <p>
@@ -315,6 +389,21 @@ layout: default
   <p>
   <h3>pgmoneta_backup_size</h3>
   The size of a backup for a server
+  <table border="1">
+    <tbody>
+      <tr>
+        <td>name</td>
+        <td>The identifier for the server</td>
+      </tr>
+      <tr>
+        <td>label</td>
+        <td>The backup label</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+  <h3>pgmoneta_backup_compression_ratio</h3>
+  The ratio of backup size to restore size for each backup
   <table border="1">
     <tbody>
       <tr>
