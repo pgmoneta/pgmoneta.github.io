@@ -20,7 +20,7 @@ Options:
   -?, --help               Display help
 ```
 
-If you don't have `pgmoneta` in your path see [README](https://github.com/pgmoneta/pgmoneta/blob/main/README.md) on how to
+If you don't have `pgmoneta` in your path see [Install pgmoneta](./tutorials/01_install) on how to
 compile and install `pgmoneta` in your system.
 
 ## Configuration
@@ -105,7 +105,7 @@ pgmoneta-admin -f pgmoneta_users.conf user add
 
 We are now ready to run `pgmoneta`.
 
-See [Configuration](https://github.com/pgmoneta/pgmoneta/blob/main/doc/CONFIGURATION.md) for all configuration options.
+See [Configuration](./configuration) for all configuration options.
 
 ## Running
 
@@ -247,7 +247,7 @@ Next steps in improving pgmoneta's configuration could be
 * Update `pgmoneta.conf` with the required settings for your system
 * Enable Transport Layer Security v1.2+ (TLS) for administrator access
 
-See [Configuration](https://github.com/pgmoneta/pgmoneta/blob/main/doc/CONFIGURATION.md) for more information on these subjects.
+See [Configuration](./configuration) for more information on these subjects.
 
 ## Tutorials
 
@@ -280,7 +280,7 @@ Feel free to
 
 All contributions are most welcome !
 
-Please, consult our [Code of Conduct](https://github.com/pgmoneta/pgmoneta/blob/main/CODE_OF_CONDUCT.md) policies for interacting in our
+Please, consult our [Code of Conduct](./CODE_OF_CONDUCT.md) policies for interacting in our
 community.
 
 Consider giving the project a [star](https://github.com/pgmoneta/pgmoneta/stargazers) on
