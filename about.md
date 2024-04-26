@@ -26,7 +26,7 @@ pgmoneta makes use of
 * [libev](http://software.schmorp.de/pkg/libev.html) for fast network interactions
 * [Atomic operations](https://en.cppreference.com/w/c/atomic) are used to keep track of state
 
-See [Architecture](https://github.com/pgmoneta/pgmoneta/blob/main/doc/ARCHITECTURE.md) for the architecture of `pgmoneta`.
+See [Architecture](./ARCHITECTURE.md) for the architecture of `pgmoneta`.
 
 Further information
 -------------------

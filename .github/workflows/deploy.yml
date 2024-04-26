@@ -19,7 +19,7 @@ jobs:
   build:
     environment:
       name: github-pages
-      url: 'https://pgmoneta.github.io/'
+      url: ${{ steps.deployment.outputs.page_url }}
 
     runs-on: ubuntu-latest
 
@@ -45,10 +45,10 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
-          path: ./.vitepress/dist/**
+          path: ./.vitepress/dist/
 
       - name: Deploy to GitHub Pages
         id: deployment
