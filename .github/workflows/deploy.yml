@@ -18,7 +18,7 @@ concurrency:
 jobs:
   build:
     environment:
-      name: production_environment
+      name: github-pages
       url: 'https://pgmoneta.github.io/'
 
     runs-on: ubuntu-latest
