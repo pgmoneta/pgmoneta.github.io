@@ -11,8 +11,6 @@ The state of pgmoneta
 
 The version of pgmoneta
 
-*   1 = Running
-
 ### pgmoneta_retention_days
 
 The retention of pgmoneta in days
