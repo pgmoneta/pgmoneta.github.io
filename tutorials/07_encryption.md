@@ -18,7 +18,7 @@ encryption = aes-256-cbc
 ```
 (`pgmoneta` user)
 
-Many encryption modes are supported, see [Configuration](../CONFIGURATION.md) for details.
+Many encryption modes are supported, see [Configuration](../configuration.md) for details.
 
 ### Encryption and Decryption Commands
 
