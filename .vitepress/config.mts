@@ -43,52 +43,48 @@ export default defineConfig({
                   link: "/tutorials/01_install"
                },
                {
-                  text: "Using a replication slot",
-                  link: "/tutorials/02_replication_slot"
-               },
-               {
                   text: "Enabling remote management",
-                  link: "/tutorials/03_remote_management"
+                  link: "/tutorials/02_remote_management"
                },
                {
                   text: "Enabling Prometheus metrics",
-                  link: "/tutorials/04_prometheus"
+                  link: "/tutorials/03_prometheus"
                },
                {
                   text: "Doing backup and restore",
-                  link: "/tutorials/05_backup_restore"
+                  link: "/tutorials/04_backup_restore"
                },
                {
                   text: "Creating an archive",
-                  link: "/tutorials/06_archive"
+                  link: "/tutorials/05_archive"
                },
                {
                   text: "Deleting a backup", 
-                  link: "/tutorials/07_delete"
+                  link: "/tutorials/06_delete"
                },
                {
                   text: "Encryption and decryption",
-                  link: "/tutorials/08_encryption"
+                  link: "/tutorials/07_encryption"
                },
                {
                   text: "Retention Policy",
-                  link: "/tutorials/09_retention"
+                  link: "/tutorials/08_retention"
                },
                {
                   text: "Grafana Dashboard",
-                  link: "/tutorials/10_grafana"
+                  link: "/tutorials/09_grafana"
                },
                {
                   text: "WAL shipping",
-                  link: "/tutorials/11_wal_shipping"
+                  link: "/tutorials/10_wal_shipping"
                },
                {
                   text: "Transport Level Security",
-                  link: "/tutorials/12_tls"
+                  link: "/tutorials/11_tls"
                },
                {
                   text: "Hot standby",
-                  link: "/tutorials/13_hot_standby"
+                  link: "/tutorials/12_hot_standby"
                },
             ],
          },

@@ -1,15 +1,15 @@
-# Archive
+## Archive
 
-This tutorial will show you how to do an archive using pgmoneta.
+This tutorial will show you how to do an archive using [**pgmoneta**](https://github.com/pgmoneta/pgmoneta).
 
-## Preface
+### Preface
 
-This tutorial assumes that you have an installation of PostgreSQL 13+ and pgmoneta.
+This tutorial assumes that you have an installation of PostgreSQL 13+ and [**pgmoneta**](https://github.com/pgmoneta/pgmoneta).
 
 See [Install pgmoneta](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/01_install.md)
 for more detail.
 
-## Creating an archive
+### Creating an archive
 
 ```
 pgmoneta-cli -c pgmoneta.conf archive primary newest current /tmp/ 
