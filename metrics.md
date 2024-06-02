@@ -98,10 +98,6 @@ The total disk space for the hot standby directory of a server
 |name|The identifier for the server|
 |--- |--- |
 
-### pgmoneta_wal_shipping_total_space
-
-The total disk space for the WAL shipping directory of a server
-
 ### pgmoneta_server_operation_count
 
 The count of client operations of a server
