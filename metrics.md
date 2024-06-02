@@ -41,13 +41,6 @@ The compression used
 *   3 = LZ4
 *   4 = BZIP2
 
-### pgmoneta_link
-
-Use links to limit backup size
-
-*   1 = Yes
-*   0 = No
-
 ### pgmoneta_used_space
 
 The disk space used for pgmoneta
@@ -79,6 +72,31 @@ The disk space used for everything under the WAL shipping directory of a server
 ### pgmoneta_wal_shipping_free_space
 
 The free disk space for the WAL shipping directory of a server
+
+### pgmoneta_wal_shipping_total_space
+
+The total disk space for the WAL shipping directory of a server
+
+### pgmoneta_hot_standby
+
+The disk space used for hot standby for a server
+
+|name|The identifier for the server|
+|--- |--- |
+
+### pgmoneta_hot_standby_free_space
+
+The free disk space for the hot standby directory of a server
+
+|name|The identifier for the server|
+|--- |--- |
+
+### pgmoneta_hot_standby_total_space
+
+The total disk space for the hot standby directory of a server
+
+|name|The identifier for the server|
+|--- |--- |
 
 ### pgmoneta_wal_shipping_total_space
 
