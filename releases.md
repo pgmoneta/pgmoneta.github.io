@@ -2,6 +2,7 @@
 
 |Version|Date (`YYYY` / `MM` / `DD`) |
 |:---|---|
+|[pgmoneta 0.12.0](/_posts/2024-06-05-pgmoneta-0.12.0.html)|`2024` / `06` / `05`|
 |[pgmoneta 0.11.1](/_posts/2024-04-30-pgmoneta-0.11.1.html)|`2024` / `04` / `30`|
 |[pgmoneta 0.11.0](/_posts/2024-04-23-pgmoneta-0.11.0.html)|`2024` / `04` / `23`|
 |[pgmoneta 0.10.1](/_posts/2024-04-05-pgmoneta-0.10.1.html)|`2024` / `04` / `05`|
@@ -32,7 +33,7 @@
 
 pgmoneta is available from [yum.postgresql.org](https://yum.postgresql.org) for the following operating systems
 
-*   Fedora 38/39
+*   Fedora 39/40
 *   Red Hat Enterprise Linux 8
 *   Red Hat Enterprise Linux 9
 *   Rocky Linux 8
