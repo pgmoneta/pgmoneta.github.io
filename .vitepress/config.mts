@@ -36,6 +36,10 @@ export default defineConfig({
             link: "/releases"
          },
          {
+            text: "Manuals",
+            link: "/manuals"
+         },
+         {
             text: "Tutorials",
             collapsed: false,
             items: [
