@@ -1,8 +1,8 @@
 # Manuals
 -----------
 
-* [User guide](https://github.com/pgmoneta/pgmoneta.github.io/blob/main/doc/pgmoneta-user-guide.pdf)
-* [Developer guide](https://github.com/pgmoneta/pgmoneta.github.io/blob/main/doc/pgmoneta-dev-guide.pdf)
+* [User guide](doc/pgmoneta-user-guide.pdf)
+* [Developer guide](doc/pgmoneta-dev-guide.pdf)
 
 # Tutorials
 -----------
