@@ -4,7 +4,7 @@ First of all, make sure that `pgmoneta` is installed and in your path by
 using `pgmoneta -?`. You should see
 
 ```
-pgmoneta 0.12.0
+pgmoneta 0.13.0
   Backup / restore solution for PostgreSQL
 
 Usage:
@@ -127,7 +127,7 @@ the `SIGTERM` signal to the process using `kill <pid>`.
 You can see the commands it supports by using `pgmoneta-cli -?` which will give
 
 ```
-pgmoneta-cli 0.12.0
+pgmoneta-cli 0.13.0
   Command line utility for pgmoneta
 
 Usage:
@@ -148,12 +148,15 @@ Commands:
   backup                   Backup a server
   list-backup              List the backups for a server
   restore                  Restore a backup from a server
+  verify                   Verify a backup from a server
   archive                  Archive a backup from a server
   delete                   Delete a backup from a server
   retain                   Retain a backup from a server
   expunge                  Expunge a backup from a server
   encrypt                  Encrypt a file using master-key
   decrypt                  Decrypt a file using master-key
+  compress                 Compress a file from a server
+  decompress               Decompress a file from a server
   ping                     Check if pgmoneta is alive
   stop                     Stop pgmoneta
   status [details]         Status of pgmoneta, with optional details
@@ -201,7 +204,7 @@ registration with `pgmoneta`.
 You can see the commands it supports by using `pgmoneta-admin -?` which will give
 
 ```
-pgmoneta-admin 0.12.0
+pgmoneta-admin 0.13.0
   Administration utility for pgmoneta
 
 Usage:
