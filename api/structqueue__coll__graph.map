@@ -1,0 +1,8 @@
+<map id="queue" name="queue">
+<area shape="rect" id="Node000001" title=" " alt="" coords="89,115,150,143"/>
+<area shape="rect" id="Node000002" href="$structtask.html" title=" " alt="" coords="5,5,55,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="53,44,111,113,107,117,49,47"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="72,8,78,12,81,20,73,30,55,32,55,26,70,25,76,19,74,15,69,13"/>
+<area shape="rect" id="Node000003" href="$structsemaphore.html" title=" " alt="" coords="163,5,257,33"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="191,47,132,117,128,113,187,44"/>
+</map>

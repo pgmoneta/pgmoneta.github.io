@@ -12,6 +12,7 @@ export default defineConfig({
          { text: "Configuration", link: "/configuration" },
          { text: "Metrics", link: "/metrics" },
          { text: "News", link: "/news" },
+         { text: "Developers", link: "/developers" },
          { text: "About", link: "/about" },
       ],
 
