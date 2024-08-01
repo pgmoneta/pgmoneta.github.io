@@ -60,36 +60,40 @@ export default defineConfig({
                   link: "/tutorials/04_backup_restore"
                },
                {
+                  text: "Verify a backup",
+                  link: "/tutorials/05_verify"
+               },
+               {
                   text: "Creating an archive",
-                  link: "/tutorials/05_archive"
+                  link: "/tutorials/06_archive"
                },
                {
                   text: "Deleting a backup", 
-                  link: "/tutorials/06_delete"
+                  link: "/tutorials/07_delete"
                },
                {
                   text: "Encryption and decryption",
-                  link: "/tutorials/07_encryption"
+                  link: "/tutorials/08_encryption"
                },
                {
                   text: "Retention Policy",
-                  link: "/tutorials/08_retention"
+                  link: "/tutorials/09_retention"
                },
                {
                   text: "Grafana Dashboard",
-                  link: "/tutorials/09_grafana"
+                  link: "/tutorials/10_grafana"
                },
                {
                   text: "WAL shipping",
-                  link: "/tutorials/10_wal_shipping"
+                  link: "/tutorials/11_wal_shipping"
                },
                {
                   text: "Transport Level Security",
-                  link: "/tutorials/11_tls"
+                  link: "/tutorials/12_tls"
                },
                {
                   text: "Hot standby",
-                  link: "/tutorials/12_hot_standby"
+                  link: "/tutorials/13_hot_standby"
                },
             ],
          },
