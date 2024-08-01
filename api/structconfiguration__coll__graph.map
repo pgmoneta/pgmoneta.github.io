@@ -1,9 +1,0 @@
-<map id="configuration" name="configuration">
-<area shape="rect" id="Node000001" title=" " alt="" coords="66,115,173,143"/>
-<area shape="rect" id="Node000002" href="$structserver.html" title=" " alt="" coords="5,5,68,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="44,47,52,69,64,89,77,102,93,112,90,117,74,106,60,93,47,71,39,49"/>
-<area shape="rect" id="Node000003" href="$structuser.html" title=" " alt="" coords="95,5,144,33"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="122,48,122,115,117,115,117,48"/>
-<area shape="rect" id="Node000004" href="$structprometheus.html" title=" " alt="" coords="168,5,268,33"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="208,48,195,71,178,93,147,117,143,112,175,89,191,68,204,46"/>
-</map>

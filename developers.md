@@ -1,6 +1,5 @@
 # Developer guide
 
-* [API](https://pgmoneta.github.io/api/index.html)
 * [GitHub](https://github.com/pgmoneta/pgmoneta)
 
 ## Install PostgreSQL
