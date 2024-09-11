@@ -96,6 +96,10 @@ export default defineConfig({
                   text: "Hot standby",
                   link: "/tutorials/13_hot_standby"
                },
+               {
+                  text: "Annotate",
+                  link: "/tutorials/14_annotate"
+               },
             ],
          },
          {

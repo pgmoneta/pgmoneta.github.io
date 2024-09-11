@@ -4,7 +4,7 @@ First of all, make sure that `pgmoneta` is installed and in your path by
 using `pgmoneta -?`. You should see
 
 ```
-pgmoneta 0.13.0
+pgmoneta 0.14.0
   Backup / restore solution for PostgreSQL
 
 Usage:
@@ -127,7 +127,7 @@ the `SIGTERM` signal to the process using `kill <pid>`.
 You can see the commands it supports by using `pgmoneta-cli -?` which will give
 
 ```
-pgmoneta-cli 0.13.0
+pgmoneta-cli 0.14.0
   Command line utility for pgmoneta
 
 Usage:
@@ -157,6 +157,7 @@ Commands:
   decrypt                  Decrypt a file using master-key
   compress                 Compress a file from a server
   decompress               Decompress a file from a server
+  annotate                 Annotate a backup with comments
   ping                     Check if pgmoneta is alive
   stop                     Stop pgmoneta
   status [details]         Status of pgmoneta, with optional details
@@ -204,7 +205,7 @@ registration with `pgmoneta`.
 You can see the commands it supports by using `pgmoneta-admin -?` which will give
 
 ```
-pgmoneta-admin 0.13.0
+pgmoneta-admin 0.14.0
   Administration utility for pgmoneta
 
 Usage:
@@ -268,6 +269,7 @@ There are a few short tutorials available to help you better understand and conf
 - [Add WAL shipping](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/11_wal_shipping.md)
 - [Working with Transport Level Security](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/12_tls.md)
 - [Hot standby](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/13_hot_standby.md)
+- [Annotate a backup](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/14_annotate.md)
 
 ## Closing
 

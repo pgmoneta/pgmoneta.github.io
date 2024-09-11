@@ -20,3 +20,4 @@
 * [Add WAL shipping](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/11_wal_shipping.md)
 * [Working with Transport Level Security](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/12_tls.md)
 * [Hot standby](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/13_hot_standby.md)
+* [Annotate a backup](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/14_annotate.md)
