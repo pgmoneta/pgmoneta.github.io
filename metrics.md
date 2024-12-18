@@ -11,6 +11,10 @@ The state of pgmoneta
 
 The version of pgmoneta
 
+### pgmoneta_extension
+
+The version of the pgmoneta extension
+
 ### prometheus_logging_info
 
 The number of INFO statements
