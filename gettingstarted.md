@@ -4,7 +4,7 @@ First of all, make sure that `pgmoneta` is installed and in your path by
 using `pgmoneta -?`. You should see
 
 ```
-pgmoneta 0.14.1
+pgmoneta 0.15.0
   Backup / restore solution for PostgreSQL
 
 Usage:
@@ -127,22 +127,25 @@ the `SIGTERM` signal to the process using `kill <pid>`.
 You can see the commands it supports by using `pgmoneta-cli -?` which will give
 
 ```
-pgmoneta-cli 0.14.1
+pgmoneta-cli 0.15.0
   Command line utility for pgmoneta
 
 Usage:
   pgmoneta-cli [ -c CONFIG_FILE ] [ COMMAND ]
 
 Options:
-  -c, --config CONFIG_FILE Set the path to the pgmoneta.conf file
-  -h, --host HOST          Set the host name
-  -p, --port PORT          Set the port number
-  -U, --user USERNAME      Set the user name
-  -P, --password PASSWORD  Set the password
-  -L, --logfile FILE       Set the log file
-  -v, --verbose            Output text string of result
-  -V, --version            Display version information
-  -?, --help               Display help
+  -c, --config CONFIG_FILE                        Set the path to the pgmoneta.conf file
+  -h, --host HOST                                 Set the host name
+  -p, --port PORT                                 Set the port number
+  -U, --user USERNAME                             Set the user name
+  -P, --password PASSWORD                         Set the password
+  -L, --logfile FILE                              Set the log file
+  -v, --verbose                                   Output text string of result
+  -V, --version                                   Display version information
+  -F, --format text|json|raw                      Set the output format
+  -C, --compress none|gz|zstd|lz4|bz2             Compress the wire protocol
+  -E, --encrypt none|aes|aes256|aes192|aes128     Encrypt the wire protocol
+  -?, --help                                      Display help
 
 Commands:
   backup                   Backup a server
@@ -159,10 +162,13 @@ Commands:
   decompress               Decompress a file from a server
   annotate                 Annotate a backup with comments
   ping                     Check if pgmoneta is alive
-  stop                     Stop pgmoneta
+  shutdown                 Shutdown pgmoneta
   status [details]         Status of pgmoneta, with optional details
   conf <action>            Manage the configuration, with one of subcommands:
                            - 'reload' to reload the configuration
+                           - 'ls' to print the configurations used
+                           - 'get' to obtain information about a runtime configuration value
+                           - 'set' to modify a runtime configuration value
   clear <what>             Clear data, with:
                            - 'prometheus' to reset the Prometheus statistics
 ```
@@ -205,7 +211,7 @@ registration with `pgmoneta`.
 You can see the commands it supports by using `pgmoneta-admin -?` which will give
 
 ```
-pgmoneta-admin 0.14.1
+pgmoneta-admin 0.15.0
   Administration utility for pgmoneta
 
 Usage:
