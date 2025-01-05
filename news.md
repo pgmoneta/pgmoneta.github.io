@@ -6,7 +6,7 @@ outline: deep
 
 ## Latest
 
-- [`2025/01/05`] `pgmoneta` v0.11.0 released. [The release notes](/_posts/2025-01-05-pgmoneta-0.15.1.html).
+- [`2025/01/05`] `pgmoneta` v0.15.1 released. [The release notes](/_posts/2025-01-05-pgmoneta-0.15.1.html).
 
 ## Old
 
