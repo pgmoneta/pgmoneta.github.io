@@ -3,6 +3,7 @@
 
 * [User guide](https://raw.githubusercontent.com/pgmoneta/pgmoneta.github.io/main/doc/pgmoneta-user-guide.pdf)
 * [Developer guide](https://raw.githubusercontent.com/pgmoneta/pgmoneta.github.io/main/doc/pgmoneta-dev-guide.pdf)
+* [Advanced guide](https://raw.githubusercontent.com/pgmoneta/pgmoneta.github.io/main/doc/pgmoneta-advanced.pdf)
 
 # Tutorials
 -----------
