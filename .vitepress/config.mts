@@ -100,6 +100,22 @@ export default defineConfig({
                   text: "Annotate",
                   link: "/tutorials/14_annotate"
                },
+               {
+                  text: "Extra",
+                  link: "/tutorials/15_extra"
+               },
+               {
+                  text: "Incremental backup",
+                  link: "/tutorials/16_incremental_backup_restore"
+               },
+               {
+                  text: "Docker",
+                  link: "/tutorials/17_docker"
+               },
+               {
+                  text: "Local test",
+                  link: "/tutorials/18_local_test"
+               },
             ],
          },
          {

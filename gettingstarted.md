@@ -4,7 +4,7 @@ First of all, make sure that `pgmoneta` is installed and in your path by
 using `pgmoneta -?`. You should see
 
 ```
-pgmoneta 0.15.2
+pgmoneta 0.16.0
   Backup / restore solution for PostgreSQL
 
 Usage:
@@ -127,7 +127,7 @@ the `SIGTERM` signal to the process using `kill <pid>`.
 You can see the commands it supports by using `pgmoneta-cli -?` which will give
 
 ```
-pgmoneta-cli 0.15.2
+pgmoneta-cli 0.16.0
   Command line utility for pgmoneta
 
 Usage:
@@ -211,7 +211,7 @@ registration with `pgmoneta`.
 You can see the commands it supports by using `pgmoneta-admin -?` which will give
 
 ```
-pgmoneta-admin 0.15.2
+pgmoneta-admin 0.16.0
   Administration utility for pgmoneta
 
 Usage:
@@ -276,6 +276,10 @@ There are a few short tutorials available to help you better understand and conf
 - [Working with Transport Level Security](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/12_tls.md)
 - [Hot standby](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/13_hot_standby.md)
 - [Annotate a backup](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/14_annotate.md)
+- [Extra files](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/15_extra.md)
+- [Incremental backup](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/16_incremental_backup_restore.md)
+- [Docker](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/17_docker.md)
+- [Local test](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/18_local_test.md)
 
 ## Closing
 

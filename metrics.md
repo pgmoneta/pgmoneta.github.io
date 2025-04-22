@@ -97,6 +97,18 @@ The free disk space for the WAL shipping directory of a server
 
 The total disk space for the WAL shipping directory of a server
 
+### pgmoneta_workspace
+
+The disk space used for a server
+
+### pgmoneta_workspace_free_space
+
+The free disk space for the workspace of a server
+
+### pgmoneta_workspace_total_space
+
+The total disk space for the workspace of a server
+
 ### pgmoneta_hot_standby
 
 The disk space used for hot standby for a server
@@ -163,6 +175,13 @@ The WAL switch position of a timeline on a server (showed in hex as a parameter)
 ### pgmoneta_server_workers
 
 The number of workers for a server
+
+|name|The identifier for the server|
+|--- |--- |
+
+### pgmoneta_server_summarize_wal
+
+Are summarize_wal enabled for a server
 
 |name|The identifier for the server|
 |--- |--- |

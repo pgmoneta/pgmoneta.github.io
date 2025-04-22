@@ -17,7 +17,7 @@ hero:
       link: /tutorials/01_install.md
 
 features:
-  - title: Full backup
+  - title: Full backup / Incremental backup
   - title: Restore
   - title: Compression (gzip, zstd, lz4, bzip2)
   - title: AES encryption support

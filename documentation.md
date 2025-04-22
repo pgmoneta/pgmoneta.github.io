@@ -22,3 +22,7 @@
 * [Working with Transport Level Security](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/12_tls.md)
 * [Hot standby](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/13_hot_standby.md)
 * [Annotate a backup](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/14_annotate.md)
+* [Extra files](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/15_extra.md)
+* [Incremental backup](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/16_incremental_backup_restore.md)
+* [Docker](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/17_docker.md)
+* [Local test](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/18_local_test.md)
