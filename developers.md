@@ -13,26 +13,20 @@ For RPM based distributions such as Fedora and RHEL you can add the
 rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/F-40-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 ```
 
-**RHEL 8.x / Rocky Linux 8.x**
-
-```sh
-rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm
-```
-
 **RHEL 9.x / Rocky Linux 9.x**
 
 ```sh
 rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 ```
 
-**PostgreSQL 13**
+**PostgreSQL 17**
 
 ``` sh
 dnf -qy module disable postgresql
-dnf install -y postgresql13 postgresql13-server postgresql13-contrib postgresql13-libs
+dnf install -y postgresql17 postgresql17-server postgresql17-contrib postgresql17-libs
 ```
 
-This will install PostgreSQL 13.
+This will install PostgreSQL 17.
 
 ## Install pgmoneta
 
@@ -41,7 +35,7 @@ This will install PostgreSQL 13.
 #### Basic dependencies
 
 ``` sh
-dnf install git gcc cmake make libev libev-devel openssl openssl-devel systemd systemd-devel zlib zlib-devel libzstd libzstd-devel lz4 lz4-devel libssh libssh-devel libcurl libcurl-devel python3-docutils libatomic bzip2 bzip2-devel libarchive libarchive-devel
+dnf install git gcc clang clang-analyzer cmake make libev libev-devel openssl openssl-devel systemd systemd-devel zlib zlib-devel libzstd libzstd-devel lz4 lz4-devel libssh libssh-devel libcurl libcurl-devel python3-docutils libatomic bzip2 bzip2-devel libarchive libarchive-devel libasan libasan-static
 ```
 
 #### Generate user and developer guide
@@ -61,10 +55,10 @@ dnf install pandoc texlive-scheme-basic
     Download the `Eisvogel` template for `pandoc`, please visit the [pandoc-latex-template](https://github.com/Wandmalfarbe/pandoc-latex-template) repository. For a standard installation, you can follow the steps outlined below.
 
 ```sh
-wget https://github.com/Wandmalfarbe/pandoc-latex-template/releases/download/2.4.2/Eisvogel-2.4.2.tar.gz
-tar -xzf Eisvogel-2.4.2.tar.gz
+wget https://github.com/Wandmalfarbe/pandoc-latex-template/releases/download/v3.1.0/Eisvogel-3.1.0.tar.gz
+tar -xzf Eisvogel-3.1.0.tar.gz
 mkdir -p $HOME/.local/share/pandoc/templates
-mv eisvogel.latex $HOME/.local/share/pandoc/templates/
+mv Eisvogel-3.1.0/eisvogel.latex $HOME/.local/share/pandoc/templates/
 ```
 
 3. Add package for LaTeX
@@ -93,12 +87,20 @@ git clone https://github.com/pgmoneta/pgmoneta.git
 cd pgmoneta
 mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local ..
+cmake -DCMAKE_C_COMPILER=clang -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local ..
 make
 make install
 ```
 
 This will install [**pgmoneta**](https://github.com/pgmoneta/pgmoneta) in the `/usr/local` hierarchy with the debug profile.
+
+You can do
+
+```
+cmake -DCMAKE_C_COMPILER=clang -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-DCORE_DEBUG" ..
+```
+
+in order to get information from the core libraries too.
 
 ### Check version
 
@@ -153,7 +155,7 @@ If you use dnf to install your postgresql, chances are the binary file is in `/u
 
 ``` sh
 export PATH=/usr/bin:$PATH
-initdb /tmp/pgsql
+initdb -k /tmp/pgsql
 ```
 
 #### Remove default acess
@@ -217,7 +219,7 @@ to test
 #### Add users and a database
 
 ``` sh
-export PATH=/usr/pgsql-13/bin:$PATH
+export PATH=/usr/pgsql-17/bin:$PATH
 createuser -P myuser
 createdb -E UTF8 -O myuser mydb
 ```
@@ -294,7 +296,7 @@ then create vault
 
 ``` sh
 pgmoneta-admin -f pgmoneta_users.conf -U repl user add
-``` 
+```
 
 Input the replication password to grant [**pgmoneta**](https://github.com/pgmoneta/pgmoneta) access to the database. Ensure that the information is correct.
 
@@ -358,6 +360,41 @@ pgmoneta-cli -c pgmoneta.conf status details
 pgmoneta-cli -c pgmoneta.conf stop
 ```
 
+### Usage
+
+```sh
+pgmoneta-walinfo
+  Command line utility to read and display Write-Ahead Log (WAL) files
+
+Usage:
+  pgmoneta-walinfo <file>
+
+Options:
+  -c,   --config      Set the path to the pgmoneta_walinfo.conf file
+  -u,   --users       Set the path to the pgmoneta_users.conf file
+  -RT, --tablespaces  Filter on tablspaces
+  -RD, --databases    Filter on databases
+  -RT, --relations    Filter on relations
+  -R,   --filter      Combination of -RT, -RD, -RR
+  -o,   --output      Output file
+  -F,   --format      Output format (raw, json)
+  -L,   --logfile     Set the log file
+  -q,   --quiet       No output only result
+        --color       Use colors (on, off)
+  -r,   --rmgr        Filter on a resource manager
+  -s,   --start       Filter on a start LSN
+  -e,   --end         Filter on an end LSN
+  -x,   --xid         Filter on an XID
+  -l,   --limit       Limit number of outputs
+  -v,   --verbose     Output result
+  -V,   --version     Display version information
+  -m,   --mapping     Provide mappings file for OID translation
+  -t,   --translate   Translate OIDs to object names in XLOG records
+  -?,   --help        Display help
+```
+
+For more details, please refer to the developer guide.
+
 ## End
 
 Now that we've attempted our first backup, take a moment to relax. There are a few things we need to pay attention to:
@@ -410,6 +447,8 @@ Remember to add your name to
 
 ```
 AUTHORS
+doc/manual/97-acknowledgement.md
+doc/manual/advanced/97-acknowledgement.md
 ```
 
 in your first pull request
@@ -449,9 +488,9 @@ Based on feedback keep making changes, squashing, rebasing and force pushing
 
 ### Undo
 
-Normally you can reset to an earlier commit using `git reset <commit hash> --hard`. 
-But if you accidentally squashed two or more commits, and you want to undo that, 
-you need to know where to reset to, and the commit seems to have lost after you rebased. 
+Normally you can reset to an earlier commit using `git reset <commit hash> --hard`.
+But if you accidentally squashed two or more commits, and you want to undo that,
+you need to know where to reset to, and the commit seems to have lost after you rebased.
 
 But they are not actually lost - using `git reflog`, you can find every commit the HEAD pointer
 has ever pointed to. Find the commit you want to reset to, and do `git reset --hard`.
