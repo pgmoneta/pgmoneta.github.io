@@ -109,3 +109,6 @@
 - name: pgmoneta 0.17.2
   date: 2025-06-17
   announce: release/announcement/2025/06/17/pgmoneta-0.17.2.html
+- name: pgmoneta 0.18.0
+  date: 2025-07-10
+  announce: release/announcement/2025/07/10/pgmoneta-0.18.0.html

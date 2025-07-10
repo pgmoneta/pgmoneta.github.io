@@ -70,6 +70,14 @@ The free disk space for pgmoneta
 
 The total disk space for pgmoneta
 
+### pgmoneta_server_online
+
+Is the server in an online state
+
+| Attribute | Description |
+| :-------- | :---------- |
+| name | The server identifier |
+
 ### pgmoneta_wal_shipping
 
 The disk space used for WAL shipping for a server
@@ -249,9 +257,17 @@ Is summarize_wal enabled
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_extension
+### pgmoneta_server_extensions_detected
 
-The version of pgmoneta extension
+The number of extensions detected on server
+
+| Attribute | Description |
+| :-------- | :---------- |
+| name | The server identifier |
+
+### pgmoneta_server_extension
+
+Information about installed extensions on server
 
 | Attribute | Description |
 | :-------- | :---------- |
@@ -274,9 +290,17 @@ The newest backup for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_backup_count
+### pgmoneta_backup_valid
 
 The number of valid backups for a server
+
+| Attribute | Description |
+| :-------- | :---------- |
+| name | The server identifier |
+
+### pgmoneta_backup_invalid
+
+The number of invalid backups for a server
 
 | Attribute | Description |
 | :-------- | :---------- |

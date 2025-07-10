@@ -2,6 +2,7 @@
 
 |Version|Date (`YYYY` / `MM` / `DD`) |
 |:---|---|
+|[pgmoneta 0.18.0](/_posts/2025-07-10-pgmoneta-0.18.0.html)|`2025` / `07` / `10`|
 |[pgmoneta 0.17.2](/_posts/2025-06-17-pgmoneta-0.17.2.html)|`2025` / `06` / `17`|
 |[pgmoneta 0.17.1](/_posts/2025-06-04-pgmoneta-0.17.1.html)|`2025` / `06` / `04`|
 |[pgmoneta 0.17.0](/_posts/2025-05-22-pgmoneta-0.17.0.html)|`2025` / `05` / `22`|
