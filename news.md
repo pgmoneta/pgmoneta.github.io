@@ -6,10 +6,11 @@ outline: deep
 
 ## Latest
 
-- [`2025/08/27`] `pgmoneta` v0.19.0 released. [The release notes](/_posts/2025-08-27-pgmoneta-0.19.0.html).
+- [`2025/08/31`] `pgmoneta` v0.19.1 released. [The release notes](/_posts/2025-08-31-pgmoneta-0.19.1.html).
 
 ## Old
 
+- [`2025/08/27`] `pgmoneta` v0.19.0 released. [The release notes](/_posts/2025-08-27-pgmoneta-0.19.0.html).
 - [`2025/07/10`] `pgmoneta` v0.18.0 released. [The release notes](/_posts/2025-07-10-pgmoneta-0.18.0.html).
 - [`2025/06/17`] `pgmoneta` v0.17.2 released. [The release notes](/_posts/2025-06-17-pgmoneta-0.17.2.html).
 - [`2025/06/04`] `pgmoneta` v0.17.1 released. [The release notes](/_posts/2025-06-04-pgmoneta-0.17.1.html).
