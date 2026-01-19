@@ -20,7 +20,7 @@ Options:
   -?, --help               Display help
 ```
 
-If you don't have `pgmoneta` in your path see [Install pgmoneta](./tutorials/01_install) on how to
+If you don't have `pgmoneta` in your path see the guide on how to
 compile and install `pgmoneta` in your system.
 
 ## Configuration
@@ -260,28 +260,6 @@ Next steps in improving pgmoneta's configuration could be
 * Enable Transport Layer Security v1.2+ (TLS) for administrator access
 
 See [Configuration](./configuration) for more information on these subjects.
-
-## Tutorials
-
-There are a few short tutorials available to help you better understand and configure `pgmoneta`:
-- [Installing pgmoneta](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/01_install.md)
-- [Enabling remote management](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/02_remote_management.md)
-- [Enabling Prometheus metrics](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/03_prometheus.md)
-- [Doing backup and restore](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/04_backup_restore.md)
-- [Verify a backup](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/05_verify.md)
-- [Creating an archive](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/06_archive.md)
-- [Deleting a backup](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/07_delete.md)
-- [Encryption and decryption](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/08_encryption.md)
-- [Retention](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/09_retention.md)
-- [Enabling Grafana dashboard](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/10_grafana.md)
-- [Add WAL shipping](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/11_wal_shipping.md)
-- [Working with Transport Level Security](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/12_tls.md)
-- [Hot standby](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/13_hot_standby.md)
-- [Annotate a backup](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/14_annotate.md)
-- [Extra files](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/15_extra.md)
-- [Incremental backup](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/16_incremental_backup_restore.md)
-- [Docker](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/17_docker.md)
-- [Local test](https://github.com/pgmoneta/pgmoneta/blob/main/doc/tutorial/18_local_test.md)
 
 ## Closing
 

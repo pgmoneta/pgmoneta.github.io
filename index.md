@@ -12,12 +12,10 @@ hero:
     - theme: alt
       text: Releases
       link: /releases
-    - theme: alt
-      text: Tutorials
-      link: /tutorials/01_install.md
 
 features:
-  - title: Full / incremental backup
+  - title: Full backup
+  - title: Incremental backup (PostgreSQL 14+)
   - title: Restore
   - title: Compression (gzip, zstd, lz4, bzip2)
   - title: AES encryption support
@@ -26,9 +24,8 @@ features:
   - title: Hot standby
   - title: Prometheus support
   - title: Remote management
-  - title: Offline mode
+  - title: Offline detection
   - title: Transport Layer Security (TLS) v1.2+ support
   - title: Daemon mode
   - title: User vault
 ---
-
