@@ -1,18 +1,20 @@
 Features
 --------
 
-*   Full backup
-*   Restore
-*   Compression (gzip, zstd, lz4)
-*   AES encryption support
-*   Symlink support
-*   WAL shipping support
-*   Hot standby
-*   Prometheus support
-*   Remote management
-*   Transport Layer Security (TLS) v1.2+ support
-*   Daemon mode
-*   User vault
+* Full backup
+* Incremental backup (PostgreSQL 14+)
+* Restore
+* Compression (gzip, zstd, lz4, bzip2)
+* AES encryption support
+* Symlink support
+* WAL shipping support
+* Hot standby
+* Prometheus support
+* Remote management
+* Offline detection
+* Transport Layer Security (TLS) v1.2+ support
+* Daemon mode
+* User vault
 
 Overview
 --------
@@ -31,10 +33,10 @@ See [Architecture](./ARCHITECTURE.md) for the architecture of `pgmoneta`.
 Further information
 -------------------
 
-*   [GitHub](https://github.com/pgmoneta/pgmoneta)
+* [GitHub](https://github.com/pgmoneta/pgmoneta)
 
 Related projects
 ----------------
 
-*   [pgagroal](https://agroal.github.io/pgagroal/) - High-performance connection pool for PostgreSQL
-*   [pgexporter](https://pgexporter.github.io/) - Prometheus exporter for PostgreSQL
+* [pgagroal](https://pgagroal.github.io/) - High-performance connection pool for PostgreSQL
+* [pgexporter](https://pgexporter.github.io/) - Prometheus exporter for PostgreSQL

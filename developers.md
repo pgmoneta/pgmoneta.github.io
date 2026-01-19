@@ -7,26 +7,26 @@
 For RPM based distributions such as Fedora and RHEL you can add the
 [PostgreSQL YUM repository](https://yum.postgresql.org/) and do the install via
 
-**Fedora 40**
+**Fedora 43**
 
 ```sh
-rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/F-40-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/F-43-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 ```
 
-**RHEL 9.x / Rocky Linux 9.x**
+**RHEL 10.x / Rocky Linux 10.x**
 
 ```sh
-rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/EL-10-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 ```
 
-**PostgreSQL 17**
+**PostgreSQL 18**
 
 ``` sh
 dnf -qy module disable postgresql
-dnf install -y postgresql17 postgresql17-server postgresql17-contrib postgresql17-libs
+dnf install -y postgresql18 postgresql18-server postgresql18-contrib postgresql18-libs
 ```
 
-This will install PostgreSQL 17.
+This will install PostgreSQL 18.
 
 ## Install pgmoneta
 
@@ -35,7 +35,7 @@ This will install PostgreSQL 17.
 #### Basic dependencies
 
 ``` sh
-dnf install git gcc clang clang-analyzer cmake make libev libev-devel openssl openssl-devel systemd systemd-devel zlib zlib-devel libzstd libzstd-devel lz4 lz4-devel libssh libssh-devel libcurl libcurl-devel python3-docutils libatomic bzip2 bzip2-devel libarchive libarchive-devel libasan libasan-static
+dnf install git gcc clang clang-analyzer clang-tools-extra cmake make libev libev-devel openssl openssl-devel systemd systemd-devel zlib zlib-devel libzstd libzstd-devel lz4 lz4-devel libssh libssh-devel python3-docutils libatomic bzip2 bzip2-devel libarchive libarchive-devel libasan libasan-static
 ```
 
 #### Generate user and developer guide
@@ -55,10 +55,10 @@ dnf install pandoc texlive-scheme-basic
     Download the `Eisvogel` template for `pandoc`, please visit the [pandoc-latex-template](https://github.com/Wandmalfarbe/pandoc-latex-template) repository. For a standard installation, you can follow the steps outlined below.
 
 ```sh
-wget https://github.com/Wandmalfarbe/pandoc-latex-template/releases/download/v3.1.0/Eisvogel-3.1.0.tar.gz
-tar -xzf Eisvogel-3.1.0.tar.gz
+wget https://github.com/Wandmalfarbe/pandoc-latex-template/releases/download/v3.3.0/Eisvogel-3.3.0.tar.gz
+tar -xzf Eisvogel-3.3.0.tar.gz
 mkdir -p $HOME/.local/share/pandoc/templates
-mv Eisvogel-3.1.0/eisvogel.latex $HOME/.local/share/pandoc/templates/
+mv Eisvogel-3.3.0/eisvogel.latex $HOME/.local/share/pandoc/templates/
 ```
 
 3. Add package for LaTeX
@@ -66,7 +66,7 @@ mv Eisvogel-3.1.0/eisvogel.latex $HOME/.local/share/pandoc/templates/
     Download the additional packages required for generating PDF and HTML files.
 
 ```sh
-dnf install 'tex(footnote.sty)' 'tex(footnotebackref.sty)' 'tex(pagecolor.sty)' 'tex(hardwrap.sty)' 'tex(mdframed.sty)' 'tex(sourcesanspro.sty)' 'tex(ly1enc.def)' 'tex(sourcecodepro.sty)' 'tex(titling.sty)' 'tex(csquotes.sty)' 'tex(zref-abspage.sty)' 'tex(needspace.sty)'
+    dnf install 'tex(footnote.sty)' 'tex(footnotebackref.sty)' 'tex(pagecolor.sty)' 'tex(hardwrap.sty)' 'tex(mdframed.sty)' 'tex(sourcesanspro.sty)' 'tex(ly1enc.def)' 'tex(sourcecodepro.sty)' 'tex(titling.sty)' 'tex(csquotes.sty)' 'tex(zref-abspage.sty)' 'tex(needspace.sty)' 'tex(selnolig.sty)'
 ```
 
 #### Generate API guide

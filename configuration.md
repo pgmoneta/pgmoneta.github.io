@@ -16,18 +16,17 @@ All properties are in the format `key = value`.
 The characters `#` and `;` can be used for comments; must be the first character on the line.
 The `Bool` data type supports the following values: `on`, `yes`, `1`, `true`, `off`, `no`, `0` and `false`.
 
-See a [sample](https://github.com/pgmoneta/pgmoneta/blob/main/doc/etc/pgmoneta.conf) configuration for running `pgmoneta` on `localhost`.
+See a [sample](./etc/pgmoneta.conf) configuration for running `pgmoneta` on `localhost`.
 
 ## [pgmoneta]
 
 | Property | Default | Unit | Required | Description |
-|----------|---------|------|----------|-------------|
+| :------- | :------ | :--- | :------- | :---------- |
 | host | | String | Yes | The bind address for pgmoneta |
 | unix_socket_dir | | String | Yes | The Unix Domain Socket location. Can interpolate environment variables (e.g., `$HOME`) |
 | base_dir | | String | Yes | The base directory for the backup. Can interpolate environment variables (e.g., `$HOME`) |
 | metrics | 0 | Int | No | The metrics port (disable = 0) |
-| metrics_cache_max_age | 0 | String | No | The time to keep a Prometheus (metrics) response in cache. If this value is specified without units, it is taken as seconds. Setting this parameter to 0 disables caching. It supports the following units as suffixes: 'S' for seconds (default), 'M' fo
-r minutes, 'H' for hours, 'D' for days, and 'W' for weeks. |
+| metrics_cache_max_age | 0 | String | No | The time to keep a Prometheus (metrics) response in cache. If this value is specified without units, it is taken as seconds. Setting this parameter to 0 disables caching. It supports the following units as suffixes: 'S' for seconds (default), 'M' for minutes, 'H' for hours, 'D' for days, and 'W' for weeks. |
 | metrics_cache_max_size | 256k | String | No | The maximum amount of data to keep in cache when serving Prometheus responses. Changes require restart. This parameter determines the size of memory allocated for the cache even if `metrics_cache_max_age` or `metrics` are disabled. Its value, however, is taken into account only if `metrics_cache_max_age` is set to a non-zero value. Supports suffixes: 'B' (bytes), the default if omitted, 'K' or 'KB' (kilobytes), 'M' or 'MB' (megabytes), 'G' or 'GB' (gigabytes).|
 | management | 0 | Int | No | The remote management port (disable = 0) |
 | compression | zstd | String | No | The compression type (none, gzip, client-gzip, server-gzip, zstd, client-zstd, server-zstd, lz4, client-lz4, server-lz4, bzip2, client-bzip2) |
@@ -39,28 +38,33 @@ r minutes, 'H' for hours, 'D' for days, and 'W' for weeks. |
 | create_slot | no | Bool | No | Create a replication slot for all server. Valid values are: yes, no |
 | ssh_hostname | | String | Yes | Defines the hostname of the remote system for connection |
 | ssh_username | | String | Yes | Defines the username of the remote system for connection |
-| ssh_base_dir | | String | Yes | The base directory for the remote backup |
+| ssh_base_dir | | String | Yes | The base directory for the remote backup. |
 | ssh_ciphers | aes-256-ctr, aes-192-ctr, aes-128-ctr | String | No | The supported ciphers for communication. `aes \| aes-256 \| aes-256-cbc`: AES CBC (Cipher Block Chaining) mode with 256 bit key length<br/> `aes-192 \| aes-192-cbc`: AES CBC mode with 192 bit key length<br/> `aes-128 \| aes-128-cbc`: AES CBC mode with 128 bit key length<br/> `aes-256-ctr`: AES CTR (Counter) mode with 256 bit key length<br/> `aes-192-ctr`: AES CTR mode with 192 bit key length<br/> `aes-128-ctr`: AES CTR mode with 128 bit key length. Otherwise verbatim |
-| s3_aws_region | | String | Yes | The AWS region |
+| ssh_public_key_file | `$HOME/.ssh/id_rsa.pub` | String | No | The SSH public key file path. Can interpolate environment variables (e.g., `$HOME`).   |
+| ssh_private_key_file | `$HOME/.ssh/id_rsa` | String | No | The SSH private key file path. Can interpolate environment variables (e.g., `$HOME`) | 
+| s3_storage_class | REDUCED_REDUNDANCY | String | No | The S3 storage class | 
+| s3_port   | | Int | No | The port number for the S3 endpoint |
+| s3_use_tls | `off` | Bool | No | Use TLS for S3 connections |
+| s3_endpoint | String | No | s3 endpoint url |
+| s3_region | | String | Yes | The AWS region |
 | s3_access_key_id | | String | Yes | The IAM access key ID |
 | s3_secret_access_key | | String | Yes | The IAM secret access key |
 | s3_bucket | | String | Yes | The AWS S3 bucket name |
-| s3_base_dir | | String | Yes | The base directory for the S3 bucket |
+| s3_base_dir | | String | Yes | The base directory for the S3 bucket. |
 | azure_storage_account | | String | Yes | The Azure storage account name |
 | azure_container | | String | Yes | The Azure container name |
 | azure_shared_key | | String | Yes | The Azure storage account key |
-| azure_base_dir | | String | Yes | The base directory for the Azure container |
+| azure_base_dir | | String | Yes | The base directory for the Azure container. |
 | retention | 7, - , - , - | Array | No | The retention time in days, weeks, months, years |
-| link | `on` | Bool | No | Use links to limit backup size |
+| retention_interval | 300 | Int | No | The retention check interval |
 | log_type | console | String | No | The logging type (console, file, syslog) |
 | log_level | info | String | No | The logging level, any of the (case insensitive) strings `FATAL`, `ERROR`, `WARN`, `INFO` and `DEBUG` (that can be more specific as `DEBUG1` thru `DEBUG5`). Debug level greater than 5 will be set to `DEBUG5`. Not recognized values will make the log_level be `INFO` |
 | log_path | pgmoneta.log | String | No | The log file location. Can be a strftime(3) compatible string. Can interpolate environment variables (e.g., `$HOME`) |
-| log_rotation_age | 0 | String | No | The time after which log file rotation is triggered. If this value is specified without units, it is taken as seconds. Setting this parameter to 0 disables log rotation based on time. It supports the following units as suffixes: 'S' for seconds (default)
-, 'M' for minutes, 'H' for hours, 'D' for days, and 'W' for weeks. |
+| log_rotation_age | 0 | String | No | The time after which log file rotation is triggered. If this value is specified without units, it is taken as seconds. Setting this parameter to 0 disables log rotation based on time. It supports the following units as suffixes: 'S' for seconds (default), 'M' for minutes, 'H' for hours, 'D' for days, and 'W' for weeks. |
 | log_rotation_size | 0 | String | No | The size of the log file that will trigger a log rotation. Supports suffixes: 'B' (bytes), the default if omitted, 'K' or 'KB' (kilobytes), 'M' or 'MB' (megabytes), 'G' or 'GB' (gigabytes). A value of `0` (with or without suffix) disables. |
 | log_line_prefix | %Y-%m-%d %H:%M:%S | String | No | A strftime(3) compatible string to use as prefix for every log line. Must be quoted if contains spaces. |
 | log_mode | append | String | No | Append to or create the log file (append, create) |
-| blocking_timeout | 30 | Int | No | The number of seconds the process will be blocking for a connection (disable = 0) |
+| blocking_timeout | 30 | String | No | The number of seconds the process will be blocking for a connection. If this value is specified without units, it is taken as seconds. Setting this parameter to 0 disables it. It supports the following units as suffixes: 'S' for seconds (default), 'M' for minutes, 'H' for hours, 'D' for days, and 'W' for weeks. |
 | tls | `off` | Bool | No | Enable Transport Layer Security (TLS) |
 | tls_cert_file | | String | No | Certificate file for TLS. This file must be owned by either the user running pgmoneta or root. Can interpolate environment variables (e.g., `$HOME`) |
 | tls_key_file | | String | No | Private key file for TLS. This file must be owned by either the user running pgmoneta or root. Additionally permissions must be at least `0640` when owned by root or `0600` otherwise. Can interpolate environment variables (e.g., `$HOME`) |
@@ -69,7 +73,6 @@ r minutes, 'H' for hours, 'D' for days, and 'W' for weeks. |
 | metrics_key_file | | String | No | Private key file for TLS for Prometheus metrics. This file must be owned by either the user running pgmoneta or root. Additionally permissions must be at least `0640` when owned by root or `0600` otherwise. |
 | metrics_ca_file | | String | No | Certificate Authority (CA) file for TLS for Prometheus metrics. This file must be owned by either the user running pgmoneta or root.  |
 | libev | `auto` | String | No | Select the [libev](http://software.schmorp.de/pkg/libev.html) backend to use. Valid options: `auto`, `select`, `poll`, `epoll`, `iouring`, `devpoll` and `port` |
-| buffer_size | 65535 | Int | No | The network buffer size (`SO_RCVBUF` and `SO_SNDBUF`) |
 | backup_max_rate | 0 | Int | No | The number of bytes of tokens added every one second to limit the backup rate|
 | network_max_rate | 0 | Int | No | The number of bytes of tokens added every one second to limit the netowrk backup rate|
 | verification | 0 | Int | No | The time between verification of a backup. If this value is specified without units, it is taken as seconds. Setting this parameter to 0 disables verification. It supports the following units as suffixes: 'S' for seconds (default), 'M' for minutes, 'H' for hours, 'D' for days, and 'W' for weeks. |
@@ -84,7 +87,7 @@ r minutes, 'H' for hours, 'D' for days, and 'W' for weeks. |
 ## Server section
 
 | Property | Default | Unit | Required | Description |
-|----------|---------|------|----------|-------------|
+| :------- | :------ | :--- | :------- | :---------- |
 | host | | String | Yes | The address of the PostgreSQL instance |
 | port | | Int | Yes | The port of the PostgreSQL instance |
 | user | | String | Yes | The replication user name |
@@ -94,15 +97,25 @@ r minutes, 'H' for hours, 'D' for days, and 'W' for weeks. |
 | retention | | Array | No | The retention for the server in days, weeks, months, years |
 | wal_shipping | | String | No | The WAL shipping directory |
 | workspace | /tmp/pgmoneta-workspace/ | String | No | The directory for the workspace that incremental backup can use for its work. Can interpolate environment variables (e.g., `$HOME`) |
+| s3_storage_class | | String | No | The S3 storage class. Overrides global setting. |
+| s3_port   | | Int | No | The port number for the S3 endpoint. Overrides global setting. |
+| s3_use_tls | | Bool | No | Use TLS for S3 connections. Overrides global setting. |
+| s3_endpoint | | String | No | S3 endpoint URL. Overrides global setting. |
+| s3_region | | String | No | The AWS region. Overrides global setting. |
+| s3_access_key_id | | String | No | The IAM access key ID. Overrides global setting. |
+| s3_secret_access_key | | String | No | The IAM secret access key. Overrides global setting. |
+| s3_bucket | | String | No | The AWS S3 bucket name. Overrides global setting. |
+| s3_base_dir | | String | No | The base directory for the S3 bucket. Overrides global setting. |
 | hot_standby | | String | No | Hot standby directories. Single directory or comma separated directories up to 8 (e.g., /path/to/hot/standby1,/path/to/hot/standby2) |
 | hot_standby_overrides | | String | No | Files to override in the hot standby directory. If multiple hot standbys are specified then this setting is separated by a \| |
 | hot_standby_tablespaces | | String | No | Tablespace mappings for the hot standby. Syntax is [from -> to,?]+. If multiple hot standbys are specified then this setting is separated by a \| |
-| workers | -1 | Int | No | The number of workers that each process can use for its work. Use 0 to disable, -1 means use the global settting |
+| workers | -1 | Int | No | The number of workers that each process can use for its work. Use 0 to disable, -1 means use the global settting. Maximum is CPU count |
 | backup_max_rate | -1 | Int | No | The number of bytes of tokens added every one second to limit the backup rate. Use 0 to disable, -1 means use the global settting|
 | network_max_rate | -1 | Int | No | The number of bytes of tokens added every one second to limit the netowrk backup rate. Use 0 to disable, -1 means use the global settting|
 | tls_cert_file | | String | No | Certificate file for TLS. This file must be owned by either the user running pgmoneta or root. Can interpolate environment variables (e.g., `$HOME`) |
 | tls_key_file | | String | No | Private key file for TLS. This file must be owned by either the user running pgmoneta or root. Additionally permissions must be at least `0640` when owned by root or `0600` otherwise. Can interpolate environment variables (e.g., `$HOME`) |
 | tls_ca_file | | String | No | Certificate Authority (CA) file for TLS. This file must be owned by either the user running pgmoneta or root. Can interpolate environment variables (e.g., `$HOME`) |
+| extra | | String | No | The source directory for retrieval on the server side (details are in the extra section)|
 
 The `user` specified must have the `REPLICATION` option in order to stream the Write-Ahead Log (WAL), and must
 have access to the `postgres` database in order to get the necessary configuration parameters.
@@ -110,6 +123,20 @@ have access to the `postgres` database in order to get the necessary configurati
 Note, that PostgreSQL 13+ is required, as well as having `wal_level` at `replica` or `logical` level.
 
 Note, that if `host` starts with a `/` it represents a path and `pgmoneta` will connect using a Unix Domain Socket.
+
+### extra parameter
+
+The `extra` configuration is set in the server section. It is not required, but if you configure this parameter, when you perform a backup using the CLI `pgmoneta-cli -c pgmoneta.conf backup primary`, it will also copy all specified files on the server side and send them back to the client side.
+
+This `extra` feature requires the server side to install the [pgmoneta_ext](https://github.com/pgmoneta/pgmoneta_ext) extension and also make the user `repl` a `SUPERUSER` (this will be improved in the future). Currently, this feature is only available to the `SUPERUSER` role.
+
+You can set up `pgmoneta_ext` by following the [README](https://github.com/pgmoneta/pgmoneta_ext/blob/main/README.md) to easily install the extension. There are also more detailed instructions available in the [DEVELOPERS](https://github.com/pgmoneta/pgmoneta_ext/blob/main/doc/DEVELOPERS.md) documentation.
+
+The format for the `extra` parameter is a path to a file or directory. You can list more than one file or directory separated by commas. The format is as follows:
+
+```ini
+extra = /tmp/myfile1, /tmp/myfile2, /tmp/mydir1, /tmp/mydir2
+```
 
 # pgmoneta_users configuration
 
@@ -129,10 +156,107 @@ If pgmoneta has both Transport Layer Security (TLS) and `management` enabled the
 connect with TLS using the files `~/.pgmoneta/pgmoneta.key` (must be 0600 permission),
 `~/.pgmoneta/pgmoneta.crt` and `~/.pgmoneta/root.crt`.
 
+# pgmoneta_cli configuration
+
+The `pgmoneta_cli` configuration defines defaults for the `pgmoneta-cli` client. It is loaded from the path passed with `-c` or from `/etc/pgmoneta/pgmoneta_cli.conf` if `-c` is not supplied. Command-line flags override values in this file.
+
+| Property | Default | Unit | Required | Description |
+| :------- | :------ | :--- | :------- | :---------- |
+| host |  | String | No | Management host to connect to. If omitted, `unix_socket_dir` may be used for a local Unix socket connection. |
+| port | 0 | Int | No | Management port to connect to. Required for remote TCP connections unless a Unix socket is used. |
+| unix_socket_dir |  | String | No | Directory containing the pgmoneta Unix Domain Socket. Enables local management without host/port. Can interpolate environment variables (e.g., `$HOME`). |
+| compression | none | String | No | Wire-protocol compression (`none`, `gzip`, `zstd`, `lz4`, `bzip2`). Applies only to CLI<->server traffic. |
+| encryption | none | String | No | Wire-protocol encryption (`none`, `aes256`, `aes192`, `aes128`). Applies only to CLI<->server traffic. |
+| output | text | String | No | Default CLI output format (`text`, `json`, `raw`). |
+| log_type | console | String | No | Logging type for the CLI (`console`, `file`, `syslog`). |
+| log_level | info | String | No | Logging level (`fatal`, `error`, `warn`, `info`, `debug`/`debug1`-`debug5`). |
+| log_path | pgmoneta-cli.log | String | No | Log file path when `log_type = file`. Can interpolate environment variables (e.g., `$HOME`). |
+| log_mode | append | String | No | Log file mode (`append`, `create`). |
+| log_rotation_age | 0 | String | No | Time-based rotation. `0` disables. Supports `S`, `M`, `H`, `D`, `W` suffixes (seconds default). |
+| log_rotation_size | 0 | String | No | Size-based rotation. `0` disables. Supports `B` (default), `K/KB`, `M/MB`, `G/GB`. |
+| log_line_prefix | %Y-%m-%d %H:%M:%S | String | No | strftime(3) format prefix for log lines. |
+
+## Configuration Directory
+
+You can specify a directory for all configuration files using the `-D` flag (or `--directory`).
+Alternatively, you can set the `PGMONETA_CONFIG_DIR` environment variable to define the configuration directory.
+
+**Behavior:**
+- When the directory flag (`-D`) is set, pgmoneta will look for all configuration files in the specified directory.
+- If a required file is not found in the specified directory, pgmoneta will look for it in its default location (e.g., `/etc/pgmoneta/pgmoneta.conf`).
+- If the file is not found in either location:
+  - If the file is mandatory, pgmoneta will log an error and fail to start.
+  - If the file is optional, pgmoneta will log a warning and continue without it.
+- All file lookup attempts and missing files are logged for troubleshooting.
+
+**Precedence Rules:**
+- Individual file flags (such as `-c`, `-u`, `-A`, etc.) always take precedence over the directory flag and environment variable for their respective files.
+- The directory flag (`-D`) takes precedence over the environment variable (`PGMONETA_CONFIG_DIR`).
+- If neither the directory flag nor individual file flags are set, pgmoneta uses the default locations for all configuration files.
+
+**Using the Environment Variable:**
+1. Set the environment variable before starting pgmoneta:
+```
+export PGMONETA_CONFIG_DIR=/path/to/config_dir
+pgmoneta -d
+```
+2. If both the environment variable and the `-D` flag are set, the flag takes precedence.
+
+**Example:**
+```
+pgmoneta -D /custom/config/dir -d
+```
+or
+```
+export PGMONETA_CONFIG_DIR=/custom/config/dir
+pgmoneta -d
+```
+
+Refer to logs for details about which configuration files were loaded and from which locations.
+
 # pgmoneta_walinfo configuration
 The `pgmoneta_walinfo` configuration defines the info needed for `walinfo` to work.
 
 The configuration is loaded from either the path specified by the `-c` flag or `/etc/pgmoneta/pgmoneta_walinfo.conf` if -c wasn't provided.
+
+# pgmoneta_walfilter configuration
+The `pgmoneta_walfilter` configuration defines the info needed for `walfilter` to work.
+
+The tool uses two configuration files:
+1. A YAML configuration file (required) that specifies source/target directories, filtering rules, and other settings
+2. A pgmoneta_walfilter.conf file (optional) for logging configuration
+
+## YAML Configuration Format
+
+The YAML configuration file defines the paths, filtering rules, and other settings for `walfilter`. Below is an example configuration:
+
+```yaml
+source_dir: /path/to/source/backup/directory
+target_dir: /path/to/target/directory
+configuration_file: /etc/pgmoneta/pgmoneta_walfilter.conf
+rules:                             # Optional: filtering rules
+  - xids:                          # Filter by transaction IDs
+    - 752
+    - 753
+```
+
+### Filtering Rules
+
+The tool supports two types of filtering:
+
+1. **Transaction ID (XID) filtering**: Filter out specific transaction IDs
+   - Specify a list of XIDs to remove from the WAL stream
+2. **Operation-based filtering**: Filter out specific database operations
+   - `DELETE`: Removes all DELETE operations and their associated transactions
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `source_dir` | String | Yes | Source directory containing the backup and WAL files |
+| `target_dir` | String | Yes | Target directory where filtered WAL files will be written |
+| `configuration_file` | String | No | Path to pgmoneta_walfilter.conf file |
+| `rules` | Array | No | Filtering rules to apply to WAL files |
+| `rules.xids` | Array of Integers | No | List of transaction IDs (XIDs) to filter out |
+| `rules.operations` | Array of Strings | No | List of operations to filter out |
 
 ## [pgmoneta_walinfo]
 
@@ -141,6 +265,22 @@ The configuration is loaded from either the path specified by the `-c` flag or `
 | log_type | console | String | No | The logging type (console, file, syslog) |
 | log_level | info | String | No | The logging level, any of the (case insensitive) strings `FATAL`, `ERROR`, `WARN`, `INFO` and `DEBUG` (that can be more specific as `DEBUG1` thru `DEBUG5`). Debug level greater than 5 will be set to `DEBUG5`. Not recognized values will make the log_level be `INFO` |
 | log_path | pgmoneta.log | String | No | The log file location. Can be a strftime(3) compatible string. Can interpolate environment variables (e.g., `$HOME`) |
+
+## Server section
+
+| Property | Default | Unit | Required | Description |
+| :------- | :------ | :--- | :------- | :---------- |
+| host | | String | Yes | The address of the PostgreSQL instance |
+| port | | Int | Yes | The port of the PostgreSQL instance |
+| user | | String | Yes | The replication user name |
+
+## [pgmoneta_walfilter]
+
+| Property | Default | Unit | Required | Description |
+| :------- | :------ | :--- | :------- | :---------- |
+| log_type | console | String | No | The logging type (console, file, syslog) |
+| log_level | info | String | No | The logging level, any of the (case insensitive) strings `FATAL`, `ERROR`, `WARN`, `INFO` and `DEBUG` (that can be more specific as `DEBUG1` thru `DEBUG5`). Debug level greater than 5 will be set to `DEBUG5`. Not recognized values will make the log_level be `INFO` |
+| log_path | pgmoneta.log | String | No | The log file location. Can be a strftime(3) compatible string. |
 
 ## Server section
 
