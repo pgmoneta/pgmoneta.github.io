@@ -28,4 +28,5 @@ features:
   - title: Transport Layer Security (TLS) v1.2+ support
   - title: Daemon mode
   - title: User vault
+  - title: Model Context Protocol (MCP)
 ---

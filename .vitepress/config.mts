@@ -17,6 +17,7 @@ export default defineConfig({
          { text: "Documentation", link: "/documentation" },
          { text: "Configuration", link: "/configuration" },
          { text: "Metrics", link: "/metrics" },
+         { text: "MCP", link: "/mcp" },
          { text: "News", link: "/news" },
          { text: "Developers", link: "/developers" },
          { text: "About", link: "/about" },
@@ -47,12 +48,8 @@ export default defineConfig({
             link: "/manuals"
          },
          {
-            text: "GitHub Issues",
-            link: "https://github.com/pgmoneta/pgmoneta/issues",
-         },
-         {
-            text: "GitHub Discussions",
-            link: "https://github.com/pgmoneta/pgmoneta/discussions",
+            text: "GitHub",
+            link: "https://github.com/pgmoneta/pgmoneta/",
          },
          {
             text: "LICENSE",
