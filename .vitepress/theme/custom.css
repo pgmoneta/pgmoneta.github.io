@@ -1,0 +1,26 @@
+@media (min-width: 960px) {
+  .VPNavBarAppearance.appearance,
+  .VPNavBarSocialLinks.social-links {
+    display: flex !important;
+    align-items: center;
+  }
+
+  .VPNavBarSocialLinks.social-links {
+    order: 1;
+    margin-right: 0;
+  }
+
+  .VPNavBarAppearance.appearance {
+    order: 2;
+  }
+
+  .VPNavBarExtra.extra {
+    display: none !important;
+  }
+
+  .content-body > .VPNavBarAppearance.appearance::before,
+  .content-body > .VPNavBarSocialLinks.social-links::before {
+    content: none !important;
+    margin: 0 !important;
+  }
+}

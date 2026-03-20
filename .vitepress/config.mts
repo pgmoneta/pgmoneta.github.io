@@ -9,12 +9,11 @@ export default defineConfig({
       logo: {
          src: "/images/logo-reversed-transparent-32.png",
          alt: "pgmoneta logo",
-         width: "24",
-         height: "24",
+         width: "20",
+         height: "20",
       },
       // https://vitepress.dev/reference/default-theme-config
       nav: [
-         { text: "Home", link: "/" },
          { text: "Documentation", link: "/documentation" },
          { text: "Configuration", link: "/configuration" },
          { text: "Metrics", link: "/metrics" },
@@ -61,6 +60,6 @@ export default defineConfig({
          },
       ],
 
-      socialLinks: [{ icon: "github", link: "https://github.com/pgmoneta" }],
-   },
-});
+       socialLinks: [{ icon: "github", link: "https://github.com/pgmoneta" }],
+    },
+ });
