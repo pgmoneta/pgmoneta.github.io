@@ -20,20 +20,20 @@ features:
     details: Reduce backup time and storage usage by capturing only changed data between backup runs.
   - title: Restore
     details: Recover backups quickly and reliably when databases need to be rebuilt or rolled back.
-  - title: Compression (gzip, zstd, lz4, bzip2)
-    details: Choose from multiple compression formats to balance storage efficiency and backup performance.
-  - title: AES encryption support
+  - title: Compression
+    details: Choose from multiple compression formats  (gzip, zstd, lz4, bzip2) to balance storage efficiency and backup performance.
+  - title: AES encryption
     details: Protect backup data at rest with built-in AES encryption support for sensitive environments.
   - title: Symlink support
-    details: Preserve symbolic links correctly so restored environments match the original layout.
+    details: Use symbolic links to limit backup sizes.
   - title: WAL shipping support
     details: Archive and manage WAL files as part of a robust continuous backup and recovery strategy.
   - title: Hot standby
-    details: Work with PostgreSQL hot standby setups as part of high-availability and recovery workflows.
+    details: Have a PostgreSQL hot standby ready for your high-availability and recovery workflows.
   - title: Prometheus support
     details: Expose operational metrics for monitoring, alerting, and observability with Prometheus.
   - title: Remote management
-    details: Administer pgmoneta remotely through its management interface when local access is not available.
+    details: Administer pgmoneta remotely through its management interface.
   - title: Offline detection
     details: Detect unavailable servers and react more safely when backup targets go offline.
   - title: Transport Layer Security (TLS) v1.2+ support
