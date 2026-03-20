@@ -4,7 +4,14 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
    title: "pgmoneta",
    description: "Documentation website for pgmoneta",
+   srcExclude: ["vendor/**"],
    themeConfig: {
+      logo: {
+         src: "/images/logo-reversed-transparent-32.png",
+         alt: "pgmoneta logo",
+         width: "24",
+         height: "24",
+      },
       // https://vitepress.dev/reference/default-theme-config
       nav: [
          { text: "Home", link: "/" },
