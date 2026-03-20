@@ -15,6 +15,7 @@ Features
 * Transport Layer Security (TLS) v1.2+ support
 * Daemon mode
 * User vault
+* Model Context Protocol
 
 Overview
 --------
@@ -34,6 +35,11 @@ Further information
 -------------------
 
 * [GitHub](https://github.com/pgmoneta/pgmoneta)
+
+Sponsors
+----------
+
+* [mnemosyne systems](https://www.mnemosyne-systems.ai/)
 
 Related projects
 ----------------
