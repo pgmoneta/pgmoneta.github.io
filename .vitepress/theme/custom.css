@@ -1,4 +1,9 @@
 @media (min-width: 960px) {
+  .VPHero .tagline {
+    max-width: none;
+    white-space: nowrap;
+  }
+
   .VPNavBarAppearance.appearance,
   .VPNavBarSocialLinks.social-links {
     display: flex !important;
