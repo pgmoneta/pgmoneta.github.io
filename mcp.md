@@ -2,7 +2,7 @@
 
 The [pgmoneta_mcp](https://github.com/pgmoneta/pgmoneta_mcp) project aims to implement
 a [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro) server
-for [pgmoneta_mcp](https://github.com/pgmoneta/pgmoneta).
+for [pgmoneta](https://github.com/pgmoneta/pgmoneta).
 
 ## Closing
 
