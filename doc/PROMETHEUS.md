@@ -1,11 +1,10 @@
-Metrics
--------
+# Prometheus metrics
 
-### pgmoneta_state
+## pgmoneta_state
 
 The state of pgmoneta
 
-### pgmoneta_version
+## pgmoneta_version
 
 The version of pgmoneta
 
@@ -13,39 +12,39 @@ The version of pgmoneta
 | :-------- | :---------- |
 | version | The version of pgmoneta |
 
-### pgmoneta_logging_info
+## pgmoneta_logging_info
 
 The number of INFO logging statements
 
-### pgmoneta_logging_warn
+## pgmoneta_logging_warn
 
 The number of WARN logging statements
 
-### pgmoneta_logging_error
+## pgmoneta_logging_error
 
 The number of ERROR logging statements
 
-### pgmoneta_logging_fatal
+## pgmoneta_logging_fatal
 
 The number of FATAL logging statements
 
-### pgmoneta_retention_days
+## pgmoneta_retention_days
 
 The retention days of pgmoneta
 
-### pgmoneta_retention_weeks
+## pgmoneta_retention_weeks
 
 The retention weeks of pgmoneta
 
-### pgmoneta_retention_months
+## pgmoneta_retention_months
 
 The retention months of pgmoneta
 
-### pgmoneta_retention_years
+## pgmoneta_retention_years
 
 The retention years of pgmoneta
 
-### pgmoneta_retention_server
+## pgmoneta_retention_server
 
 The retention of a server
 
@@ -54,31 +53,23 @@ The retention of a server
 | name | The server identifier |
 | parameter | The day, week, month or year |
 
-### pgmoneta_compression
+## pgmoneta_compression
 
 The compression used
 
-### pgmoneta_used_space
+## pgmoneta_used_space
 
 The disk space used for pgmoneta
 
-### pgmoneta_free_space
+## pgmoneta_free_space
 
 The free disk space for pgmoneta
 
-### pgmoneta_total_space
+## pgmoneta_total_space
 
 The total disk space for pgmoneta
 
-### pgmoneta_server_online
-
-Is the server in an online state
-
-| Attribute | Description |
-| :-------- | :---------- |
-| name | The server identifier |
-
-### pgmoneta_wal_shipping
+## pgmoneta_wal_shipping
 
 The disk space used for WAL shipping for a server
 
@@ -86,7 +77,7 @@ The disk space used for WAL shipping for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_wal_shipping_used_space
+## pgmoneta_wal_shipping_used_space
 
 The disk space used for WAL shipping of a server
 
@@ -94,7 +85,7 @@ The disk space used for WAL shipping of a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_wal_shipping_free_space
+## pgmoneta_wal_shipping_free_space
 
 The free disk space for WAL shipping of a server
 
@@ -102,7 +93,7 @@ The free disk space for WAL shipping of a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_wal_shipping_total_space
+## pgmoneta_wal_shipping_total_space
 
 The total disk space for WAL shipping of a server
 
@@ -110,7 +101,7 @@ The total disk space for WAL shipping of a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_workspace
+## pgmoneta_workspace
 
 The disk space used for workspace for a server
 
@@ -118,7 +109,7 @@ The disk space used for workspace for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_workspace_free_space
+## pgmoneta_workspace_free_space
 
 The free disk space for workspace of a server
 
@@ -126,7 +117,7 @@ The free disk space for workspace of a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_workspace_total_space
+## pgmoneta_workspace_total_space
 
 The total disk space for workspace of a server
 
@@ -134,7 +125,7 @@ The total disk space for workspace of a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_hot_standby
+## pgmoneta_hot_standby
 
 The disk space used for hot standby for a server
 
@@ -142,7 +133,7 @@ The disk space used for hot standby for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_hot_standby_free_space
+## pgmoneta_hot_standby_free_space
 
 The free disk space for hot standby of a server
 
@@ -150,7 +141,7 @@ The free disk space for hot standby of a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_hot_standby_total_space
+## pgmoneta_hot_standby_total_space
 
 The total disk space for hot standby of a server
 
@@ -158,7 +149,7 @@ The total disk space for hot standby of a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_server_timeline
+## pgmoneta_server_timeline
 
 The current timeline a server is on
 
@@ -166,7 +157,7 @@ The current timeline a server is on
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_server_parent_tli
+## pgmoneta_server_parent_tli
 
 The parent timeline of a timeline on a server
 
@@ -175,7 +166,7 @@ The parent timeline of a timeline on a server
 | name | The server identifier |
 | tli | |
 
-### pgmoneta_server_timeline_switchpos
+## pgmoneta_server_timeline_switchpos
 
 The WAL switch position of a timeline on a server (showed in hex as a parameter)
 
@@ -185,7 +176,7 @@ The WAL switch position of a timeline on a server (showed in hex as a parameter)
 | tli | |
 | walpos | |
 
-### pgmoneta_server_workers
+## pgmoneta_server_workers
 
 The numbeer of workers for a server
 
@@ -193,7 +184,23 @@ The numbeer of workers for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_server_valid
+## pgmoneta_server_online
+
+Is the server in an online state
+
+| Attribute | Description |
+| :-------- | :---------- |
+| name | The server identifier |
+
+## pgmoneta_server_primary
+
+Is the server a primary ?
+
+| Attribute | Description |
+| :-------- | :---------- |
+| name | The server identifier |
+
+## pgmoneta_server_valid
 
 Is the server in a valid state
 
@@ -201,7 +208,7 @@ Is the server in a valid state
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_wal_streaming
+## pgmoneta_wal_streaming
 
 The WAL streaming status of a server
 
@@ -209,7 +216,7 @@ The WAL streaming status of a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_server_operation_count
+## pgmoneta_server_operation_count
 
 The count of client operations of a server
 
@@ -217,7 +224,7 @@ The count of client operations of a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_server_failed_operation_count
+## pgmoneta_server_failed_operation_count
 
 The count of failed client operations of a server
 
@@ -225,7 +232,7 @@ The count of failed client operations of a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_server_last_operation_time
+## pgmoneta_server_last_operation_time
 
 The time of the latest client operation of a server
 
@@ -233,7 +240,7 @@ The time of the latest client operation of a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_server_last_failed_operation_time
+## pgmoneta_server_last_failed_operation_time
 
 The time of the latest failed client operation of a server
 
@@ -241,7 +248,7 @@ The time of the latest failed client operation of a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_server_checksums
+## pgmoneta_server_checksums
 
 Are checksums enabled
 
@@ -249,7 +256,7 @@ Are checksums enabled
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_server_summarize_wal
+## pgmoneta_server_summarize_wal
 
 Is summarize_wal enabled
 
@@ -257,7 +264,7 @@ Is summarize_wal enabled
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_server_extensions_detected
+## pgmoneta_server_extensions_detected
 
 The number of extensions detected on server
 
@@ -265,16 +272,27 @@ The number of extensions detected on server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_server_extension
+## pgmoneta_server_extension
 
 Information about installed extensions on server
 
 | Attribute | Description |
 | :-------- | :---------- |
 | name | The server identifier |
+| extension | The name of the extension |
 | version | The version of the extension |
+| comment | Description of the extension's functionality |
 
-### pgmoneta_backup_oldest
+## pgmoneta_extension_pgmoneta_ext
+
+Status of the pgmoneta extension
+
+| Attribute | Description |
+| :-------- | :---------- |
+| name | The server identifier |
+| version | The version of the pgmoneta extension (or "not_installed" if not present) |
+
+## pgmoneta_backup_oldest
 
 The oldest backup for a server
 
@@ -282,7 +300,7 @@ The oldest backup for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_backup_newest
+## pgmoneta_backup_newest
 
 The newest backup for a server
 
@@ -290,7 +308,7 @@ The newest backup for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_backup_valid
+## pgmoneta_backup_valid
 
 The number of valid backups for a server
 
@@ -298,7 +316,7 @@ The number of valid backups for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_backup_invalid
+## pgmoneta_backup_invalid
 
 The number of invalid backups for a server
 
@@ -306,7 +324,7 @@ The number of invalid backups for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_backup
+## pgmoneta_backup
 
 Is the backup valid for a server
 
@@ -315,7 +333,7 @@ Is the backup valid for a server
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_version
+## pgmoneta_backup_version
 
 The version of postgresql for a backup
 
@@ -326,7 +344,7 @@ The version of postgresql for a backup
 | major | The PostgreSQL major version |
 | minor | The PostgreSQL minor version |
 
-### pgmoneta_backup_total_elapsed_time
+## pgmoneta_backup_total_elapsed_time
 
 The backup in seconds for a server
 
@@ -335,7 +353,7 @@ The backup in seconds for a server
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_basebackup_elapsed_time
+## pgmoneta_backup_basebackup_elapsed_time
 
 The duration for basebackup in seconds for a server
 
@@ -344,7 +362,7 @@ The duration for basebackup in seconds for a server
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_manifest_elapsed_time
+## pgmoneta_backup_manifest_elapsed_time
 
 The duration for manifest in seconds for a server
 
@@ -353,7 +371,7 @@ The duration for manifest in seconds for a server
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_compression_zstd_elapsed_time
+## pgmoneta_backup_compression_zstd_elapsed_time
 
 The duration for zstd compression in seconds for a server
 
@@ -362,7 +380,7 @@ The duration for zstd compression in seconds for a server
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_compression_gzip_elapsed_time
+## pgmoneta_backup_compression_gzip_elapsed_time
 
 The duration for gzip compression in seconds for a server
 
@@ -371,7 +389,7 @@ The duration for gzip compression in seconds for a server
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_compression_bzip2_elapsed_time
+## pgmoneta_backup_compression_bzip2_elapsed_time
 
 The duration for bzip2 compression in seconds for a server
 
@@ -380,7 +398,7 @@ The duration for bzip2 compression in seconds for a server
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_compression_lz4_elapsed_time
+## pgmoneta_backup_compression_lz4_elapsed_time
 
 The duration for lz4 compression in seconds for a server
 
@@ -389,7 +407,7 @@ The duration for lz4 compression in seconds for a server
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_encryption_elapsed_time
+## pgmoneta_backup_encryption_elapsed_time
 
 The duration for encryption in seconds for a server
 
@@ -398,7 +416,7 @@ The duration for encryption in seconds for a server
 | name      | The server identifier |
 | label     | The backup label |
 
-### pgmoneta_backup_linking_elapsed_time
+## pgmoneta_backup_linking_elapsed_time
 
 The duration for linking in seconds for a server
 
@@ -407,7 +425,7 @@ The duration for linking in seconds for a server
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_remote_ssh_elapsed_time
+## pgmoneta_backup_remote_ssh_elapsed_time
 
 The duration for remote ssh in seconds for a server
 
@@ -416,7 +434,7 @@ The duration for remote ssh in seconds for a server
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_remote_s3_elapsed_time
+## pgmoneta_backup_remote_s3_elapsed_time
 
 The duration for remote_s3 in seconds for a server
 
@@ -425,7 +443,7 @@ The duration for remote_s3 in seconds for a server
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_remote_azure_elapsed_time
+## pgmoneta_backup_remote_azure_elapsed_time
 
 The duration for remote_azure in seconds for a server
 
@@ -434,7 +452,7 @@ The duration for remote_azure in seconds for a server
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_start_timeline
+## pgmoneta_backup_start_timeline
 
 The starting timeline of a backup for a server
 
@@ -443,7 +461,7 @@ The starting timeline of a backup for a server
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_end_timeline
+## pgmoneta_backup_end_timeline
 
 The ending timeline of a backup for a server
 
@@ -452,7 +470,7 @@ The ending timeline of a backup for a server
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_start_walpos
+## pgmoneta_backup_start_walpos
 
 The starting WAL position of a backup for a server
 
@@ -462,7 +480,7 @@ The starting WAL position of a backup for a server
 | label | The backup label|
 | walpos | The WAL position |
 
-### pgmoneta_backup_checkpoint_walpos
+## pgmoneta_backup_checkpoint_walpos
 
 The checkpoint WAL position of a backup for a server
 
@@ -472,7 +490,7 @@ The checkpoint WAL position of a backup for a server
 | label | The backup label |
 | walpos | The WAL position |
 
-### pgmoneta_backup_end_walpos
+## pgmoneta_backup_end_walpos
 
 The ending WAL position of a backup for a server
 
@@ -482,7 +500,7 @@ The ending WAL position of a backup for a server
 | label | The backup label |
 | walpos | The WAL position |
 
-### pgmoneta_restore_newest_size
+## pgmoneta_restore_newest_size
 
 The size of the newest restore for a server
 
@@ -490,7 +508,7 @@ The size of the newest restore for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_backup_newest_size
+## pgmoneta_backup_newest_size
 
 The size of the newest backup for a server
 
@@ -498,7 +516,7 @@ The size of the newest backup for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_restore_size
+## pgmoneta_restore_size
 
 The size of a restore for a server
 
@@ -507,7 +525,7 @@ The size of a restore for a server
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_restore_size_increment
+## pgmoneta_restore_size_increment
 
 The size increment of a restore for a server
 
@@ -516,7 +534,7 @@ The size increment of a restore for a server
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_size
+## pgmoneta_backup_size
 
 The size of a backup for a server
 
@@ -525,7 +543,7 @@ The size of a backup for a server
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_compression_ratio
+## pgmoneta_backup_compression_ratio
 
 The ratio of backup size to restore size for each backup
 
@@ -534,7 +552,7 @@ The ratio of backup size to restore size for each backup
 | name      | The server identifier |
 | label     | The backup label      |
 
-### pgmoneta_backup_throughput
+## pgmoneta_backup_throughput
 
 The throughput of the backup for a server (MB/s)
 
@@ -543,7 +561,7 @@ The throughput of the backup for a server (MB/s)
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_basebackup_mbs
+## pgmoneta_backup_basebackup_mbs
 
 The throughput of the basebackup for a server (MB/s)
 
@@ -552,7 +570,7 @@ The throughput of the basebackup for a server (MB/s)
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_manifest_mbs
+## pgmoneta_backup_manifest_mbs
 
 The throughput of the manifest for a server (MB/s)
 
@@ -561,7 +579,7 @@ The throughput of the manifest for a server (MB/s)
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_compression_zstd_mbs
+## pgmoneta_backup_compression_zstd_mbs
 
 The throughput of the zstd compression for a server (MB/s)
 
@@ -570,7 +588,7 @@ The throughput of the zstd compression for a server (MB/s)
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_compression_gzip_mbs
+## pgmoneta_backup_compression_gzip_mbs
 
 The throughput of the gzip compression for a server (MB/s)
 
@@ -579,7 +597,7 @@ The throughput of the gzip compression for a server (MB/s)
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_compression_bzip2_mbs
+## pgmoneta_backup_compression_bzip2_mbs
 
 The throughput of the bzip2 compression for a server (MB/s)
 
@@ -588,7 +606,7 @@ The throughput of the bzip2 compression for a server (MB/s)
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_compression_lz4_mbs
+## pgmoneta_backup_compression_lz4_mbs
 
 The throughput of the lz4 compression for a server (MB/s)
 
@@ -597,7 +615,7 @@ The throughput of the lz4 compression for a server (MB/s)
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_encryption_mbs
+## pgmoneta_backup_encryption_mbs
 
 The throughput of the encryption for a server (MB/s)
 
@@ -606,7 +624,7 @@ The throughput of the encryption for a server (MB/s)
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_linking_mbs
+## pgmoneta_backup_linking_mbs
 
 The throughput of the linking for a server (MB/s)
 
@@ -615,7 +633,7 @@ The throughput of the linking for a server (MB/s)
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_remote_ssh_mbs
+## pgmoneta_backup_remote_ssh_mbs
 
 The throughput of the remote_ssh for a server (MB/s)
 
@@ -624,7 +642,7 @@ The throughput of the remote_ssh for a server (MB/s)
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_remote_s3_mbs
+## pgmoneta_backup_remote_s3_mbs
 
 The throughput of the remote_s3 for a server (MB/s)
 
@@ -633,7 +651,7 @@ The throughput of the remote_s3 for a server (MB/s)
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_remote_azure_mbs
+## pgmoneta_backup_remote_azure_mbs
 
 The throughput of the remote_azure for a server (MB/s)
 
@@ -642,7 +660,7 @@ The throughput of the remote_azure for a server (MB/s)
 | name | The server identifier |
 | label | The backup label |
 
-### pgmoneta_backup_retain
+## pgmoneta_backup_retain
 
 Retain backup for a server
 
@@ -651,7 +669,7 @@ Retain backup for a server
 | name | The server identifier|
 | label | The backup label |
 
-### pgmoneta_backup_total_size
+## pgmoneta_backup_total_size
 
 The total size of the backups for a server
 
@@ -659,7 +677,7 @@ The total size of the backups for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_wal_total_size
+## pgmoneta_wal_total_size
 
 The total size of the WAL for a server
 
@@ -667,7 +685,7 @@ The total size of the WAL for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_total_size
+## pgmoneta_total_size
 
 The total size for a server
 
@@ -675,7 +693,7 @@ The total size for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_active_backup
+## pgmoneta_active_backup
 
 Is there an active backup for a server
 
@@ -683,7 +701,7 @@ Is there an active backup for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_active_restore
+## pgmoneta_active_restore
 
 Is there an active restore for a server
 
@@ -691,7 +709,7 @@ Is there an active restore for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_active_archive
+## pgmoneta_active_archive
 
 Is there an active archiving for a server
 
@@ -699,7 +717,7 @@ Is there an active archiving for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_active_delete
+## pgmoneta_active_delete
 
 Is there an active delete for a server
 
@@ -707,7 +725,7 @@ Is there an active delete for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_active_retention
+## pgmoneta_active_retention
 
 Is there an active archiving for a server
 
@@ -715,7 +733,7 @@ Is there an active archiving for a server
 | :-------- | :---------- |
 | name | The server identifier |
 
-### pgmoneta_current_wal_file
+## pgmoneta_current_wal_file
 
 The current streaming WAL filename of a server
 
@@ -724,7 +742,7 @@ The current streaming WAL filename of a server
 | name | The server identifier |
 | file | The WAL file name |
 
-### pgmoneta_current_wal_lsn
+## pgmoneta_current_wal_lsn
 
 The current WAL log sequence number
 

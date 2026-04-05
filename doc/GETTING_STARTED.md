@@ -14,13 +14,13 @@ Options:
   -c, --config CONFIG_FILE Set the path to the pgmoneta.conf file
   -u, --users USERS_FILE   Set the path to the pgmoneta_users.conf file
   -A, --admins ADMINS_FILE Set the path to the pgmoneta_admins.conf file
+  -D, --directory DIRECTORY Set the directory containing all configuration files
   -d, --daemon             Run as a daemon
-      --offline            Run in offline mode
   -V, --version            Display version information
   -?, --help               Display help
 ```
 
-If you don't have `pgmoneta` in your path see the guide on how to
+If you don't have `pgmoneta` in your path see [README](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/README.md) on how to
 compile and install `pgmoneta` in your system.
 
 ## Configuration
@@ -92,7 +92,7 @@ like
 SELECT pg_create_physical_replication_slot('repl', true, false);
 ```
 
-Alternatively, configure automatically slot creation by adding `create_slot = yes` to `[pgmoneta]` 
+Alternatively, configure automatically slot creation by adding `create_slot = yes` to `[pgmoneta]`
 or corresponding server section
 
 We will need a user vault for the `repl` account, so the following commands will add
@@ -105,7 +105,7 @@ pgmoneta-admin -f pgmoneta_users.conf user add
 
 We are now ready to run `pgmoneta`.
 
-See [Configuration](./configuration) for all configuration options.
+See [Configuration](/doc/CONFIGURATION) for all configuration options.
 
 ## Running
 
@@ -150,29 +150,33 @@ Options:
   -?, --help                                      Display help
 
 Commands:
-  backup                   Backup a server
-  list-backup              List the backups for a server
-  restore                  Restore a backup from a server
-  verify                   Verify a backup from a server
-  archive                  Archive a backup from a server
-  delete                   Delete a backup from a server
-  retain                   Retain a backup from a server
-  expunge                  Expunge a backup from a server
-  encrypt                  Encrypt a file using master-key
-  decrypt                  Decrypt a file using master-key
-  compress                 Compress a file from a server
-  decompress               Decompress a file from a server
   annotate                 Annotate a backup with comments
-  ping                     Check if pgmoneta is alive
-  shutdown                 Shutdown pgmoneta
-  status [details]         Status of pgmoneta, with optional details
-  conf <action>            Manage the configuration, with one of subcommands:
-                           - 'reload' to reload the configuration
-                           - 'ls' to print the configurations used
-                           - 'get' to obtain information about a runtime configuration value
-                           - 'set' to modify a runtime configuration value
+  archive                  Archive a backup from a server
+  backup                   Backup a server
   clear <what>             Clear data, with:
                            - 'prometheus' to reset the Prometheus statistics
+  compress                 Compress a file using configured method
+  conf <action>            Manage the configuration, with one of subcommands:
+                           - 'get' to obtain information about a runtime configuration value
+                             conf get <parameter_name>
+                           - 'ls' to print the configurations used
+                           - 'reload' to reload the configuration
+                           - 'set' to modify a configuration value;
+                             conf set <parameter_name> <parameter_value>;
+  decompress               Decompress a file using configured method
+  decrypt                  Decrypt a file using master-key
+  delete                   Delete a backup from a server
+  encrypt                  Encrypt a file using master-key
+  expunge                  Expunge a backup from a server
+  info                     Information about a backup
+  list-backup              List the backups for a server
+  mode                     Switch the mode for a server
+  ping                     Check if pgmoneta is alive
+  restore                  Restore a backup from a server
+  retain                   Retain a backup from a server
+  shutdown                 Shutdown pgmoneta
+  status [details]         Status of pgmoneta, with optional details
+  verify                   Verify a backup from a server
 ```
 
 This tool can be used on the machine running `pgmoneta` to do a backup like
@@ -187,10 +191,10 @@ A restore would be
 pgmoneta-cli -c pgmoneta.conf restore primary <timestamp> /path/to/restore
 ```
 
-To stop pgmoneta you would use
+To shutdown pgmoneta you would use
 
 ```
-pgmoneta-cli -c pgmoneta.conf stop
+pgmoneta-cli -c pgmoneta.conf shutdown
 ```
 
 Check the outcome of the operations by verifying the exit code, like
@@ -244,7 +248,9 @@ In order to set the master key for all users you can use
 pgmoneta-admin -g master-key
 ```
 
-The master key must be at least 8 characters.
+The master key must be at least 8 characters if provided interactively.
+
+For scripted use, the master key can be provided using the `PGMONETA_PASSWORD` environment variable.
 
 Then use the other commands to add, update, remove or list the current user names, f.ex.
 
@@ -252,14 +258,17 @@ Then use the other commands to add, update, remove or list the current user name
 pgmoneta-admin -f pgmoneta_users.conf user add
 ```
 
+For scripted use, the user password can be provided using the `PGMONETA_PASSWORD` environment variable.
+
 ## Next Steps
 
 Next steps in improving pgmoneta's configuration could be
 
+* Read the manual
 * Update `pgmoneta.conf` with the required settings for your system
 * Enable Transport Layer Security v1.2+ (TLS) for administrator access
 
-See [Configuration](./configuration) for more information on these subjects.
+See [Configuration](/doc/CONFIGURATION) for more information on these subjects.
 
 ## Closing
 
@@ -275,9 +284,9 @@ Feel free to
 
 All contributions are most welcome !
 
-Please, consult our [Code of Conduct](./CODE_OF_CONDUCT.md) policies for interacting in our
+Please, consult our [Code of Conduct](/CODE_OF_CONDUCT) policies for interacting in our
 community.
 
 Consider giving the project a [star](https://github.com/pgmoneta/pgmoneta/stargazers) on
 [GitHub](https://github.com/pgmoneta/pgmoneta/) if you find it useful. And, feel free to follow
-the project on [Twitter](https://twitter.com/pgmoneta/) as well.
+the project on [X](https://x.com/pgmoneta/) as well.

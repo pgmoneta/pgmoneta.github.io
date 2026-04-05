@@ -1,10 +1,20 @@
 import { defineConfig } from "vitepress";
+import sidebar from './sidebar.json';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
    title: "pgmoneta",
    description: "Documentation website for pgmoneta",
-   srcExclude: ["vendor/**"],
+   ignoreDeadLinks: [
+      /^https?:\/\/localhost/,
+      /\/doc\/manual\/README/,
+      /\/doc\/manual\/CODE_OF_CONDUCT/
+   ],
+   srcExclude: [
+      "vendor/**",
+      "node_modules/**",
+      "_site/**",
+   ],
    themeConfig: {
       logo: {
          src: "/images/logo-reversed-transparent-32.png",
@@ -14,12 +24,13 @@ export default defineConfig({
       },
       // https://vitepress.dev/reference/default-theme-config
       nav: [
-         { text: "Documentation", link: "/documentation" },
-         { text: "Configuration", link: "/configuration" },
-         { text: "Metrics", link: "/metrics" },
+         { text: "Home", link: "/" },
+         { text: "Documentation", link: "/doc/GETTING_STARTED" },
+         { text: "Configuration", link: "/doc/CONFIGURATION" },
+         { text: "Metrics", link: "/doc/PROMETHEUS" },
          { text: "MCP", link: "/mcp" },
          { text: "News", link: "/news" },
-         { text: "Developers", link: "/developers" },
+         { text: "Developers", link: "/doc/DEVELOPERS" },
          { text: "About", link: "/about" },
       ],
 
@@ -37,19 +48,36 @@ export default defineConfig({
          },
          {
             text: "Getting Started",
-            link: "/gettingstarted"
+            link: "/doc/GETTING_STARTED"
+         },
+         {
+            text: "Configuration",
+            link: "/doc/CONFIGURATION"
          },
          {
             text: "Releases",
             link: "/releases"
          },
          {
-            text: "Manuals",
+            text: "PDF Manual",
             link: "/manuals"
          },
          {
-            text: "GitHub",
-            link: "https://github.com/pgmoneta/pgmoneta/",
+            text: "User Manual",
+            collapsed: false,
+            items: sidebar
+         },
+         {
+            text: "Code of Conduct",
+            link: "/CODE_OF_CONDUCT"
+         },
+         {
+            text: "GitHub Issues",
+            link: "https://github.com/pgmoneta/pgmoneta/issues",
+         },
+         {
+            text: "GitHub Discussions",
+            link: "https://github.com/pgmoneta/pgmoneta/discussions",
          },
          {
             text: "LICENSE",

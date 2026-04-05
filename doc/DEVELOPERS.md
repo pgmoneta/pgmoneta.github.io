@@ -1,32 +1,42 @@
 # Developer guide
 
-* [GitHub](https://github.com/pgmoneta/pgmoneta)
-
 ## Install PostgreSQL
 
 For RPM based distributions such as Fedora and RHEL you can add the
 [PostgreSQL YUM repository](https://yum.postgresql.org/) and do the install via
 
-**Fedora 43**
+**Fedora 42**
 
 ```sh
-rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/F-43-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/F-42-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 ```
 
-**RHEL 10.x / Rocky Linux 10.x**
+**RHEL 9.x / Rocky Linux 9.x**
+
+**x86_64**
 
 ```sh
-rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/EL-10-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+dnf config-manager --set-enabled crb
 ```
 
-**PostgreSQL 18**
+**aarch64**
+
+```sh
+dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-aarch64/pgdg-redhat-repo-latest.noarch.rpm
+dnf config-manager --set-enabled crb
+```
+
+**PostgreSQL 17**
 
 ``` sh
 dnf -qy module disable postgresql
-dnf install -y postgresql18 postgresql18-server postgresql18-contrib postgresql18-libs
+dnf install -y postgresql17 postgresql17-server postgresql17-contrib postgresql17-libs
 ```
 
-This will install PostgreSQL 18.
+This will install PostgreSQL 17.
 
 ## Install pgmoneta
 
@@ -40,13 +50,13 @@ dnf install git gcc clang clang-analyzer clang-tools-extra cmake make libev libe
 
 #### Generate user and developer guide
 
-This process is optional. If you choose not to generate the PDF and HTML files, you can opt out of downloading these dependencies, and the process will automatically skip the generation.
+This process is optional by using the `cmake` variable `-DDOCS=TRUE` (default), or `-DDOCS=FALSE`. If you choose not to generate the PDF and HTML files, you can opt out of downloading these dependencies, and the process will automatically skip the generation.
 
 1. Download dependencies
 
-``` sh
-dnf install pandoc texlive-scheme-basic
-```
+    ``` sh
+    dnf install pandoc texlive-scheme-basic
+    ```
 
 2. Download Eisvogel
 
@@ -55,10 +65,10 @@ dnf install pandoc texlive-scheme-basic
     Download the `Eisvogel` template for `pandoc`, please visit the [pandoc-latex-template](https://github.com/Wandmalfarbe/pandoc-latex-template) repository. For a standard installation, you can follow the steps outlined below.
 
 ```sh
-wget https://github.com/Wandmalfarbe/pandoc-latex-template/releases/download/v3.3.0/Eisvogel-3.3.0.tar.gz
-tar -xzf Eisvogel-3.3.0.tar.gz
-mkdir -p $HOME/.local/share/pandoc/templates
-mv Eisvogel-3.3.0/eisvogel.latex $HOME/.local/share/pandoc/templates/
+    wget https://github.com/Wandmalfarbe/pandoc-latex-template/releases/download/v3.3.0/Eisvogel-3.3.0.tar.gz
+    tar -xzf Eisvogel-3.3.0.tar.gz
+    mkdir -p $HOME/.local/share/pandoc/templates
+    mv Eisvogel-3.3.0/eisvogel.latex $HOME/.local/share/pandoc/templates/
 ```
 
 3. Add package for LaTeX
@@ -71,13 +81,30 @@ mv Eisvogel-3.3.0/eisvogel.latex $HOME/.local/share/pandoc/templates/
 
 #### Generate API guide
 
-This process is optional. If you choose not to generate the API HTML files, you can opt out of downloading these dependencies, and the process will automatically skip the generation.
+This process is optional by using the `cmake` variable `-DDOCS=TRUE` (default), or `-DDOCS=FALSE`. If you choose not to generate the API HTML files, you can opt out of downloading these dependencies, and the process will automatically skip the generation.
 
 Download dependencies
 
-``` sh
-dnf install graphviz doxygen
+```sh
+    dnf install graphviz doxygen
 ```
+
+#### Generating Code Coverage
+
+Code coverage is automatically enabled **only for GCC builds** if both `gcov` and `gcovr` are installed on your system.
+To install the required tools, run:
+
+```sh
+dnf install gcovr gcc
+```
+
+> **Note:** In many distributions, `gcovr` may not be available as a DNF package. In such cases, you can install it using pip:
+> ```sh
+> pip3 install gcovr
+> ```
+
+When these tools are present and the compiler is set to GCC, the build system will detect them and enable code coverage generation automatically during the build process.
+If you use Clang as the compiler, code coverage will not be enabled by default.
 
 ### Build
 
@@ -87,20 +114,12 @@ git clone https://github.com/pgmoneta/pgmoneta.git
 cd pgmoneta
 mkdir build
 cd build
-cmake -DCMAKE_C_COMPILER=clang -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local ..
+cmake -DCMAKE_C_COMPILER=clang -DCMAKE_BUILD_TYPE=Debug ..
 make
 make install
 ```
 
 This will install [**pgmoneta**](https://github.com/pgmoneta/pgmoneta) in the `/usr/local` hierarchy with the debug profile.
-
-You can do
-
-```
-cmake -DCMAKE_C_COMPILER=clang -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-DCORE_DEBUG" ..
-```
-
-in order to get information from the core libraries too.
 
 ### Check version
 
@@ -200,6 +219,16 @@ Set wal_level value in `/tmp/pgsql/postgresql.conf` to be `replica`
 wal_level = replica
 ```
 
+#### Set summarize_wal
+
+Set `summarize_wal` value in `/tmp/pgsql/postgresql.conf` to be `on` in order to have `Online: true` in pgmoneta server status.
+
+i.e This is required only for PostgreSQL version 17 and above.
+
+``` sh
+summarize_wal = on
+```
+
 #### Start PostgreSQL
 
 ``` sh
@@ -241,6 +270,8 @@ psql postgres
 SELECT pg_create_physical_replication_slot('repl', true, false);
 \q
 ```
+
+Alternatively, configure automatically slot creation by adding `create_slot = yes` to `[pgmoneta]` or corresponding server section.
 
 #### Verify access
 
@@ -295,10 +326,10 @@ You have to choose a password for the master key and it must be at least 8 chara
 then create vault
 
 ``` sh
-pgmoneta-admin -f pgmoneta_users.conf -U repl user add
+pgmoneta-admin -f pgmoneta_users.conf -U repl -P secretpassword user add
 ```
 
-Input the replication password to grant [**pgmoneta**](https://github.com/pgmoneta/pgmoneta) access to the database. Ensure that the information is correct.
+Input the replication user and its password to grant [**pgmoneta**](https://github.com/pgmoneta/pgmoneta) access to the database. Ensure that the information is correct.
 
 Create the `pgmoneta.conf` configuration file to use when running [**pgmoneta**](https://github.com/pgmoneta/pgmoneta).
 
@@ -354,46 +385,33 @@ pgmoneta-cli -c pgmoneta.conf backup primary
 pgmoneta-cli -c pgmoneta.conf status details
 ```
 
-#### Stop pgmoneta
+#### Shutdown pgmoneta
 
 ``` sh
-pgmoneta-cli -c pgmoneta.conf stop
+pgmoneta-cli -c pgmoneta.conf shutdown
 ```
 
-### Usage
+## WAL Tools
 
-```sh
-pgmoneta-walinfo
-  Command line utility to read and display Write-Ahead Log (WAL) files
+pgmoneta provides two WAL (Write-Ahead Log) tools for working with PostgreSQL WAL files:
 
-Usage:
-  pgmoneta-walinfo <file>
+- **pgmoneta-walinfo**: Read and display information about WAL files
+- **pgmoneta-walfilter**: Filter WAL files based on user-defined rules
 
-Options:
-  -c,   --config      Set the path to the pgmoneta_walinfo.conf file
-  -u,   --users       Set the path to the pgmoneta_users.conf file
-  -RT, --tablespaces  Filter on tablspaces
-  -RD, --databases    Filter on databases
-  -RT, --relations    Filter on relations
-  -R,   --filter      Combination of -RT, -RD, -RR
-  -o,   --output      Output file
-  -F,   --format      Output format (raw, json)
-  -L,   --logfile     Set the log file
-  -q,   --quiet       No output only result
-        --color       Use colors (on, off)
-  -r,   --rmgr        Filter on a resource manager
-  -s,   --start       Filter on a start LSN
-  -e,   --end         Filter on an end LSN
-  -x,   --xid         Filter on an XID
-  -l,   --limit       Limit number of outputs
-  -v,   --verbose     Output result
-  -V,   --version     Display version information
-  -m,   --mapping     Provide mappings file for OID translation
-  -t,   --translate   Translate OIDs to object names in XLOG records
-  -?,   --help        Display help
-```
+For detailed user documentation about these tools, please refer to the [WAL Tools chapter](/doc/manual/en/17-wal-tools).
 
-For more details, please refer to the developer guide.
+For developer information about the internal APIs and implementation details, see the [WAL developer guide](/doc/manual/en/78-wal).
+
+## Logging levels
+
+| Level | Description |
+| :------- | :------ |
+| TRACE | Information for developers including values of variables |
+| DEBUG | Higher level information for developers - typically about flow control and the value of key variables |
+| INFO | A user command was successful or general health information about the system |
+| WARN | A user command didn't complete correctly so attention is needed |
+| ERROR | Something unexpected happened - try to give information to help identify the problem |
+| FATAL | We can't recover - display as much information as we can about the problem and `exit(1)` |
 
 ## End
 
@@ -401,7 +419,32 @@ Now that we've attempted our first backup, take a moment to relax. There are a f
 
 1. Since we initialized the database in `/tmp`, the data in this directory might be removed after you go offline, depending on your OS configuration. If you want to make it permanent, choose a different directory.
 
-2. Always use uncrustify to format your code when you make modifications.
+2. Always use clang-format to format your code when you make modifications.
+
+## Testing
+
+See `doc/Test.md` for adding test cases and running test suites. It is recommended that you **ALWAYS** run tests before raising PR.
+
+## C programming
+
+[**pgmoneta**](https://github.com/pgmoneta/pgmoneta) is developed using the [C programming language](https://en.wikipedia.org/wiki/C_(programming_language)) so it is a good
+idea to have some knowledge about the language before you begin to make changes.
+
+There are books like,
+
+* [C in a Nutshell](https://www.oreilly.com/library/view/c-in-a/9781491924174/)
+* [21st Century C](https://www.oreilly.com/library/view/21st-century-c/9781491904428/)
+
+that can help you
+
+### Debugging
+
+In order to debug problems in your code you can use [gdb](https://www.sourceware.org/gdb/), or add extra logging using
+the `pgmoneta_log_XYZ()` API
+
+### Core APIs
+You may find [core APIs](https://github.com/pgmoneta/pgmoneta/blob/main/doc/manual/dev-09-core_api.md) quite useful. Try
+not to reinvent the wheels, unless for a good reason.
 
 ## Basic git guide
 
@@ -443,12 +486,12 @@ Remember to verify the compile and execution of the code
 
 ### AUTHORS
 
-Remember to add your name to
+Remember to add your name to the following files,
 
 ```
 AUTHORS
-doc/manual/97-acknowledgement.md
-doc/manual/advanced/97-acknowledgement.md
+doc/manual/en/97-acknowledgement.md
+doc/manual/hi/97-acknowledgement.md
 ```
 
 in your first pull request

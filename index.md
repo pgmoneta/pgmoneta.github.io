@@ -8,7 +8,7 @@ hero:
   actions:
     - theme: brand
       text: Getting started
-      link: /gettingstarted.md
+      link: /doc/GETTING_STARTED.md
     - theme: alt
       text: Releases
       link: /releases

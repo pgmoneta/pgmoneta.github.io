@@ -1,0 +1,130 @@
+[
+  {
+    "text": "Introduction",
+    "link": "/doc/manual/en/01-introduction"
+  },
+  {
+    "text": "Installation",
+    "link": "/doc/manual/en/02-installation"
+  },
+  {
+    "text": "Quick start",
+    "link": "/doc/manual/en/03-quickstart"
+  },
+  {
+    "text": "Configuration",
+    "link": "/doc/manual/en/04-configuration"
+  },
+  {
+    "text": "Command line interface",
+    "link": "/doc/manual/en/05-cli"
+  },
+  {
+    "text": "Backup",
+    "link": "/doc/manual/en/06-backup"
+  },
+  {
+    "text": "Retention",
+    "link": "/doc/manual/en/07-retention"
+  },
+  {
+    "text": "Keeping backups",
+    "link": "/doc/manual/en/08-keep"
+  },
+  {
+    "text": "Restore",
+    "link": "/doc/manual/en/09-restore"
+  },
+  {
+    "text": "Prometheus / Grafana",
+    "link": "/doc/manual/en/10-prometheus"
+  },
+  {
+    "text": "Adminstration access",
+    "link": "/doc/manual/en/11-admins"
+  },
+  {
+    "text": "Shutdown",
+    "link": "/doc/manual/en/12-shutdown"
+  },
+  {
+    "text": "Docker",
+    "link": "/doc/manual/en/13-docker"
+  },
+  {
+    "text": "SSH",
+    "link": "/doc/manual/en/14-ssh"
+  },
+  {
+    "text": "Azure",
+    "link": "/doc/manual/en/15-azure"
+  },
+  {
+    "text": "S3",
+    "link": "/doc/manual/en/16-s3"
+  },
+  {
+    "text": "Write-Ahead Log (WAL) Tools",
+    "link": "/doc/manual/en/17-wal-tools"
+  },
+  {
+    "text": "Developer information",
+    "link": "/doc/manual/en/70-dev"
+  },
+  {
+    "text": "C programming",
+    "link": "/doc/manual/en/71-git"
+  },
+  {
+    "text": "Architecture",
+    "link": "/doc/manual/en/72-architecture"
+  },
+  {
+    "text": "Encryption",
+    "link": "/doc/manual/en/73-encryption"
+  },
+  {
+    "text": "RPM",
+    "link": "/doc/manual/en/74-rpm"
+  },
+  {
+    "text": "Building pgmoneta",
+    "link": "/doc/manual/en/75-building"
+  },
+  {
+    "text": "Test",
+    "link": "/doc/manual/en/76-test"
+  },
+  {
+    "text": "Code Coverage",
+    "link": "/doc/manual/en/77-codecoverage"
+  },
+  {
+    "text": "WAL Reader",
+    "link": "/doc/manual/en/78-wal"
+  },
+  {
+    "text": "Core APIs",
+    "link": "/doc/manual/en/79-core-api"
+  },
+  {
+    "text": "Server APIs",
+    "link": "/doc/manual/en/80-server-api"
+  },
+  {
+    "text": "Troubleshooting",
+    "link": "/doc/manual/en/96-troubleshooting"
+  },
+  {
+    "text": "Acknowledgement",
+    "link": "/doc/manual/en/97-acknowledgement"
+  },
+  {
+    "text": "License",
+    "link": "/doc/manual/en/98-licenses"
+  },
+  {
+    "text": "References",
+    "link": "/doc/manual/en/99-references"
+  }
+]
