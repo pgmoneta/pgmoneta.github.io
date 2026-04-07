@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress";
+import { withSharedManualReferences } from "./shared-manual-references.mts";
 import sidebar from './sidebar.json';
 
 // https://vitepress.dev/reference/site-config
@@ -15,6 +16,11 @@ export default defineConfig({
       "node_modules/**",
       "_site/**",
    ],
+   markdown: {
+      config(md) {
+         withSharedManualReferences(md, process.cwd());
+      }
+   },
    themeConfig: {
       logo: {
          src: "/images/logo-reversed-transparent-32.png",
