@@ -5,7 +5,7 @@ import sidebar from './sidebar.json';
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
    title: "pgmoneta",
-   description: "Documentation website for pgmoneta",
+   description: "pgmoneta: Advanced backup/restore solution for PostgreSQL",
    ignoreDeadLinks: [
       /^https?:\/\/localhost/,
       /\/doc\/manual\/README/,
