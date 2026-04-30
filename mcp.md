@@ -4,6 +4,8 @@ The [pgmoneta_mcp](https://github.com/pgmoneta/pgmoneta_mcp) project aims to imp
 a [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro) server
 for [pgmoneta](https://github.com/pgmoneta/pgmoneta).
 
+The project also include a simple CLI.
+
 ## Closing
 
 The [pgmoneta_mcp](https://github.com/pgmoneta/pgmoneta_mcp) community hopes that you find
