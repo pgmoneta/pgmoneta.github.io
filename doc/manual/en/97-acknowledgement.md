@@ -27,9 +27,9 @@ Joan Jeremiah J <joanjeremiah04@gmail.com>
 Iury Santos <iuryroberto@gmail.com>
 Palak Chaturvedi <palakchaturvedi2843@gmail.com>
 Jakub Jirutka <jakub@jirutka.cz>
+Ashutosh Sharma <ash2003sharma@gmail.com>
 Mario Rodas
 Annupamaa <annu242005@gmail.com>
-Ashutosh Sharma <ash2003sharma@gmail.com>
 Mohab Yaser <mohabyaserofficial2003@gmail.com>
 Georg Pfuetzenreuter <mail@georg-pfuetzenreuter.net>
 Ahmed Ashour <a8087027@gmail.com>
@@ -44,8 +44,23 @@ Bassam Adnan <mailbassam@gmail.com>
 Sara Nabih <nabihsara8@gmail.com>
 Shashank Singh <shashanksgh3@gmail.com>
 Mahmoud Hamdy (TutTrue) <mahmoud.hamdy5113@gmail.com>
-Amr Shams <amr.shams2015.a@gmail.com>
+Amr Shams (NightBird) <amr.shams2015.a@gmail.com>
 Somye Mahajan <mahajan.somye@gmail.com>
+Shashidhar B M <shashidhar.i.0119@gmail.com>
+Seongjun Shin <shinsj4653@gmail.com>
+Bishoy Wadea Fathy <bishoyw.fathy@gmail.com>
+Mazen Kamal <mazenkamal212@gmail.com>
+Trevor Jacob Mathews <trevorjacobmathews@gmail.com>
+Abdelrhman Sersawy <abdelrhmansersawy@gmail.com>
+Zeyad Daowd <zeyaddaowd@yahoo.com>
+Sakshi Aggarwal <sakshiaggarwal2706@gmail.com>
+Chen Shen <scisbeloved23@gmail.com>
+Jozef Hernández <jozefhdez2@gmail.com>
+Tarun Wadhwa <tarunwadhwa85@gmail.com>
+Pranav Prajapati <pranavprajapati586@gmail.com>
+Som Shegokar <akashshegokar2186@gmail.com>
+Ameen Sakr <ameensakr623@gmail.com>
+Harshit Shaw <shawharshit116@gmail.com>
 ```
 
 ## Committers
@@ -53,6 +68,9 @@ Somye Mahajan <mahajan.somye@gmail.com>
 ```
 Jesper Pedersen <jesperpedersen.db@gmail.com>
 Haoran Zhang <andrewzhr9911@gmail.com>
+Luca Ferrari <fluca1978@gmail.com>
+Bassam Adnan <mailbassam@gmail.com>
+Tejas Tyagi <tejastyagi.tt@gmail.com>
 ```
 
 ## Contributing

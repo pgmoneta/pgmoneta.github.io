@@ -1,0 +1,156 @@
+
+
+# Web console
+
+The pgmoneta web console is a lightweight HTTP UI for monitoring PostgreSQL
+metrics in real time. It displays metrics organized by category, with filtering
+options and multiple view modes to help you drill down into the data you need.
+
+## Enable the console
+
+Add a console port to `pgmoneta.conf`:
+
+```ini
+[pgmoneta]
+host = 127.0.0.1
+metrics = 5002
+console = 5003
+```
+
+The console requires the metrics endpoint to be enabled. Start pgmoneta:
+
+```sh
+pgmoneta -c /etc/pgmoneta/pgmoneta.conf
+```
+
+## Open the console
+
+Navigate to your console endpoint:
+
+```
+http://localhost:5003/
+```
+
+## Console flow and pages
+
+### 1. Home page (overview)
+
+When you first load the console, you see the home page with:
+
+- Service header showing pgmoneta service status (Running or Unavailable)
+- Version of pgmoneta
+- Search bar to find metrics across categories
+- Category selector dropdown to choose which metric group to view
+- View selector (Simple or Advanced mode)
+- Server filter dropdown to choose which PostgreSQL servers to display
+- Metrics table showing the selected category
+- Refresh control (split button) for manual refresh and auto-refresh interval selection
+- Theme toggle button (Dark/Light)
+
+### 2. Home page simple view
+
+The default simple view shows:
+
+- Metric name (column 1)
+- Value (column 2)
+- Label columns (additional columns), where each label key appears as its own column
+
+![Web console home page in simple view](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/doc/manual/en/doc/images/console_home_simple.png)
+
+### 3. Home page advanced view
+
+Toggle to advanced view to see:
+
+- Metric name (column 1)
+- Type (gauge, counter, histogram, etc.) (column 2)
+- Value (column 3)
+- Labels (column 4), one comma-separated column, for example `database=mydb, name=primary`
+
+![Web console home page in advanced view](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/doc/manual/en/doc/images/console_home_advanced.png)
+
+### 4. Category organization
+
+Metrics are automatically organized into categories based on shared prefixes:
+
+- `pgmoneta_retention_*` as one category
+- `pgmoneta_backup_*` as another category
+- and so on
+
+Use the Category selector to switch between categories. The page displays all
+metrics in the selected category.
+
+### 5. Server filter
+
+The Server filter dropdown:
+
+- Shows all configured PostgreSQL servers
+- Allows multi-select (check and uncheck each server)
+- Updates the metrics table to show rows only from selected servers
+
+![Web console home page server filter](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/doc/manual/en/doc/images/console_home_server_filter.png)
+
+### 6. Search across categories
+
+The **Search** bar appears above all other filters.
+
+- Enter at least **3 characters** to activate search filtering.
+- Search matches text in metric rows (name, type, value, and labels) and categories.
+- Matches are shown across **all categories**, not only the currently selected one.
+- Server filtering is still applied while search is active.
+- If fewer than 3 characters are entered, the page returns to normal selected-category view.
+
+![Web console home page search bar](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/doc/manual/en/doc/images/console_home_search_bar.png)
+
+### 7. Refresh control
+
+The header includes a split **Refresh** control (next to the **Updated** timestamp):
+
+- Click **Refresh** to reload all metrics and service status immediately.
+- Click the arrow on the right to open the auto-refresh menu.
+- Select `5 min` to enable automatic refresh every 5 minutes.
+- Select `10 min` to enable automatic refresh every 10 minutes.
+- Select `15 min` to enable automatic refresh every 15 minutes.
+- Select `20 min` to enable automatic refresh every 20 minutes.
+- Select **Clear** to disable automatic refresh.
+
+When auto-refresh is enabled and you click **Refresh** manually, the timer is
+reset. The next automatic refresh runs after the full selected interval from
+that manual refresh.
+
+The selected auto-refresh interval is stored in browser local storage and is
+restored when the page is opened again.
+
+## API endpoints
+
+- `/` for the main console (home page)
+- `/api` for a JSON endpoint with all metrics (useful for scripting)
+
+## Theme toggle
+
+Click the theme button (moon/sun icon) in the top right to switch between:
+
+- Light mode (default, white background)
+- Dark mode (dark background)
+
+Theme preference is saved in your browser local storage.
+
+## Service status values
+
+The header shows:
+
+- Running when the pgmoneta management service is reachable
+- Unavailable when the pgmoneta management service is not reachable
+
+## Troubleshooting
+
+- No metrics displayed:
+  Ensure `metrics` port is enabled in `pgmoneta.conf` and verify the Prometheus
+  endpoint is reachable on the configured host.
+
+- Service shows Unavailable:
+  Check that `unix_socket_dir` is writable and that the configured directory
+  path is accessible to the pgmoneta process.
+
+- Unable to access the console:
+  Verify the console port is not blocked by firewall and the console host/port
+  in `pgmoneta.conf` matches your URL.

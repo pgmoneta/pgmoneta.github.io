@@ -1,6 +1,6 @@
 
 
-# Write-Ahead Log (WAL) Tools
+# Write - Ahead Log(WAL) Tools
 
 pgmoneta provides two powerful command-line utilities for working with PostgreSQL Write-Ahead Log (WAL) files:
 
@@ -11,7 +11,12 @@ pgmoneta provides two powerful command-line utilities for working with PostgreSQ
 
 `pgmoneta-walinfo` is a command-line utility designed to read and display information about PostgreSQL Write-Ahead Log (WAL) files. The tool provides output in either raw or JSON format, making it easy to analyze WAL files for debugging, auditing, or general information purposes.
 
-In addition to standard WAL files, `pgmoneta-walinfo` also supports encrypted (**aes**) and compressed WAL files in the following formats: **zstd**, **gz**, **lz4**, and **bz2**.
+In addition to standard WAL files, `pgmoneta-walinfo` also supports:
+
+- Encrypted WAL files (**.aes**)
+- Compressed WAL files: **.zstd**, **.gz**, **.lz4**, and **.bz2**
+- TAR archives containing WAL files (**.tar**)
+- Directories containing WAL files
 
 ### Usage
 
@@ -20,9 +25,10 @@ pgmoneta-walinfo 0.20.0
   Command line utility to read and display Write-Ahead Log (WAL) files
 
 Usage:
-  pgmoneta-walinfo <file>
+  pgmoneta-walinfo [OPTIONS] <file|directory|tar_archive>
 
 Options:
+  -I,  --interactive Interactive mode with ncurses UI
   -c,  --config      Set the path to the pgmoneta_walinfo.conf file
   -u,  --users       Set the path to the pgmoneta_users.conf file
   -RT, --tablespaces Filter on tablspaces
@@ -48,6 +54,63 @@ Options:
 ```
 
 ### Output Formats
+
+#### Interactive Mode
+
+The `-I` or `--interactive` flag launches an interactive ncurses-based user interface for browsing and analyzing WAL files.
+
+**Features:**
+
+- **File browser**: Navigate directories to select WAL files; **Up** / **Down** moves between entries, **PgUp** / **PgDn** jumps by one visible page, and **Enter** opens or loads the current selection
+- **Record display**: View WAL records in a table; **t** / **b** switches text vs binary (hex) view
+- **Search**: **s** opens search by resource manager, LSN fields, XID, or description; **Tab** cycles through known values for RMGR, Start LSN, and End LSN fields; **n** / **p** move between matches; **Esc** clears search (not filters)
+- **Filtering**: **f** opens a filter dialog. **Tab** cycles through known values for RMGR, Start LSN, and End LSN fields. Criteria restrict which rows remain. **u** clears all filters and reloads the full file. Active filters are summarized in the header; the status line shows *showing N of M records* when filtered
+- **Marks & YAML**: **m** marks or unmarks rows; **g** writes a **pgmoneta-walfilter** YAML from XIDs of marked rows
+- **Color-coded display**: Different colors for record types and columns
+- **WAL navigation**: At file boundaries, **Up** / **Down** can move to the previous/next WAL file in the same directory when applicable; **Home** / **End** jump to first/last record
+
+**Filter semantics (interactive dialog)**
+
+- **AND across fields**: Each non-empty field you set must match (RMGR, Start LSN, End LSN, XID, Relation).
+- **OR within a field**: For **RMGR**, **XID**, and **Relation**, enter **comma-separated** values; a row matches if it matches **any** token in that field.
+- **Start LSN** / **End LSN**: Together they define a range: record start greater than the filter start (if set) and record end less than the filter end (if set). You may set only one bound.
+- The dialog is **pre-filled** when you reopen **f**. **Ctrl+U** in the dialog clears all fields.
+
+**Usage:**
+
+```bash
+# Interactive mode on a directory
+pgmoneta-walinfo -I /path/to/wal_directory/
+
+# Interactive mode on a single WAL file
+pgmoneta-walinfo -I /path/to/000000010000000000000001
+```
+
+**Keyboard shortcuts:**
+
+| Key | Action |
+|-----|--------|
+| Arrow keys | Move between records |
+| PgUp / PgDn | Page scroll |
+| Home / End | First / last record |
+| Enter | Detail view for current record |
+| t / b | Text mode / Binary (hex) mode |
+| s | Open search |
+| n / p | Next / previous search match (when search active) |
+| f | Open filter dialog |
+| u | Clear all filters and reload full list |
+| m | Mark / unmark row for export |
+| g | Write walfilter YAML from marked XIDs |
+| v | Verify records |
+| l | Load different WAL file / browse |
+| ? | Help overlay |
+| Esc | Clear search highlights |
+| Tab | Cycle through known values (RMGR, Start LSN, End LSN) in search/filter dialogs |
+| q | Quit |
+
+See **doc/man/pgmoneta-walinfo.1.rst** for the full **INTERACTIVE MODE** section.
+
+When the **file browser** is open via **l**, **Up / Down** moves between directory entries, **PgUp / PgDn** pages through the list, **Enter** opens a directory or loads the selected WAL file, and **q** closes the browser.
 
 #### Raw Output Format
 
@@ -75,34 +138,58 @@ This format makes it easy to visually distinguish different parts of the WAL fil
 
 ### Examples
 
-1. **View WAL file details in JSON format:**
+1. **Interactive mode on a WAL directory:**
+
+```bash
+pgmoneta-walinfo -I /path/to/wal_directory/
+```
+
+2. **Interactive mode on WAL file:**
+
+```bash
+pgmoneta-walinfo -I /path/to/walfile
+```
+
+3. **View WAL file details in JSON format:**
 
 ```bash
 pgmoneta-walinfo -F json /path/to/walfile
 ```
 
-2. **View WAL file details with OIDs translated to object names using database connection:**
+4. **View WAL file details with OIDs translated to object names using database connection:**
 
 ```bash
 pgmoneta-walinfo -c pgmoneta_walinfo.conf -t -u /path/to/pgmoneta_user.conf /path/to/walfile
 ```
 
-3. **View WAL file details with OIDs translated using a mapping file:**
+5. **View WAL file details with OIDs translated using a mapping file:**
 
 ```bash
 pgmoneta-walinfo -c pgmoneta_walinfo.conf -t -m /path/to/mapping.json /path/to/walfile
 ```
 
-4. **Show summary of WAL record counts by resource manager:**
+6. **Show summary of WAL record counts by resource manager:**
 
 ```bash
 pgmoneta-walinfo -S /path/to/walfile
 ```
 
-5. **Filter records by resource manager and limit output:**
+7. **Filter records by resource manager and limit output:**
 
 ```bash
 pgmoneta-walinfo -r Heap -l 10 /path/to/walfile
+```
+
+8. **Analyze a directory containing WAL files:**
+
+```bash
+pgmoneta-walinfo /path/to/wal_directory/
+```
+
+9. **Analyze WAL files from a TAR archive:**
+
+```bash
+pgmoneta-walinfo /path/to/wal_backup.tar.gz
 ```
 
 ### OID Translation
@@ -156,6 +243,27 @@ SELECT nspname || '.' || relname, c.oid FROM pg_class c JOIN pg_namespace n ON c
 - Use the `-t` flag to enable translation
 - If both `pgmoneta_users.conf` and `mappings.json` are provided, the mapping file takes precedence
 - OIDs not found in the server/mapping will be displayed as-is
+
+## pgmoneta_walinfo.conf
+
+The `pgmoneta_walinfo` configuration file is used for logging and encryption configuration. It is loaded from either the path specified by the `-c` flag or `/etc/pgmoneta/pgmoneta_walinfo.conf` if `-c` wasn't provided.
+
+### [pgmoneta_walinfo]
+
+| Property | Default | Unit | Required | Description |
+| :------- | :------ | :--- | :------- | :---------- |
+| log_type | console | String | No | The logging type (console, file, syslog) |
+| log_level | info | String | No | The logging level, any of the (case insensitive) strings `FATAL`, `ERROR`, `WARN`, `INFO` and `DEBUG` (that can be more specific as `DEBUG1` thru `DEBUG5`). Debug level greater than 5 will be set to `DEBUG5`. Not recognized values will make the log_level be `INFO` |
+| log_path | pgmoneta.log | String | No | The log file location. Can be a strftime(3) compatible string. |
+| encryption | aes-256-gcm | String | No | The encryption mode for encrypt wal and data<br/> `none`: No encryption <br/> `aes \| aes-256 \| aes-256-gcm`: AES GCM (Galois/Counter Mode) mode with 256 bit key length (Recommended)<br/> `aes-192 \| aes-192-gcm`: AES GCM mode with 192 bit key length<br/> `aes-128 \| aes-128-gcm`: AES GCM mode with 128 bit key length |
+
+### Server section
+
+| Property | Default | Unit | Required | Description |
+| :------- | :------ | :--- | :------- | :---------- |
+| host | | String | Yes | The address of the PostgreSQL instance |
+| port | | Int | Yes | The port of the PostgreSQL instance |
+| user | | String | Yes | The replication user name |
 
 ## pgmoneta-walfilter
 
@@ -265,6 +373,27 @@ pgmoneta-walfilter filter_config.yaml
 **Log Files:**
 
 The tool uses the logging configuration from `pgmoneta_walfilter.conf`. Check the log file specified in the configuration for detailed error messages and processing information.
+
+## pgmoneta_walfilter.conf
+
+The `pgmoneta_walfilter` configuration file is used for logging and encryption configuration. It is loaded from either the path specified in the YAML configuration file or `/etc/pgmoneta/pgmoneta_walfilter.conf` if not provided.
+
+### [pgmoneta_walfilter]
+
+| Property | Default | Unit | Required | Description |
+| :------- | :------ | :--- | :------- | :---------- |
+| log_type | console | String | No | The logging type (console, file, syslog) |
+| log_level | info | String | No | The logging level, any of the (case insensitive) strings `FATAL`, `ERROR`, `WARN`, `INFO` and `DEBUG` (that can be more specific as `DEBUG1` thru `DEBUG5`). Debug level greater than 5 will be set to `DEBUG5`. Not recognized values will make the log_level be `INFO` |
+| log_path | pgmoneta.log | String | No | The log file location. Can be a strftime(3) compatible string. |
+| encryption | none | String | No | The encryption mode for encrypt wal and data<br/> `none`: No encryption <br/> `aes \| aes-256 \| aes-256-gcm`: AES GCM (Galois/Counter Mode) mode with 256 bit key length (Recommended)<br/> `aes-192 \| aes-192-gcm`: AES GCM mode with 192 bit key length<br/> `aes-128 \| aes-128-gcm`: AES GCM mode with 128 bit key length |
+
+### Server section
+
+| Property | Default | Unit | Required | Description |
+| :------- | :------ | :--- | :------- | :---------- |
+| host | | String | Yes | The address of the PostgreSQL instance |
+| port | | Int | Yes | The port of the PostgreSQL instance |
+| user | | String | Yes | The replication user name |
 
 ### Additional Information
 For more detailed information about the internal APIs and developer documentation, see the [WAL Developer Guide](/doc/manual/en/78-wal).

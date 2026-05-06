@@ -65,10 +65,10 @@ This process is optional by using the `cmake` variable `-DDOCS=TRUE` (default), 
     Download the `Eisvogel` template for `pandoc`, please visit the [pandoc-latex-template](https://github.com/Wandmalfarbe/pandoc-latex-template) repository. For a standard installation, you can follow the steps outlined below.
 
 ```sh
-    wget https://github.com/Wandmalfarbe/pandoc-latex-template/releases/download/v3.3.0/Eisvogel-3.3.0.tar.gz
-    tar -xzf Eisvogel-3.3.0.tar.gz
+    wget https://github.com/Wandmalfarbe/pandoc-latex-template/releases/download/v3.4.0/Eisvogel-3.4.0.tar.gz
+    tar -xzf Eisvogel-3.4.0.tar.gz
     mkdir -p $HOME/.local/share/pandoc/templates
-    mv Eisvogel-3.3.0/eisvogel.latex $HOME/.local/share/pandoc/templates/
+    mv Eisvogel-3.4.0/eisvogel.latex $HOME/.local/share/pandoc/templates/
 ```
 
 3. Add package for LaTeX
@@ -76,7 +76,7 @@ This process is optional by using the `cmake` variable `-DDOCS=TRUE` (default), 
     Download the additional packages required for generating PDF and HTML files.
 
 ```sh
-    dnf install 'tex(footnote.sty)' 'tex(footnotebackref.sty)' 'tex(pagecolor.sty)' 'tex(hardwrap.sty)' 'tex(mdframed.sty)' 'tex(sourcesanspro.sty)' 'tex(ly1enc.def)' 'tex(sourcecodepro.sty)' 'tex(titling.sty)' 'tex(csquotes.sty)' 'tex(zref-abspage.sty)' 'tex(needspace.sty)' 'tex(selnolig.sty)'
+    dnf install 'tex(footnote.sty)' 'tex(footnotebackref.sty)' 'tex(pagecolor.sty)' 'tex(hardwrap.sty)' 'tex(mdframed.sty)' 'tex(sourcesanspro.sty)' 'tex(ly1enc.def)' 'tex(sourcecodepro.sty)' 'tex(titling.sty)' 'tex(csquotes.sty)' 'tex(zref-abspage.sty)' 'tex(needspace.sty)' 'tex(selnolig.sty)' texlive-collection-latexextra
 ```
 
 #### Generate API guide
@@ -357,6 +357,19 @@ port = 5432
 user = repl
 wal_slot = repl
 ```
+And create the `pgmoneta_cli.conf` configuration file to use when running **pgmoneta-cli**.
+
+``` ini
+cat > pgmoneta_cli.conf
+[pgmoneta-cli]
+compression = zstd
+
+log_type = file
+log_level = info
+log_path = /tmp/pgmoneta-cli.log
+
+unix_socket_dir = /tmp/
+```
 
 In our main section called `[pgmoneta]` we setup [**pgmoneta**](https://github.com/pgmoneta/pgmoneta) to listen on all network addresses. We will enable Prometheus metrics on port 5001 and have the backups live in the `/home/pgmoneta/backup` directory.
 All backups are being compressed with zstd and kept for 7 days. Logging will be performed at `info` level and put in a file called `/tmp/pgmoneta.log`. Last we specify the location of the `unix_socket_dir` used for management operations.
@@ -376,19 +389,19 @@ pgmoneta -c pgmoneta.conf -u pgmoneta_users.conf
 open a new terminal and log in with `pgmoneta`
 
 ``` sh
-pgmoneta-cli -c pgmoneta.conf backup primary
+pgmoneta-cli -c pgmoneta_cli.conf backup primary
 ```
 
 #### View backup
 
 ``` sh
-pgmoneta-cli -c pgmoneta.conf status details
+pgmoneta-cli -c pgmoneta_cli.conf status details
 ```
 
 #### Shutdown pgmoneta
 
 ``` sh
-pgmoneta-cli -c pgmoneta.conf shutdown
+pgmoneta-cli -c pgmoneta_cli.conf shutdown
 ```
 
 ## WAL Tools
@@ -398,9 +411,19 @@ pgmoneta provides two WAL (Write-Ahead Log) tools for working with PostgreSQL WA
 - **pgmoneta-walinfo**: Read and display information about WAL files
 - **pgmoneta-walfilter**: Filter WAL files based on user-defined rules
 
-For detailed user documentation about these tools, please refer to the [WAL Tools chapter](/doc/manual/en/17-wal-tools).
+For detailed user documentation about these tools, please refer to the [WAL Tools chapter](/doc/manual/en/18-wal-tools).
 
 For developer information about the internal APIs and implementation details, see the [WAL developer guide](/doc/manual/en/78-wal).
+
+## XID64
+
+pgmoneta is compatible with external PostgreSQL patches that introduce 64-bit Transaction IDs (FullTransactionId).
+
+Support includes:
+
+- **Backup/Restore:** Correct handling of 64-bit XIDs during backup and restore operations.
+
+**Note:** WAL tools are not supported with XID64.
 
 ## Logging levels
 
@@ -423,7 +446,7 @@ Now that we've attempted our first backup, take a moment to relax. There are a f
 
 ## Testing
 
-See `doc/Test.md` for adding test cases and running test suites. It is recommended that you **ALWAYS** run tests before raising PR.
+See `doc/TEST.md` for adding test cases and running test suites. It is recommended that you **ALWAYS** run tests before raising PR.
 
 ## C programming
 
@@ -491,7 +514,6 @@ Remember to add your name to the following files,
 ```
 AUTHORS
 doc/manual/en/97-acknowledgement.md
-doc/manual/hi/97-acknowledgement.md
 ```
 
 in your first pull request
@@ -528,6 +550,14 @@ and then create a pull requests for it
 ### Repeat
 
 Based on feedback keep making changes, squashing, rebasing and force pushing
+
+### PTAL
+
+When you are working on a change put it into Draft mode, so we know that you are not
+happy with it yet.
+
+Please, send a PTAL to the Committer that were assigned to you once you think that
+your change is complete. And, of course, take it out of Draft mode.
 
 ### Undo
 

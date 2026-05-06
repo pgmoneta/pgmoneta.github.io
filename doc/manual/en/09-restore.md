@@ -25,11 +25,48 @@ where
 
 [More information](https://www.postgresql.org/docs/current/runtime-config-wal.html#RUNTIME-CONFIG-WAL-RECOVERY-TARGET)
 
+## Automatic Backup Selection
+
+When specifying a recovery target (`lsn=X`, `time=X`, or `timeline=X`), pgmoneta can automatically
+select the appropriate backup that contains the target. Instead of specifying a backup timestamp,
+use `newest` and pgmoneta will find the latest backup that can be used for recovery to the specified target.
+
+### Target LSN
+
+Restore to a specific LSN, with automatic backup selection:
+
+```
+pgmoneta-cli restore primary newest lsn=0/16B0938 /tmp
+```
+
+pgmoneta will select the latest valid backup whose start LSN is less than or equal to `0/16B0938`.
+
+### Target Time
+
+Restore to a specific point in time:
+
+```
+pgmoneta-cli restore primary newest time=2025-01-15\ 10:30:00 /tmp
+```
+
+pgmoneta will select the latest valid backup that started before or at the specified timestamp.
+The timestamp format is `YYYY-MM-DD HH:MM:SS`.
+
+### Target Timeline
+
+Restore from a specific timeline:
+
+```
+pgmoneta-cli restore primary newest timeline=2 /tmp
+```
+
+pgmoneta will select the latest valid backup from the specified timeline.
+
 And, you will get output like
 
 ```
 Header:
-  ClientVersion: 0.20.0
+  ClientVersion: 0.21.0
   Command: 3
   Output: 0
   Timestamp: 20240928130406
@@ -51,11 +88,28 @@ Response:
   MinorVersion: 0
   RestoreSize: 48799744
   Server: primary
-  ServerVersion: 0.20.0
+  ServerVersion: 0.21.0
 ```
 
 
 This command take the latest backup and all Write-Ahead Log (WAL) segments and restore it into the `/tmp/primary-20240928065644` directory for an up-to-date copy.
+
+## Restore from S3
+
+If your backups are stored in S3, you can restore them directly using `pgmoneta-cli s3 restore`.
+
+Example:
+
+```
+pgmoneta-cli s3 restore primary 20260316000957 /tmp
+```
+
+This stages the backup files from S3, verifies `backup.info` integrity via SHA512, restores the backup into the requested target directory, and removes the staged local copy after success.
+```
+pgmoneta-cli restore primary 20260316000957 current /tmp
+```
+
+This decompresses, decrypts, applies WAL, and produces a usable PostgreSQL data directory.
 
 ## Hot standby
 

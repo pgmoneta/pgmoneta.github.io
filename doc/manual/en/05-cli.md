@@ -9,7 +9,7 @@ The **pgmoneta-cli** command line interface controls your interaction with **pgm
 Using other commands on the backup directory could cause problems.
 
 ``` sh
-pgmoneta-cli 0.20.0
+pgmoneta-cli 0.21.0
   Command line utility for pgmoneta
 
 Usage:
@@ -29,6 +29,7 @@ Options:
   -E, --encrypt none|aes|aes256|aes192|aes128     Encrypt the wire protocol
   -s, --sort asc|desc                             Sort result (for list-backup)
       --cascade                                   Cascade a retain/expunge backup
+      --force                                     Force delete a backup
   -?, --help                                      Display help
 
 Commands:
@@ -45,6 +46,9 @@ Commands:
                            - 'reload' to reload the configuration
                            - 'set' to modify a configuration value;
                              conf set <parameter_name> <parameter_value>;
+  s3  <action>             Manage S3, with one of subcommands:
+                           - 'ls' to get the list of files in s3
+
   decompress               Decompress a file using configured method
   decrypt                  Decrypt a file using master-key
   delete                   Delete a backup from a server
@@ -54,6 +58,7 @@ Commands:
   list-backup              List the backups for a server
   mode                     Switch the mode for a server
   ping                     Check if pgmoneta is alive
+  progress                 Get progress for a command
   restore                  Restore a backup from a server
   retain                   Retain a backup from a server
   shutdown                 Shutdown pgmoneta
@@ -149,6 +154,45 @@ Example
 pgmoneta-cli restore primary newest name=MyLabel,primary /tmp
 ```
 
+### Automatic Backup Selection
+
+When using recovery targets (`lsn=X`, `time=X`, or `timeline=X`), pgmoneta automatically selects the appropriate backup:
+
+```sh
+# Restore to a specific LSN (backup auto-selected)
+pgmoneta-cli restore primary newest lsn=0/16B0938 /tmp
+
+# Restore to a specific time (backup auto-selected)
+pgmoneta-cli restore primary newest time=2025-01-15\ 10:30:00 /tmp
+
+# Restore from a specific timeline (backup auto-selected)
+pgmoneta-cli restore primary newest timeline=2 /tmp
+```
+
+## s3 restore
+
+Download a backup from S3 to the local backup directory
+
+This subcommand stages a backup from S3 locally and then runs the normal restore workflow. The flow is:
+
+* Download `backup.sha512`, `backup.info`, and `backup.manifest` from S3
+* Verify `backup.info` integrity using the SHA512 checksum
+* Download all data files listed in the manifest, applying the correct compression and encryption extensions
+* Restore the staged backup into the requested target directory using the standard restore workflow
+* Remove the staged local copy after a successful restore
+
+Command
+
+``` sh
+pgmoneta-cli s3 restore <server> <timestamp> [[current|name=X|xid=X|lsn=X|time=X|inclusive=X|timeline=X|action=X|primary|replica],*] <directory>
+```
+
+Example
+
+``` sh
+pgmoneta-cli s3 restore primary 20260316000957 /tmp
+```
+
 ## verify
 
 Verify a backup from a server
@@ -188,7 +232,7 @@ Delete a backup from a server
 Command
 
 ``` sh
-pgmoneta-cli delete <server> [<timestamp>|oldest|newest]
+pgmoneta-cli delete [--force] <server> [<timestamp>|oldest|newest]
 ```
 
 Example
@@ -294,6 +338,23 @@ Example
 ``` sh
 pgmoneta-cli ping
 ```
+
+## progress
+
+Get progress for a command. Requires `progress = on` in the configuration.
+
+Command
+
+``` sh
+pgmoneta-cli progress <server> backup
+```
+
+Example
+
+``` sh
+pgmoneta-cli progress primary backup
+```
+
 ## mode
 
 [**pgmoneta**][pgmoneta] detects when a server is down. You can bring a server online or offline
@@ -415,7 +476,7 @@ pgmoneta-cli conf set management 5002
 
 # Performance tuning
 pgmoneta-cli conf set workers 4
-pgmoneta-cli conf set backup_max_rate 1000000
+pgmoneta-cli conf set max_rate 1000000
 pgmoneta-cli conf set compression zstd
 
 # Retention policies
@@ -473,6 +534,70 @@ pgmoneta-cli conf get host
 - On restart, pgmoneta always reads from the configuration files on disk
 - Without file updates, restart will revert to the original file-based values
 
+## s3 
+
+Manage the s3 storage 
+
+Command
+
+```sh
+pgmoneta-cli s3 <action> <arguments>
+```
+
+Subcommand
+
+- `ls` : List all the files in s3
+- `delete` : Delete all files under a remote prefix in s3
+- `restore` : Download a backup from s3 to the local backup directory
+
+Example
+
+```sh
+pgmoneta-cli s3 ls primary
+pgmoneta-cli s3 delete primary 20260302163357
+pgmoneta-cli s3 restore primary 20260316000957
+```
+
+### s3 ls
+
+Get the list of server files/objects in the remote storage s3
+
+- you can set the server or use the [pgmoneta] section in the config
+
+Examples
+
+```sh
+pgmoneta-cli s3 ls primary
+pgmoneta-cli s3 ls
+```
+
+### s3 delete
+
+Delete all server files/objects in remote storage s3 under a given prefix.
+
+- prefix is relative to `<s3_base_dir>/<server>/backup/`
+
+Examples
+
+```sh
+pgmoneta-cli s3 delete primary 20260302163357/
+pgmoneta-cli s3 delete primary wal/
+```
+
+### s3 restore
+
+Restore a backup directly from S3 into a target directory.
+
+- Downloads and verifies `backup.info` integrity via SHA512
+- Downloads all data files with correct compression/encryption extensions
+- Restores the staged backup into the requested directory
+- Cleans up the staged local copy after success
+
+Examples
+
+``` sh
+pgmoneta-cli s3 restore primary 20260316000957 /tmp
+```
 
 ## clear
 

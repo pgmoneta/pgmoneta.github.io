@@ -12,6 +12,10 @@ The version of pgmoneta
 | :-------- | :---------- |
 | version | The version of pgmoneta |
 
+## pgmoneta_fips
+
+Is pgmoneta running in FIPS mode
+
 ## pgmoneta_logging_info
 
 The number of INFO logging statements
@@ -251,6 +255,24 @@ The time of the latest failed client operation of a server
 ## pgmoneta_server_checksums
 
 Are checksums enabled
+
+| Attribute | Description |
+| :-------- | :---------- |
+| name | The server identifier |
+
+## pgmoneta_server_fips_mode
+
+Is FIPS mode enabled on the PostgreSQL server
+
+**Detection method varies by PostgreSQL version:**
+
+**PostgreSQL 14-17:**
+- Uses `pgmoneta_ext_fips()` from the pgmoneta_ext extension
+- Requires pgmoneta_ext to be installed (optional, returns 0 if not installed)
+
+**PostgreSQL 18+:**
+- Uses the `fips_mode()` function from pgcrypto extension
+- Requires pgcrypto extension (optional, returns 0 if not installed)
 
 | Attribute | Description |
 | :-------- | :---------- |
@@ -732,6 +754,46 @@ Is there an active archiving for a server
 | Attribute | Description |
 | :-------- | :---------- |
 | name | The server identifier |
+
+## pgmoneta_progress_percentage
+
+The workflow progress percentage (0-100) for a server
+
+| Attribute | Description |
+| :-------- | :---------- |
+| name | The server identifier |
+| workflow | The current workflow type (e.g. Backup, Restore, Archive) |
+| phase | The current workflow phase name |
+
+## pgmoneta_progress_elapsed_time
+
+The elapsed seconds since the current workflow started
+
+| Attribute | Description |
+| :-------- | :---------- |
+| name | The server identifier |
+| workflow | The current workflow type (e.g. Backup, Restore, Archive) |
+| phase | The current workflow phase name |
+
+## pgmoneta_progress_total
+
+The total units of work in the current workflow phase
+
+| Attribute | Description |
+| :-------- | :---------- |
+| name | The server identifier |
+| workflow | The current workflow type (e.g. Backup, Restore, Archive) |
+| phase | The current workflow phase name |
+
+## pgmoneta_progress_done
+
+The units of work completed in the current workflow phase
+
+| Attribute | Description |
+| :-------- | :---------- |
+| name | The server identifier |
+| workflow | The current workflow type (e.g. Backup, Restore, Archive) |
+| phase | The current workflow phase name |
 
 ## pgmoneta_current_wal_file
 

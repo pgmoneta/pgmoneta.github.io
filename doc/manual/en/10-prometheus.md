@@ -40,6 +40,10 @@ Exposes the version of the running pgmoneta service through labels.
 | :-------- | :---------- |
 | version | The semantic version string of the running pgmoneta (e.g., "0.20.0"). |
 
+**pgmoneta_fips**
+
+Reports whether pgmoneta's own OpenSSL library is running in FIPS mode (1) or not (0).
+
 **pgmoneta_logging_info**
 
 Counts the total number of informational (INFO level) log messages produced by pgmoneta since its last startup.
@@ -307,6 +311,26 @@ Indicates if data checksums are enabled on the PostgreSQL server (1=enabled, 0=d
 | Attribute | Description | Values |
 | :-------- | :---------- | :----- |
 | name | The configured name/identifier for the PostgreSQL server. | 1: Data checksums are enabled, 0: Data checksums are disabled |
+
+**pgmoneta_server_fips_mode**
+
+Reports whether PostgreSQL is running in FIPS mode.
+
+**Detection method varies by PostgreSQL version:**
+
+**PostgreSQL 14-17:**
+- Uses `pgmoneta_ext_fips()` from the pgmoneta\_ext extension
+- Requires pgmoneta\_ext to be installed (optional, returns 0 if not installed)
+- Checks the PostgreSQL backend's own OpenSSL (supports OpenSSL 1.1 and 3.0)
+
+**PostgreSQL 18+:**
+- Uses the `fips_mode()` function from pgcrypto extension
+- Requires pgcrypto extension (optional, returns 0 if not installed)
+- No special privileges required
+
+| Attribute | Description | Values |
+| :-------- | :---------- | :----- |
+| name | The configured name/identifier for the PostgreSQL server. | 1: FIPS mode is active, 0: FIPS mode is not active or not detectable |
 
 **pgmoneta_server_summarize_wal**
 
@@ -779,6 +803,46 @@ Indicates if a retention cleanup operation is currently in progress for a server
 | Attribute | Description | Values |
 | :-------- | :---------- | :----- |
 | name | The configured name/identifier for the PostgreSQL server. | 1: Retention cleanup is currently running, 0: No retention cleanup is currently running |
+
+**pgmoneta_progress_percentage**
+
+The workflow progress percentage (0-100) for a server.
+
+| Attribute | Description |
+| :-------- | :---------- |
+| name | The configured name/identifier for the PostgreSQL server. |
+| workflow | The current workflow type (e.g. Backup, Restore, Archive). |
+| phase | The current workflow phase name. |
+
+**pgmoneta_progress_elapsed_time**
+
+The elapsed seconds since the current workflow started.
+
+| Attribute | Description |
+| :-------- | :---------- |
+| name | The configured name/identifier for the PostgreSQL server. |
+| workflow | The current workflow type (e.g. Backup, Restore, Archive). |
+| phase | The current workflow phase name. |
+
+**pgmoneta_progress_total**
+
+The total units of work in the current workflow phase.
+
+| Attribute | Description |
+| :-------- | :---------- |
+| name | The configured name/identifier for the PostgreSQL server. |
+| workflow | The current workflow type (e.g. Backup, Restore, Archive). |
+| phase | The current workflow phase name. |
+
+**pgmoneta_progress_done**
+
+The units of work completed in the current workflow phase.
+
+| Attribute | Description |
+| :-------- | :---------- |
+| name | The configured name/identifier for the PostgreSQL server. |
+| workflow | The current workflow type (e.g. Backup, Restore, Archive). |
+| phase | The current workflow phase name. |
 
 **pgmoneta_current_wal_file**
 

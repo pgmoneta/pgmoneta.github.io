@@ -20,7 +20,7 @@ All properties are in the format `key = value`.
 The characters `#` and `;` can be used for comments; must be the first character on the line.
 The `Bool` data type supports the following values: `on`, `yes`, `1`, `true`, `off`, `no`, `0` and `false`.
 
-See a [sample](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/doc/manual/en/etc/pgmoneta.conf) configuration for running `pgmoneta` on `localhost`.
+See a [sample](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/doc/manual/en/etc/pgmoneta.conf) configuration for running `pgmoneta` on `localhost`.
 
 Note, that PostgreSQL 13+ is required, as well as having `wal_level` at `replica` or `logical` level.
 
@@ -82,7 +82,7 @@ Note, that if `host` starts with a `/` it represents a path and `pgmoneta` will 
 
 | Property | Default | Unit | Required | Description |
 | :------- | :------ | :--- | :------- | :---------- |
-| encryption | none | String | No | The encryption mode for encrypt wal and data<br/> `none`: No encryption <br/> `aes \| aes-256 \| aes-256-cbc`: AES CBC (Cipher Block Chaining) mode with 256 bit key length<br/> `aes-192 \| aes-192-cbc`: AES CBC mode with 192 bit key length<br/> `aes-128 \| aes-128-cbc`: AES CBC mode with 128 bit key length<br/> `aes-256-ctr`: AES CTR (Counter) mode with 256 bit key length<br/> `aes-192-ctr`: AES CTR mode with 192 bit key length<br/> `aes-128-ctr`: AES CTR mode with 128 bit key length |
+| encryption | none | String | No | The encryption mode for encrypt wal and data<br/> `none`: No encryption <br/> `aes \| aes-256 \| aes-256-gcm`: AES GCM (Galois/Counter Mode) mode with 256 bit key length (Recommended)<br/> `aes-192 \| aes-192-gcm`: AES GCM mode with 192 bit key length<br/> `aes-128 \| aes-128-gcm`: AES GCM mode with 128 bit key length |
 
 **Slot management**
 
@@ -110,6 +110,10 @@ Note, that if `host` starts with a `/` it represents a path and `pgmoneta` will 
 | s3_secret_access_key | | String | Yes | The IAM secret access key |
 | s3_bucket | | String | Yes | The  S3 bucket name |
 | s3_base_dir | | String | Yes | The base directory for the S3 bucket |
+| s3_storage_class | REDUCED_REDUNDANCY | String | No | The S3 storage class |
+| s3_port | | Int | No | The port number for the S3 endpoint |
+| s3_use_tls | `off` | Bool | No | Use TLS for S3 connections |
+| s3_endpoint | | String | No | The S3 endpoint URL |
 
 **Azure**
 
@@ -161,14 +165,15 @@ Note, that if `host` starts with a `/` it represents a path and `pgmoneta` will 
 
 | Property | Default | Unit | Required | Description |
 | :------- | :------ | :--- | :------- | :---------- |
-| backup_max_rate | 0 | Int | No | The number of bytes of tokens added every one second to limit the backup rate|
-| network_max_rate | 0 | Int | No | The number of bytes of tokens added every one second to limit the netowrk backup rate|
+| max_rate | 0 | Int | No | The maximum backup transfer rate in bytes per second. Use 0 to disable |
+| progress | off | Bool | No | Enable backup progress tracking |
 | blocking_timeout | 30 | String | No | The number of seconds the process will be blocking for a connection. If this value is specified without units, it is taken as seconds. Setting this parameter to 0 disables it. It supports the following units as suffixes: 'S' for seconds (default), 'M' for minutes, 'H' for hours, 'D' for days, and 'W' for weeks. |
 | keep_alive | on | Bool | No | Have `SO_KEEPALIVE` on sockets |
 | nodelay | on | Bool | No | Have `TCP_NODELAY` on sockets |
 | non_blocking | on | Bool | No | Have `O_NONBLOCK` on sockets |
 | backlog | 16 | Int | No | The backlog for `listen()`. Minimum `16` |
 | hugepage | `try` | String | No | Huge page support (`off`, `try`, `on`) |
+| direct_io | `off` | String | No | Direct I/O support for local storage (`off`, `auto`, `on`). When `on`, bypasses kernel page cache using O_DIRECT for better I/O predictability. When `auto`, attempts O_DIRECT and falls back to buffered I/O if unsupported. Linux only; other platforms always use buffered I/O. |
 | pidfile | | String | No | Path to the PID file. If not specified, it will be automatically set to `unix_socket_dir/pgmoneta.<host>.pid` where `<host>` is the value of the `host` parameter or `all` if `host = *`.|
 | update_process_title | `verbose` | String | No | The behavior for updating the operating system process title. Allowed settings are: `never` (or `off`), does not update the process title; `strict` to set the process title without overriding the existing initial process title length; `minimal` to set the process title to the base description; `verbose` (or `full`) to set the process title to the full description. Please note that `strict` and `minimal` are honored only on those systems that do not provide a native way to set the process title (e.g., Linux). On other systems, there is no difference between `strict` and `minimal` and the assumed behaviour is `minimal` even if `strict` is used. `never` and `verbose` are always honored, on every system. On Linux systems the process title is always trimmed to 255 characters, while on system that provide a natve way to set the process title it can be longer. |
 
@@ -236,8 +241,23 @@ have access to the `postgres` database in order to get the necessary configurati
 
 | Property | Default | Unit | Required | Description |
 | :------- | :------ | :--- | :------- | :---------- |
-| backup_max_rate | -1 | Int | No | The number of bytes of tokens added every one second to limit the backup rate. Use 0 to disable, -1 means use the global settting|
-| network_max_rate | -1 | Int | No | The number of bytes of tokens added every one second to limit the netowrk backup rate. Use 0 to disable, -1 means use the global settting|
+| max_rate | -1 | Int | No | The maximum backup transfer rate in bytes per second. Use 0 to disable, -1 means use the global setting |
+| progress | -1 | Int | No | Enable backup progress tracking. Use 1 to enable, 0 to disable, -1 means use the global setting |
+
+
+**S3**
+
+| Property | Default | Unit | Required | Description |
+| :------- | :------ | :--- | :------- | :---------- |
+| s3_storage_class | REDUCED_REDUNDANCY | String | No | The S3 storage class. Overrides global setting. |
+| s3_port | | Int | No | The port number for the S3 endpoint. Overrides global setting. |
+| s3_use_tls | | Bool | No | Use TLS for S3 connections. Overrides global setting. |
+| s3_endpoint | | String | No | S3 endpoint URL. Overrides global setting. |
+| s3_region | | String | No | The AWS region. Overrides global setting. |
+| s3_access_key_id | | String | No | The IAM access key ID. Overrides global setting. |
+| s3_secret_access_key | | String | No | The IAM secret access key. Overrides global setting. |
+| s3_bucket | | String | No | The AWS S3 bucket name. Overrides global setting. |
+| s3_base_dir | | String | No | The base directory for the S3 bucket. Overrides global setting. |
 
 **Extra**
 

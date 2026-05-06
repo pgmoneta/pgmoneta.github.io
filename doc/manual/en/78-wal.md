@@ -2,7 +2,7 @@
 
 ### Overview
 
-This document provides an overview of the WAL (Write-Ahead Log) reader implementation, focusing on the internal APIs and developer interfaces. For user-facing documentation about the WAL tools, see the [WAL Tools chapter](/doc/manual/en/17-wal-tools).
+This document provides an overview of the WAL (Write-Ahead Log) reader implementation, focusing on the internal APIs and developer interfaces. For user-facing documentation about the WAL tools, see the [WAL Tools chapter](/doc/manual/en/18-wal-tools).
 
 The WAL reader provides the core functionality for parsing PostgreSQL Write-Ahead Log files, including support for encrypted and compressed WAL files. The implementation includes both high-level APIs for application use and low-level parsing functions for internal processing.
 
@@ -323,6 +323,13 @@ char* format_v17(xl_end_of_recovery* wrapper, char* buf) {
                                       xlrec->wal_level);
 }
 ```
+
+**XID64 (64-bit Transaction IDs)**
+
+pgmoneta works with external PostgreSQL patches that introduce 64-bit Transaction IDs (FullTransactionId).
+
+No special configuration is required to enable this support; it is handled automatically based on the PostgreSQL version detected.
+
 
 ### WAL Change List
 

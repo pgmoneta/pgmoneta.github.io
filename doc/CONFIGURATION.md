@@ -16,7 +16,7 @@ All properties are in the format `key = value`.
 The characters `#` and `;` can be used for comments; must be the first character on the line.
 The `Bool` data type supports the following values: `on`, `yes`, `1`, `true`, `off`, `no`, `0` and `false`.
 
-See a [sample](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/doc/etc/pgmoneta.conf) configuration for running `pgmoneta` on `localhost`.
+See a [sample](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/doc/etc/pgmoneta.conf) configuration for running `pgmoneta` on `localhost`.
 
 ## [pgmoneta]
 
@@ -26,7 +26,7 @@ See a [sample](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/doc/etc/pgmoneta
 | unix_socket_dir | | String | Yes | The Unix Domain Socket location. Can interpolate environment variables (e.g., `$HOME`) |
 | base_dir | | String | Yes | The base directory for the backup. Can interpolate environment variables (e.g., `$HOME`) |
 | metrics | 0 | Int | No | The metrics port (disable = 0) |
-| metrics_cache_max_age | 0 | String | No | The time to keep a Prometheus (metrics) response in cache. If this value is specified without units, it is taken as seconds. Setting this parameter to 0 disables caching. It supports the following units as suffixes: 'S' for seconds (default), 'M' for minutes, 'H' for hours, 'D' for days, and 'W' for weeks. |
+| metrics_cache_max_age | 0 | String | No | The duration to keep a Prometheus (metrics) response in cache. If set to zero, the caching will be disabled. Supports suffixes: 's' (seconds, default), 'm' (minutes), 'h' (hours), 'd' (days), 'w' (weeks). |
 | metrics_cache_max_size | 256k | String | No | The maximum amount of data to keep in cache when serving Prometheus responses. Changes require restart. This parameter determines the size of memory allocated for the cache even if `metrics_cache_max_age` or `metrics` are disabled. Its value, however, is taken into account only if `metrics_cache_max_age` is set to a non-zero value. Supports suffixes: 'B' (bytes), the default if omitted, 'K' or 'KB' (kilobytes), 'M' or 'MB' (megabytes), 'G' or 'GB' (gigabytes).|
 | management | 0 | Int | No | The remote management port (disable = 0) |
 | compression | zstd | String | No | The compression type (none, gzip, client-gzip, server-gzip, zstd, client-zstd, server-zstd, lz4, client-lz4, server-lz4, bzip2, client-bzip2) |
@@ -34,7 +34,7 @@ See a [sample](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/doc/etc/pgmoneta
 | workers | 0 | Int | No | The number of workers that each process can use for its work. Use 0 to disable. Maximum is CPU count |
 | workspace | /tmp/pgmoneta-workspace/ | String | No | The directory for the workspace that incremental backup can use for its work. Can interpolate environment variables (e.g., `$HOME`) |
 | storage_engine | local | String | No | The storage engine type (local, ssh, s3, azure) |
-| encryption | none | String | No | The encryption mode for encrypt wal and data<br/> `none`: No encryption <br/> `aes \| aes-256 \| aes-256-cbc`: AES CBC (Cipher Block Chaining) mode with 256 bit key length<br/> `aes-192 \| aes-192-cbc`: AES CBC mode with 192 bit key length<br/> `aes-128 \| aes-128-cbc`: AES CBC mode with 128 bit key length<br/> `aes-256-ctr`: AES CTR (Counter) mode with 256 bit key length<br/> `aes-192-ctr`: AES CTR mode with 192 bit key length<br/> `aes-128-ctr`: AES CTR mode with 128 bit key length |
+| encryption | none | String | No | The encryption mode for encrypt wal and data<br/> `none`: No encryption <br/> `aes \| aes-256 \| aes-256-gcm`: AES GCM (Galois/Counter Mode) mode with 256 bit key length (Recommended)<br/> `aes-192 \| aes-192-gcm`: AES GCM mode with 192 bit key length<br/> `aes-128 \| aes-128-gcm`: AES GCM mode with 128 bit key length |
 | create_slot | no | Bool | No | Create a replication slot for all server. Valid values are: yes, no |
 | ssh_hostname | | String | Yes | Defines the hostname of the remote system for connection |
 | ssh_username | | String | Yes | Defines the username of the remote system for connection |
@@ -60,11 +60,12 @@ See a [sample](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/doc/etc/pgmoneta
 | log_type | console | String | No | The logging type (console, file, syslog) |
 | log_level | info | String | No | The logging level, any of the (case insensitive) strings `FATAL`, `ERROR`, `WARN`, `INFO` and `DEBUG` (that can be more specific as `DEBUG1` thru `DEBUG5`). Debug level greater than 5 will be set to `DEBUG5`. Not recognized values will make the log_level be `INFO` |
 | log_path | pgmoneta.log | String | No | The log file location. Can be a strftime(3) compatible string. Can interpolate environment variables (e.g., `$HOME`) |
-| log_rotation_age | 0 | String | No | The time after which log file rotation is triggered. If this value is specified without units, it is taken as seconds. Setting this parameter to 0 disables log rotation based on time. It supports the following units as suffixes: 'S' for seconds (default), 'M' for minutes, 'H' for hours, 'D' for days, and 'W' for weeks. |
+| log_rotation_age | 0 | String | No | The age that will trigger a log file rotation. If expressed as a positive number, is managed as seconds. Supports suffixes: 's' (seconds, default), 'm' (minutes), 'h' (hours), 'd' (days), 'w' (weeks). A value of `0` disables. |
 | log_rotation_size | 0 | String | No | The size of the log file that will trigger a log rotation. Supports suffixes: 'B' (bytes), the default if omitted, 'K' or 'KB' (kilobytes), 'M' or 'MB' (megabytes), 'G' or 'GB' (gigabytes). A value of `0` (with or without suffix) disables. |
 | log_line_prefix | %Y-%m-%d %H:%M:%S | String | No | A strftime(3) compatible string to use as prefix for every log line. Must be quoted if contains spaces. |
 | log_mode | append | String | No | Append to or create the log file (append, create) |
-| blocking_timeout | 30 | String | No | The number of seconds the process will be blocking for a connection. If this value is specified without units, it is taken as seconds. Setting this parameter to 0 disables it. It supports the following units as suffixes: 'S' for seconds (default), 'M' for minutes, 'H' for hours, 'D' for days, and 'W' for weeks. |
+| blocking_timeout | 30s | String | No | The duration the process will be blocking for a connection (disable = 0). Supports suffixes: 's' (seconds, default), 'm' (minutes), 'h' (hours), 'd' (days), 'w' (weeks). |
+| authentication_timeout | 5s | String | No | The duration allowed for authentication. Supports suffixes: 's' (seconds, default), 'm' (minutes), 'h' (hours), 'd' (days), 'w' (weeks). |
 | tls | `off` | Bool | No | Enable Transport Layer Security (TLS) |
 | tls_cert_file | | String | No | Certificate file for TLS. This file must be owned by either the user running pgmoneta or root. Can interpolate environment variables (e.g., `$HOME`) |
 | tls_key_file | | String | No | Private key file for TLS. This file must be owned by either the user running pgmoneta or root. Additionally permissions must be at least `0640` when owned by root or `0600` otherwise. Can interpolate environment variables (e.g., `$HOME`) |
@@ -73,14 +74,15 @@ See a [sample](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/doc/etc/pgmoneta
 | metrics_key_file | | String | No | Private key file for TLS for Prometheus metrics. This file must be owned by either the user running pgmoneta or root. Additionally permissions must be at least `0640` when owned by root or `0600` otherwise. |
 | metrics_ca_file | | String | No | Certificate Authority (CA) file for TLS for Prometheus metrics. This file must be owned by either the user running pgmoneta or root.  |
 | libev | `auto` | String | No | Select the [libev](http://software.schmorp.de/pkg/libev.html) backend to use. Valid options: `auto`, `select`, `poll`, `epoll`, `iouring`, `devpoll` and `port` |
-| backup_max_rate | 0 | Int | No | The number of bytes of tokens added every one second to limit the backup rate|
-| network_max_rate | 0 | Int | No | The number of bytes of tokens added every one second to limit the netowrk backup rate|
-| verification | 0 | Int | No | The time between verification of a backup. If this value is specified without units, it is taken as seconds. Setting this parameter to 0 disables verification. It supports the following units as suffixes: 'S' for seconds (default), 'M' for minutes, 'H' for hours, 'D' for days, and 'W' for weeks. |
+| max_rate | 0 | Int | No | The maximum backup transfer rate in bytes per second. Use 0 to disable |
+| progress | off | Bool | No | Enable backup progress tracking |
+| verification | 0 | String | No | The time between verification of a backup. Setting this parameter to 0 disables verification. Supports suffixes: 's' (seconds, default), 'm' (minutes), 'h' (hours), 'd' (days), 'w' (weeks). |
 | keep_alive | on | Bool | No | Have `SO_KEEPALIVE` on sockets |
 | nodelay | on | Bool | No | Have `TCP_NODELAY` on sockets |
 | non_blocking | on | Bool | No | Have `O_NONBLOCK` on sockets |
 | backlog | 16 | Int | No | The backlog for `listen()`. Minimum `16` |
 | hugepage | `try` | String | No | Huge page support (`off`, `try`, `on`) |
+| direct_io | `off` | String | No | Direct I/O support for local storage (`off`, `auto`, `on`). When `on`, bypasses kernel page cache using O_DIRECT for better I/O predictability. When `auto`, attempts O_DIRECT and falls back to buffered I/O if unsupported. Linux only; other platforms always use buffered I/O. |
 | pidfile | | String | No | Path to the PID file. If not specified, it will be automatically set to `unix_socket_dir/pgmoneta.<host>.pid` where `<host>` is the value of the `host` parameter or `all` if `host = *`. Can interpolate environment variables (e.g., `$HOME`) |
 | update_process_title | `verbose` | String | No | The behavior for updating the operating system process title. Allowed settings are: `never` (or `off`), does not update the process title; `strict` to set the process title without overriding the existing initial process title length; `minimal` to set the process title to the base description; `verbose` (or `full`) to set the process title to the full description. Please note that `strict` and `minimal` are honored only on those systems that do not provide a native way to set the process title (e.g., Linux). On other systems, there is no difference between `strict` and `minimal` and the assumed behaviour is `minimal` even if `strict` is used. `never` and `verbose` are always honored, on every system. On Linux systems the process title is always trimmed to 255 characters, while on system that provide a natve way to set the process title it can be longer. |
 
@@ -110,8 +112,8 @@ See a [sample](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/doc/etc/pgmoneta
 | hot_standby_overrides | | String | No | Files to override in the hot standby directory. If multiple hot standbys are specified then this setting is separated by a \| |
 | hot_standby_tablespaces | | String | No | Tablespace mappings for the hot standby. Syntax is [from -> to,?]+. If multiple hot standbys are specified then this setting is separated by a \| |
 | workers | -1 | Int | No | The number of workers that each process can use for its work. Use 0 to disable, -1 means use the global settting. Maximum is CPU count |
-| backup_max_rate | -1 | Int | No | The number of bytes of tokens added every one second to limit the backup rate. Use 0 to disable, -1 means use the global settting|
-| network_max_rate | -1 | Int | No | The number of bytes of tokens added every one second to limit the netowrk backup rate. Use 0 to disable, -1 means use the global settting|
+| max_rate | -1 | Int | No | The maximum backup transfer rate in bytes per second. Use 0 to disable, -1 means use the global setting |
+| progress | -1 | Int | No | Enable backup progress tracking. Use 1 to enable, 0 to disable, -1 means use the global setting |
 | tls_cert_file | | String | No | Certificate file for TLS. This file must be owned by either the user running pgmoneta or root. Can interpolate environment variables (e.g., `$HOME`) |
 | tls_key_file | | String | No | Private key file for TLS. This file must be owned by either the user running pgmoneta or root. Additionally permissions must be at least `0640` when owned by root or `0600` otherwise. Can interpolate environment variables (e.g., `$HOME`) |
 | tls_ca_file | | String | No | Certificate Authority (CA) file for TLS. This file must be owned by either the user running pgmoneta or root. Can interpolate environment variables (e.g., `$HOME`) |
@@ -172,7 +174,7 @@ The `pgmoneta_cli` configuration defines defaults for the `pgmoneta-cli` client.
 | log_level | info | String | No | Logging level (`fatal`, `error`, `warn`, `info`, `debug`/`debug1`-`debug5`). |
 | log_path | pgmoneta-cli.log | String | No | Log file path when `log_type = file`. Can interpolate environment variables (e.g., `$HOME`). |
 | log_mode | append | String | No | Log file mode (`append`, `create`). |
-| log_rotation_age | 0 | String | No | Time-based rotation. `0` disables. Supports `S`, `M`, `H`, `D`, `W` suffixes (seconds default). |
+| log_rotation_age | 0 | String | No | Time-based rotation. `0` disables. Supports suffixes: 's' (seconds, default), 'm' (minutes), 'h' (hours), 'd' (days), 'w' (weeks). |
 | log_rotation_size | 0 | String | No | Size-based rotation. `0` disables. Supports `B` (default), `K/KB`, `M/MB`, `G/GB`. |
 | log_line_prefix | %Y-%m-%d %H:%M:%S | String | No | strftime(3) format prefix for log lines. |
 
@@ -213,6 +215,8 @@ pgmoneta -d
 ```
 
 Refer to logs for details about which configuration files were loaded and from which locations.
+
+Legacy modes (**AES-CBC** and **AES-CTR**) have been **removed** for security and performance reasons. AES-GCM is now the only supported encryption method.
 
 # pgmoneta_walinfo configuration
 The `pgmoneta_walinfo` configuration defines the info needed for `walinfo` to work.
@@ -265,6 +269,7 @@ The tool supports two types of filtering:
 | log_type | console | String | No | The logging type (console, file, syslog) |
 | log_level | info | String | No | The logging level, any of the (case insensitive) strings `FATAL`, `ERROR`, `WARN`, `INFO` and `DEBUG` (that can be more specific as `DEBUG1` thru `DEBUG5`). Debug level greater than 5 will be set to `DEBUG5`. Not recognized values will make the log_level be `INFO` |
 | log_path | pgmoneta.log | String | No | The log file location. Can be a strftime(3) compatible string. Can interpolate environment variables (e.g., `$HOME`) |
+| encryption | aes-256-gcm | String | No | The encryption mode for encrypt wal and data<br/> `none`: No encryption <br/> `aes \| aes-256 \| aes-256-gcm`: AES GCM (Galois/Counter Mode) mode with 256 bit key length (Recommended)<br/> `aes-192 \| aes-192-gcm`: AES GCM mode with 192 bit key length<br/> `aes-128 \| aes-128-gcm`: AES GCM mode with 128 bit key length |
 
 ## Server section
 
@@ -281,6 +286,7 @@ The tool supports two types of filtering:
 | log_type | console | String | No | The logging type (console, file, syslog) |
 | log_level | info | String | No | The logging level, any of the (case insensitive) strings `FATAL`, `ERROR`, `WARN`, `INFO` and `DEBUG` (that can be more specific as `DEBUG1` thru `DEBUG5`). Debug level greater than 5 will be set to `DEBUG5`. Not recognized values will make the log_level be `INFO` |
 | log_path | pgmoneta.log | String | No | The log file location. Can be a strftime(3) compatible string. |
+| encryption | none | String | No | The encryption mode for encrypt wal and data<br/> `none`: No encryption <br/> `aes \| aes-256 \| aes-256-gcm`: AES GCM (Galois/Counter Mode) mode with 256 bit key length (Recommended)<br/> `aes-192 \| aes-192-gcm`: AES GCM mode with 192 bit key length<br/> `aes-128 \| aes-128-gcm`: AES GCM mode with 128 bit key length |
 
 ## Server section
 

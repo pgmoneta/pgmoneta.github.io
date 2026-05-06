@@ -40,32 +40,40 @@
     "link": "/doc/manual/en/10-prometheus"
   },
   {
+    "text": "Web console",
+    "link": "/doc/manual/en/11-console"
+  },
+  {
     "text": "Adminstration access",
-    "link": "/doc/manual/en/11-admins"
+    "link": "/doc/manual/en/12-admins"
   },
   {
     "text": "Shutdown",
-    "link": "/doc/manual/en/12-shutdown"
+    "link": "/doc/manual/en/13-shutdown"
   },
   {
     "text": "Docker",
-    "link": "/doc/manual/en/13-docker"
+    "link": "/doc/manual/en/14-docker"
   },
   {
     "text": "SSH",
-    "link": "/doc/manual/en/14-ssh"
+    "link": "/doc/manual/en/15-ssh"
   },
   {
     "text": "Azure",
-    "link": "/doc/manual/en/15-azure"
+    "link": "/doc/manual/en/16-azure"
   },
   {
     "text": "S3",
-    "link": "/doc/manual/en/16-s3"
+    "link": "/doc/manual/en/17-s3"
   },
   {
-    "text": "Write-Ahead Log (WAL) Tools",
-    "link": "/doc/manual/en/17-wal-tools"
+    "text": "Write - Ahead Log(WAL) Tools",
+    "link": "/doc/manual/en/18-wal-tools"
+  },
+  {
+    "text": "Configuration generator",
+    "link": "/doc/manual/en/19-config-generator"
   },
   {
     "text": "Developer information",
@@ -110,6 +118,10 @@
   {
     "text": "Server APIs",
     "link": "/doc/manual/en/80-server-api"
+  },
+  {
+    "text": "Sponsors",
+    "link": "/doc/manual/en/95-sponsors"
   },
   {
     "text": "Troubleshooting",

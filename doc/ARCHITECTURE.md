@@ -5,47 +5,47 @@
 `pgmoneta` use a process model (`fork()`), where each process handles one Write-Ahead Log (WAL) receiver to
 [PostgreSQL](https://www.postgresql.org).
 
-The main process is defined in [main.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/main.c).
+The main process is defined in [main.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/main.c).
 
-Backup is handled in [backup.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/backup.h) ([backup.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/backup.c)).
+Backup is handled in [backup.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/backup.h) ([backup.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/backup.c)).
 
-Restore is handled in [restore.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/restore.h) ([restore.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/restore.c)) with linking
-handled in [link.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/link.h) ([link.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/link.c)).
+Restore is handled in [restore.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/restore.h) ([restore.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/restore.c)) with linking
+handled in [link.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/link.h) ([link.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/link.c)).
 
-Archive is handled in [achv.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/achv.h) ([archive.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/archive.c)) backed by
+Archive is handled in [achv.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/achv.h) ([archive.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/archive.c)) backed by
 restore.
 
-Write-Ahead Log is handled in [wal.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/wal.h) ([wal.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/wal.c)).
+Write-Ahead Log is handled in [wal.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/wal.h) ([wal.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/wal.c)).
 
-Backup information is handled in [info.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/info.h) ([info.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/info.c)).
+Backup information is handled in [info.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/info.h) ([info.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/info.c)).
 
-Retention is handled in [retention.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/retention.h) ([retention.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/retention.c)).
+Retention is handled in [retention.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/retention.h) ([retention.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/retention.c)).
 
-Compression is handled in [gzip_compression.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/gzip_compression.h) ([gzip_compression.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/gzip_compression.c)),
-[lz4_compression.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/lz4_compression.h) ([lz4_compression.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/lz4_compression.c)),
-[zstandard_compression.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/zstandard_compression.h) ([zstandard_compression.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/zstandard_compression.c)),
-and [bzip2_compression.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/bzip2_compression.h) ([bzip2_compression.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/bzip2_compression.c)).
+Compression is handled in [gzip_compression.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/gzip_compression.h) ([gzip_compression.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/gzip_compression.c)),
+[lz4_compression.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/lz4_compression.h) ([lz4_compression.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/lz4_compression.c)),
+[zstandard_compression.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/zstandard_compression.h) ([zstandard_compression.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/zstandard_compression.c)),
+and [bzip2_compression.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/bzip2_compression.h) ([bzip2_compression.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/bzip2_compression.c)).
 
-Encryption is handled in [aes.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/aes.h) ([aes.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/aes.c))
+Encryption is handled in [aes.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/aes.h) ([aes.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/aes.c))
 
 ## Shared memory
 
-A memory segment ([shmem.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/shmem.h)) is shared among all processes which contains the `pgmoneta`
+A memory segment ([shmem.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/shmem.h)) is shared among all processes which contains the `pgmoneta`
 state containing the configuration and the list of servers.
 
 The configuration of `pgmoneta` (`struct configuration`) and the configuration of the servers (`struct server`)
-is initialized in this shared memory segment. These structs are all defined in [pgmoneta.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/pgmoneta.h).
+is initialized in this shared memory segment. These structs are all defined in [pgmoneta.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/pgmoneta.h).
 
 The shared memory segment is created using the `mmap()` call.
 
 ## Network and messages
 
-All communication is abstracted using the `struct message` data type defined in [messge.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/message.h).
+All communication is abstracted using the `struct message` data type defined in [messge.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/message.h).
 
-Reading and writing messages are handled in the [message.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/message.h) ([message.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/message.c))
+Reading and writing messages are handled in the [message.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/message.h) ([message.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/message.c))
 files.
 
-Network operations are defined in [network.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/network.h) ([network.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/network.c)).
+Network operations are defined in [network.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/network.h) ([network.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/network.c)).
 
 ## Memory
 
@@ -53,14 +53,14 @@ Each process uses a fixed memory block for its network communication, which is a
 
 That way we don't have to allocate memory for each network message, and more importantly free it after end of use.
 
-The memory interface is defined in [memory.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/memory.h) ([memory.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/memory.c)).
+The memory interface is defined in [memory.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/memory.h) ([memory.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/memory.c)).
 
 ## Management
 
 `pgmoneta` has a management interface which defines the administrator abilities that can be performed when it is running.
-This include for example taking a backup. The `pgmoneta-cli` program is used for these operations ([cli.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/cli.c)).
+This include for example taking a backup. The `pgmoneta-cli` program is used for these operations ([cli.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/cli.c)).
 
-The management interface is defined in [management.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/management.h). The management interface
+The management interface is defined in [management.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/management.h). The management interface
 uses its own protocol which uses JSON as its foundation.
 
 ### Write
@@ -111,7 +111,7 @@ However, before the management packet is sent the client has to authenticate usi
 same message format that PostgreSQL uses, e.g. StartupMessage, AuthenticationSASL, AuthenticationSASLContinue,
 AuthenticationSASLFinal and AuthenticationOk. The SSLRequest message is supported.
 
-The remote management interface is defined in [remote.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/remote.h) ([remote.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/remote.c)).
+The remote management interface is defined in [remote.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/remote.h) ([remote.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/remote.c)).
 
 ## libev usage
 
@@ -146,6 +146,7 @@ The `SIGHUP` signal will trigger a reload of the configuration.
 However, some configuration settings requires a full restart of `pgmoneta` in order to take effect. These are
 
 * `hugepage`
+* `direct_io`
 * `libev`
 * `log_path`
 * `log_type`
@@ -168,15 +169,15 @@ All other URLs will result in a 403 response.
 
 The metrics endpoint supports `Transfer-Encoding: chunked` to account for a large amount of data.
 
-The implementation is done in [prometheus.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/prometheus.h) and
-[prometheus.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/prometheus.c).
+The implementation is done in [prometheus.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/prometheus.h) and
+[prometheus.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/prometheus.c).
 
 ## Logging
 
 Simple logging implementation based on a `atomic_schar` lock.
 
-The implementation is done in [logging.h](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/include/logging.h) and
-[logging.c](https://github.com/pgmoneta/pgmoneta/blob/0.20.0/src/libpgmoneta/logging.c).
+The implementation is done in [logging.h](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/include/logging.h) and
+[logging.c](https://github.com/pgmoneta/pgmoneta/blob/0.21.0/src/libpgmoneta/logging.c).
 
 ## Protocol
 

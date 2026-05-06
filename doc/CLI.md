@@ -43,6 +43,8 @@ Commands:
                            - 'reload' to reload the configuration
                            - 'set' to modify a configuration value;
                              conf set <parameter_name> <parameter_value>;
+  s3  <action>             Manage S3, with one of subcommands:
+                           - 'ls' to get the list of files in s3
   decompress               Decompress a file using configured method
   decrypt                  Decrypt a file using master-key
   delete                   Delete a backup from a server
@@ -52,6 +54,7 @@ Commands:
   list-backup              List the backups for a server
   mode                     Switch the mode for a server
   ping                     Check if pgmoneta is alive
+  progress                 Get progress for a command
   restore                  Restore a backup from a server
   retain                   Retain a backup from a server
   shutdown                 Shutdown pgmoneta
@@ -104,7 +107,6 @@ Example
 ```sh
 pgmoneta-cli list-backup primary
 ```
-
 ## restore
 
 Restore a backup from a server
@@ -134,6 +136,45 @@ Example
 
 ```sh
 pgmoneta-cli restore primary newest name=MyLabel,primary /tmp
+```
+
+### Automatic Backup Selection
+
+When using recovery targets (`lsn=X`, `time=X`, or `timeline=X`), pgmoneta automatically selects the appropriate backup:
+
+```sh
+# Restore to a specific LSN (backup auto-selected)
+pgmoneta-cli restore primary newest lsn=0/16B0938 /tmp
+
+# Restore to a specific time (backup auto-selected)
+pgmoneta-cli restore primary newest time=2025-01-15\ 10:30:00 /tmp
+
+# Restore from a specific timeline (backup auto-selected)
+pgmoneta-cli restore primary newest timeline=2 /tmp
+```
+
+## s3 restore
+
+Restore a backup directly from S3 to a target directory.
+
+This subcommand stages a backup from S3 locally and then runs the normal restore workflow. The flow is:
+
+* Download `backup.sha512`, `backup.info`, and `backup.manifest` from S3
+* Verify `backup.info` integrity using the SHA512 checksum
+* Download all data files listed in the manifest, applying the correct compression and encryption extensions
+* Restore the staged backup into the requested target directory using the standard restore workflow
+* Remove the staged local copy after a successful restore
+
+Command
+
+```sh
+pgmoneta-cli s3 restore <server> <timestamp> [[current|name=X|xid=X|lsn=X|time=X|inclusive=X|timeline=X|action=X|primary|replica],*] <directory>
+```
+
+Example
+
+```sh
+pgmoneta-cli s3 restore primary 20260316000957 /tmp
 ```
 
 ## verify
@@ -292,6 +333,22 @@ Example
 pgmoneta-cli ping
 ```
 
+## progress
+
+Get progress for a command. Requires `progress = on` in the configuration.
+
+Command
+
+```sh
+pgmoneta-cli progress <server> backup
+```
+
+Example
+
+```sh
+pgmoneta-cli progress primary backup
+```
+
 ## mode
 
 [**pgmoneta**](https://pgmoneta.github.io/) detects when a server is down. You can bring a server online or offline
@@ -440,7 +497,69 @@ Configuration change requires manual restart
    Requested value: 192.168.1.100 (cannot be applied to live instance)
    Status: Requires full service restart
 ```
+## s3 
 
+Manage the s3 storage 
+
+Command
+
+```sh
+pgmoneta-cli s3 <action> <arguments>
+```
+
+Subcommand
+
+- `ls` : List all the files in s3
+- `delete` : Delete all files under a remote prefix in s3
+- `restore` : Download a backup from s3 to the local backup directory
+
+Example
+
+```sh
+pgmoneta-cli s3 ls primary
+pgmoneta-cli s3 delete primary 20260302163357
+pgmoneta-cli s3 restore primary 20260316000957
+```
+### s3 ls
+
+Get the list of server files/objects in the remote storage s3
+
+- you can set the server or use the global one in the config
+
+Examples
+
+```sh
+pgmoneta-cli s3 ls primary
+pgmoneta-cli s3 ls
+```
+
+### s3 delete
+
+Delete all server files/objects in remote storage s3 under a given prefix.
+
+- prefix is relative to `<s3_base_dir>/<server>/backup/`
+
+Examples
+
+```sh
+pgmoneta-cli s3 delete primary 20260302163357/
+pgmoneta-cli s3 delete primary wal/
+```
+
+### s3 restore
+
+Restore a backup directly from S3 into a target directory.
+
+- Downloads and verifies `backup.info` integrity via SHA512
+- Downloads all data files with correct compression/encryption extensions
+- Restores the staged backup into the requested directory
+- Cleans up the staged local copy after success
+
+Examples
+
+```sh
+pgmoneta-cli s3 restore primary 20260316000957 /tmp
+```
 ## clear
 
 Clear data/statistics

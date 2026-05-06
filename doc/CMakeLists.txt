@@ -17,6 +17,8 @@ if (RST2MAN_FOUND)
   set(PGMONETA_WALFILTER_DST_FILE "${CMAKE_CURRENT_BINARY_DIR}/pgmoneta-walfilter.1")
   set(PGMONETA_WALINFO_SRC_FILE "${CMAKE_CURRENT_SOURCE_DIR}/man/pgmoneta-walinfo.1.rst")
   set(PGMONETA_WALINFO_DST_FILE "${CMAKE_CURRENT_BINARY_DIR}/pgmoneta-walinfo.1")
+  set(PGMONETA_CONFIG_SRC_FILE "${CMAKE_CURRENT_SOURCE_DIR}/man/pgmoneta-config.1.rst")
+  set(PGMONETA_CONFIG_DST_FILE "${CMAKE_CURRENT_BINARY_DIR}/pgmoneta-config.1")
 
 
   # pgmoneta.1
@@ -68,10 +70,17 @@ if (RST2MAN_FOUND)
     DEPENDS ${PGMONETA_WALINFO_SRC_FILE}
     COMMENT "Generating man page: pgmoneta-walinfo.1"
   )
+  # pgmoneta-config.1
+  add_custom_command(
+    OUTPUT ${PGMONETA_CONFIG_DST_FILE}
+    COMMAND ${RST2MAN_EXECUTABLE} ${PGMONETA_CONFIG_SRC_FILE} ${PGMONETA_CONFIG_DST_FILE}
+    DEPENDS ${PGMONETA_CONFIG_SRC_FILE}
+    COMMENT "Generating man page: pgmoneta-config.1"
+  )
 
   # Group man page outputs into a target
   add_custom_target(manpages ALL
-    DEPENDS ${PGMONETA_DST_FILE} ${PGMONETA_CLI_DST_FILE} ${PGMONETA_ADMIN_DST_FILE} ${PGMONETA_CONF_DST_FILE} ${PGMONETA_CLI_CONF_DST_FILE} ${PGMONETA_WALFILTER_DST_FILE} ${PGMONETA_WALINFO_DST_FILE}
+    DEPENDS ${PGMONETA_DST_FILE} ${PGMONETA_CLI_DST_FILE} ${PGMONETA_ADMIN_DST_FILE} ${PGMONETA_CONF_DST_FILE} ${PGMONETA_CLI_CONF_DST_FILE} ${PGMONETA_WALFILTER_DST_FILE} ${PGMONETA_WALINFO_DST_FILE} ${PGMONETA_CONFIG_DST_FILE}
   )
 
   # Make 'man' depend on 'manpages'
@@ -89,6 +98,7 @@ if (RST2MAN_FOUND)
   install(FILES ${PGMONETA_ADMIN_DST_FILE} DESTINATION share/man/man1)
   install(FILES ${PGMONETA_WALFILTER_DST_FILE} DESTINATION share/man/man1)
   install(FILES ${PGMONETA_WALINFO_DST_FILE} DESTINATION share/man/man1)
+  install(FILES ${PGMONETA_CONFIG_DST_FILE} DESTINATION share/man/man1)
   install(FILES ${PGMONETA_CONF_DST_FILE} DESTINATION share/man/man5)
   install(FILES ${PGMONETA_CLI_CONF_DST_FILE} DESTINATION share/man/man5)
 endif()
@@ -98,6 +108,7 @@ endif()
 #
 if (DOCS)
   FILE(GLOB EN "manual/en/??-*.md")
+  FILE(GLOB ES "manual/es/??-*.md")
 
   # Manuals definitions
   set(MANUAL_OUTPUT_DIR "${CMAKE_BINARY_DIR}/doc")
@@ -124,13 +135,33 @@ if (DOCS)
     COMMENT "Generating English HTML documentation"
   )
 
+  add_custom_command(
+    OUTPUT ${MANUAL_OUTPUT_DIR}/pgmoneta-es.pdf
+    COMMAND ${PANDOC_EXECUTABLE} -o ${MANUAL_OUTPUT_DIR}/pgmoneta-es.pdf --from markdown --template eisvogel --listings -N --toc ${ES}
+    DEPENDS ${ES}
+    COMMENT "Generating Spanish PDF documentation"
+  )
+
+  add_custom_command(
+    OUTPUT ${MANUAL_OUTPUT_DIR}/pgmoneta-es.html
+    COMMAND ${PANDOC_EXECUTABLE} -o ${MANUAL_OUTPUT_DIR}/pgmoneta-es.html -s -f markdown-smart -N --toc -t html5 ${ES}
+    DEPENDS ${ES}
+    COMMENT "Generating Spanish HTML documentation"
+  )
+
   add_custom_target(
     all_docs ALL
-    DEPENDS copy_images ${MANUAL_OUTPUT_DIR}/pgmoneta-en.pdf ${MANUAL_OUTPUT_DIR}/pgmoneta-en.html
+    DEPENDS copy_images
+      ${MANUAL_OUTPUT_DIR}/pgmoneta-en.pdf
+      ${MANUAL_OUTPUT_DIR}/pgmoneta-en.html
+      ${MANUAL_OUTPUT_DIR}/pgmoneta-es.pdf
+      ${MANUAL_OUTPUT_DIR}/pgmoneta-es.html
   )
 
   install(FILES ${MANUAL_OUTPUT_DIR}/pgmoneta-en.pdf DESTINATION share/doc/pgmoneta/manual)
   install(FILES ${MANUAL_OUTPUT_DIR}/pgmoneta-en.html DESTINATION share/doc/pgmoneta/manual)
+  install(FILES ${MANUAL_OUTPUT_DIR}/pgmoneta-es.pdf DESTINATION share/doc/pgmoneta/manual)
+  install(FILES ${MANUAL_OUTPUT_DIR}/pgmoneta-es.html DESTINATION share/doc/pgmoneta/manual)
 
   #
   # Generate API docs
@@ -143,7 +174,7 @@ if (DOCS)
     set(DOXYGEN_WARN_AS_ERROR FAIL_ON_WARNINGS)
     set(DOXYFILE_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile.doxygen)
 
-    doxygen_add_docs(doxygen ${PROJECT_SOURCE_DIR}/src/include/)
+    doxygen_add_docs(doxygen ${PROJECT_SOURCE_DIR}/src/include/ ${PROJECT_SOURCE_DIR}/test/include/)
 
     if (${DOXYGEN_VERSION} STREQUAL "1.10.0" OR
         ${DOXYGEN_VERSION} STREQUAL "1.11.0" OR
